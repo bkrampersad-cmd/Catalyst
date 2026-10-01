@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#22145A">
+<meta name="description" content="Catalyst - a chemistry study guide, periodic table and calculator kit for NYS Regents (Enriched) Chemistry.">
+<title>Catalyst &mdash; Chemistry, accelerated</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Catalyst">
+<style>
+:root{--nb:#22145A;--na:#4C2A9E;--nh:#160C40;--ac:#5B3FD0;--tl:#0FA89B;--bg:#F1EFF8;
+  --cd:#fff;--ib:#F3F0FC;--rb:#E6E0F8;--tx:#1C1733;--mu:#6E6888;--bd:#D6D0E8;--ok:#237A57;--er:#B42318;
+  --f:'Segoe UI',system-ui,-apple-system,Roboto,sans-serif;
+  /* element category colors */
+  --c-alkali:#FF9E80;--c-alkaline:#FFCC80;--c-transition:#F8BBD0;--c-post:#B0BEC5;--c-metalloid:#A5D6A7;
+  --c-nonmetal:#80DEEA;--c-halogen:#FFF176;--c-noble:#CE93D8;--c-lanthanide:#BCAAA4;--c-actinide:#D7CCC8;--c-unknown:#E0E0E0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--f);background:var(--bg);color:var(--tx);display:flex;overflow:hidden}
+button{font-family:inherit}
+#sb{width:230px;min-width:230px;background:var(--nb);display:flex;flex-direction:column;height:100%;transition:transform .25s;z-index:100}
+.logo{padding:18px 14px 12px;text-align:center;border-bottom:1px solid var(--na);cursor:pointer}
+.logo img{width:54px;height:54px}
+.lt{font-size:18px;font-weight:700;color:#fff;margin-top:4px;letter-spacing:.5px}
+.ls{font-size:11px;color:#B9A8F5;margin-top:2px}
+.navarea{flex:1;overflow-y:auto;padding:6px 0}
+.nb{display:flex;align-items:center;gap:10px;width:calc(100% - 16px);margin:2px 8px;padding:10px 12px;background:transparent;border:none;color:#fff;font:600 13px var(--f);cursor:pointer;text-align:left;border-radius:7px}
+.nb:hover{background:var(--nh)}
+.nb.on{background:var(--na)}
+.nb.soon{opacity:.75}
+.ic{width:20px;text-align:center;flex-shrink:0}
+.grp{font-size:10px;color:#B9A8F5;padding:10px 20px 3px;text-transform:uppercase;letter-spacing:.8px}
+.nb.subi{padding:7px 12px 7px 40px;font-weight:500;font-size:12.5px}
+.sbot{padding:8px;border-top:1px solid var(--na)}
+.ver{font-size:10px;color:#8F80C9;text-align:center;padding:6px 0 2px}
+#ct{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch}
+.pg{padding:24px 28px 60px;max-width:1150px}
+.pt{font-size:23px;font-weight:700;color:var(--nb);margin-bottom:4px}
+.ps{font-size:12.5px;color:var(--mu);margin-bottom:18px;line-height:1.5}
+#hm{display:none;position:fixed;top:10px;left:10px;z-index:200;background:var(--nb);border:none;border-radius:9px;color:#fff;font-size:20px;width:42px;height:42px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:99}
+.card{background:var(--cd);border-radius:11px;border:1px solid var(--bd);overflow:hidden;margin-bottom:14px}
+.ch{background:var(--nb);color:#fff;font:700 11px var(--f);padding:8px 14px;text-transform:uppercase;letter-spacing:.6px}
+.cb{padding:16px}
+.t2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fr{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.fr label{font-size:12.5px;min-width:150px;flex-shrink:0}
+input,select{font:15px var(--f);background:var(--ib);border:1px solid #C9BFEA;border-radius:7px;padding:8px 10px;color:var(--tx);width:100%;outline:none}
+input:focus,select:focus{border-color:var(--ac);box-shadow:0 0 0 2px rgba(91,63,208,.18)}
+.iu{display:flex;gap:6px}.iu select{width:92px;flex-shrink:0}
+.br{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:9px 18px;border:none;border-radius:8px;font:700 13px var(--f);cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.bc{background:var(--ac);color:#fff}.bt{background:var(--tl);color:#fff}
+.bs{background:var(--bd);color:var(--tx)}
+.rr{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid #EEEAF8}
+.rr:last-child{border-bottom:none}
+.rl{font-size:12px;color:var(--mu)}
+.rv{font-size:14px;font-weight:700;text-align:right}
+.rv.a{color:var(--ac)}.rv.s{color:var(--ok)}
+.rb{background:var(--rb);border-radius:9px;padding:14px 16px;margin-top:12px}
+.big{font-size:26px;font-weight:800;color:var(--ac);margin:4px 0}
+.err{color:var(--er);font-size:13px;margin-top:8px;font-weight:600}
+.steps{margin-top:12px;background:#FBFAFF;border:1px dashed #C9BFEA;border-radius:9px;padding:12px 14px;font-size:13.5px;line-height:1.7}
+.steps b{color:var(--nb)}
+.steps .st{font-size:11px;text-transform:uppercase;letter-spacing:.6px;color:var(--mu);font-weight:700;margin-bottom:4px}
+.hint{font-size:12px;color:var(--mu);margin-top:6px;line-height:1.5}
+.tbl{width:100%;border-collapse:collapse;font-size:13px}
+.tbl th{text-align:left;font-size:11px;text-transform:uppercase;color:var(--mu);padding:6px 6px;border-bottom:2px solid var(--bd)}
+.tbl td{padding:7px 6px;border-bottom:1px solid #EEEAF8}
+.tbl td.n{text-align:right;font-variant-numeric:tabular-nums}
+/* home */
+.hero{background:linear-gradient(135deg,var(--na),var(--nb));color:#fff;border-radius:14px;padding:22px 24px;margin-bottom:18px;display:flex;gap:18px;align-items:center}
+.hero img{width:70px;height:70px;flex-shrink:0}
+.hero h1{font-size:24px}.hero p{font-size:13px;color:#DCD3FF;margin-top:4px;line-height:1.5}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+.tile{background:var(--cd);border:1px solid var(--bd);border-radius:12px;padding:16px;cursor:pointer;transition:transform .12s,box-shadow .12s;text-align:left}
+.tile:hover{transform:translateY(-2px);box-shadow:0 6px 18px rgba(34,20,90,.12)}
+.tile .ti{font-size:28px}.tile h3{font-size:15px;margin:8px 0 4px;color:var(--nb)}.tile p{font-size:12.5px;color:var(--mu);line-height:1.45}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:20px;background:#FFE9B3;color:#7A5200;margin-left:6px;vertical-align:middle;text-transform:uppercase;letter-spacing:.4px}
+/* periodic table */
+.pt-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+.pt-tools select{width:auto}
+.pt-tools input{width:280px}
+.ptwrap{overflow-x:auto;padding-bottom:8px}
+.ptg{display:grid;grid-template-columns:repeat(18,minmax(46px,1fr));grid-template-rows:repeat(7,auto) 14px repeat(2,auto);gap:3px;min-width:860px}
+.el{position:relative;border:1px solid rgba(0,0,0,.12);border-radius:6px;padding:3px 2px 4px;text-align:center;cursor:pointer;aspect-ratio:1/1.12;display:flex;flex-direction:column;justify-content:center;transition:transform .1s,box-shadow .1s;background:var(--c-unknown);color:#1C1733;user-select:none}
+.el:hover,.el:focus{transform:scale(1.12);z-index:5;box-shadow:0 4px 12px rgba(0,0,0,.25);outline:none}
+.el .z{font-size:9px;position:absolute;top:2px;left:4px;opacity:.75}
+.el .sy{font-size:17px;font-weight:800;line-height:1.1}
+.el .nm{font-size:7.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.el .ms{font-size:7.5px;opacity:.8}
+.el.dim{opacity:.18}
+.el.ph{background:transparent;border:1px dashed #B5ABD6;color:var(--mu);font-size:9px;cursor:default}
+.el.ph:hover{transform:none;box-shadow:none}
+.gl{font-size:9px;color:var(--mu);text-align:center;align-self:end}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.lg{display:flex;align-items:center;gap:6px;font-size:11.5px;padding:4px 9px;border-radius:20px;border:1px solid var(--bd);background:#fff;cursor:pointer}
+.lg i{width:12px;height:12px;border-radius:3px;display:inline-block;border:1px solid rgba(0,0,0,.15)}
+.lg.off{opacity:.4}
+.scale{height:12px;border-radius:6px;margin-top:12px;max-width:420px}
+.scl{display:flex;justify-content:space-between;max-width:420px;font-size:11px;color:var(--mu)}
+/* element modal */
+#md{display:none;position:fixed;inset:0;background:rgba(20,12,50,.55);z-index:300;align-items:center;justify-content:center;padding:14px}
+#md.open{display:flex}
+.mbox{background:#fff;border-radius:16px;max-width:760px;width:100%;max-height:92vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.mh{display:flex;gap:16px;align-items:center;padding:18px 20px;border-bottom:1px solid var(--bd);position:sticky;top:0;background:#fff;z-index:2}
+.mtile{width:96px;height:106px;border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;flex-shrink:0;border:1px solid rgba(0,0,0,.15)}
+.mtile .z{font-size:13px}.mtile .sy{font-size:40px;font-weight:800;line-height:1}.mtile .ms{font-size:11px}
+.mh h2{font-size:24px;color:var(--nb)}.mh .sub{font-size:13px;color:var(--mu);margin-top:2px}
+.mx{margin-left:auto;display:flex;gap:6px;align-self:flex-start}
+.mx button{border:none;background:var(--ib);border-radius:8px;width:36px;height:36px;font-size:17px;cursor:pointer;color:var(--nb)}
+.mbody{padding:16px 20px 20px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.bohr{display:flex;flex-direction:column;align-items:center}
+.bohr svg{width:100%;max-width:280px;height:auto}
+.fact{font-size:13px;line-height:1.6;background:var(--ib);border-radius:9px;padding:10px 12px;margin-top:10px}
+/* study guide */
+.unit{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--bd);border-radius:12px;padding:14px 16px;margin-bottom:10px;cursor:pointer}
+.unit:hover{border-color:var(--ac)}
+.unum{width:38px;height:38px;border-radius:10px;background:var(--na);color:#fff;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.unit.locked .unum{background:#B5ABD6}
+.unit h3{font-size:15px;color:var(--nb)}.unit p{font-size:12.5px;color:var(--mu);margin-top:3px;line-height:1.45}
+.prog{height:6px;background:#EEEAF8;border-radius:4px;margin-top:8px;overflow:hidden;max-width:260px}.prog i{display:block;height:100%;background:var(--tl)}
+.lesson{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:20px 22px;margin-bottom:14px;line-height:1.7;font-size:14.5px}
+.lesson h2{font-size:18px;color:var(--nb);margin:4px 0 8px}
+.lesson h3{font-size:15px;color:var(--na);margin:14px 0 4px}
+.lesson ul,.lesson ol{margin:6px 0 6px 22px}
+.lesson .key{background:#E8FBF8;border-left:4px solid var(--tl);padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+.lesson .tip{background:#FFF7E0;border-left:4px solid #F2B200;padding:10px 14px;border-radius:0 8px 8px 0;margin:12px 0;font-size:14px}
+.lesson figure{margin:14px 0;text-align:center}.lesson figure svg{max-width:min(100%,640px);width:100%;height:auto}
+.hint a{color:var(--ac)}
+.lesson figcaption{font-size:12px;color:var(--mu);margin-top:4px}
+.lnav{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.lnav button{border:1px solid var(--bd);background:#fff;border-radius:20px;padding:6px 12px;font-size:12.5px;cursor:pointer;color:var(--nb)}
+.lnav button.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.q{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:16px;margin-bottom:12px}
+.q .qt{font-weight:600;margin-bottom:10px;font-size:14.5px}
+.opt{display:block;width:100%;text-align:left;border:1px solid var(--bd);background:var(--ib);border-radius:8px;padding:10px 12px;margin-bottom:6px;font-size:14px;cursor:pointer;color:var(--tx)}
+.opt.right{background:#DDF5E8;border-color:var(--ok)}.opt.wrong{background:#FDE4E1;border-color:var(--er)}
+.qx{font-size:13px;margin-top:6px;line-height:1.55;display:none}.qx.show{display:block}
+/* calc picker */
+.cpick{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.cpick button{border:1px solid var(--bd);background:#fff;border-radius:20px;padding:7px 13px;font-size:13px;cursor:pointer;color:var(--nb)}
+.cpick button.on{background:var(--nb);color:#fff;border-color:var(--nb)}
+.seg{display:inline-flex;border:1px solid var(--bd);border-radius:8px;overflow:hidden;margin-bottom:12px;flex-wrap:wrap}
+.seg button{border:none;background:#fff;padding:8px 13px;font-size:13px;cursor:pointer;color:var(--nb)}
+.seg button.on{background:var(--ac);color:#fff}
+.eqout{font-size:20px;font-weight:700;color:var(--nb);margin:8px 0;word-break:break-word}
+.eqout .cf{color:var(--tl)}
+.phbar{height:16px;border-radius:8px;background:linear-gradient(90deg,#D32F2F,#F57C00,#FBC02D,#7CB342,#2E7D32,#00838F,#1565C0,#4527A0,#6A1B9A);position:relative;margin:18px 0 4px}
+.phbar i{position:absolute;top:-6px;width:4px;height:28px;background:#1C1733;border-radius:2px;transform:translateX(-50%)}
+footer.cp{font-size:11px;color:var(--mu);margin-top:24px}
+@media(max-width:820px){
+  #sb{position:fixed;left:0;top:0;transform:translateX(-100%)}
+  #sb.open{transform:translateX(0)}
+  #hm{display:block}
+  .ov.open{display:block}
+  .pg{padding:62px 14px 60px}
+  .t2,.mbody{grid-template-columns:1fr}
+  .fr{flex-direction:column;align-items:stretch;gap:4px}
+  .fr label{min-width:0}
+  .hero{flex-direction:column;text-align:center}
+  .pt-tools input{width:100%}
+  .mh{padding:12px;gap:10px;flex-wrap:wrap}.mtile{width:70px;height:78px}.mtile .sy{font-size:30px}.mh h2{font-size:20px}.mx button{width:32px;height:32px}
+  .mbody{padding:12px}
+  .ptg{grid-template-columns:repeat(18,minmax(40px,1fr));min-width:770px}.el .sy{font-size:15px}
+  .swipe{display:block!important}
+}
+@media print{#sb,#hm{display:none}}
+</style>
+</head>
+<body>
+<button id="hm" aria-label="Menu" onclick="toggleNav()">&#9776;</button>
+<div class="ov" id="ov" onclick="toggleNav(false)"></div>
+<nav id="sb">
+  <div class="logo" onclick="goPage('home')">
+    <img src="icon.svg" alt="">
+    <div class="lt">Catalyst</div>
+    <div class="ls">Chemistry, accelerated</div>
+  </div>
+  <div class="navarea" id="nav"></div>
+  <div class="sbot">
+    <button class="nb" data-p="about" onclick="goPage('about')"><span class="ic">&#8505;&#65039;</span>About</button>
+    <div class="ver" id="ver"></div>
+  </div>
+</nav>
+<main id="ct"><div class="pg" id="pg"></div></main>
+
+<div id="md" onclick="if(event.target===this)closeEl()"><div class="mbox" id="mbox"></div></div>
+
+<script src="elements.js"></script>
+<script src="js/chem.js"></script>
+<script src="js/app.js"></script>
+<script src="js/ptable.js"></script>
+<script src="js/calcs.js"></script>
+<script src="js/study.js"></script>
+<script>
+  boot();
+  if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
+</body>
+</html>
