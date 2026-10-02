@@ -1,11 +1,17 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.1.0';
-const BUILD_DATE = 'October 1, 2026';
+const VERSION = '0.2.0';
+const BUILD_DATE = 'October 2, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.2.0', d: 'October 2, 2026', notes: [
+    'Study Guide: the whole first semester is now written. Units 2\u20137 (Atomic Structure, Formulas & Equations, Periodic Table, Bonding, Mathematics of Chemistry, Gas Laws) plus a Midterm Review, each with illustrated lessons and a practice quiz.',
+    'Unit 1 adds a short section on heat energy (q = mC\u0394T, q = mHf, q = mHv).',
+    'New calculators: Average Atomic Mass, Empirical Formula (and molecular formula), Stoichiometry (with limiting reactant and percent yield), and Heat.',
+    'Updates now install themselves: when a new version is posted, the app refreshes automatically the next time it is opened.'
+  ] },
   { v: '0.1.0', d: 'October 1, 2026', notes: [
     'First build: app shell (installable PWA, works offline).',
     'Interactive color periodic table with category and trend views, search, and an element detail card with a Bohr diagram.',

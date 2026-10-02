@@ -249,7 +249,80 @@
   function toK(v, u) { return u === 'C' ? v + 273 : v; }
   function fromK(v, u) { return u === 'C' ? v - 273 : v; }
 
-  const api = { index, parseFormula, molarMass, balance, sigFigs, roundSig, CONST, P_TO_KPA, V_TO_L, toK, fromK, normalize, BY_SYM };
+  /* ---------- Average atomic mass ---------- rows: [{mass, pct}] */
+  function avgAtomicMass(rows) {
+    const r = rows.filter(x => x && isFinite(x.mass) && isFinite(x.pct));
+    if (r.length < 1) throw new Error('Enter at least one isotope mass and its percent abundance');
+    if (r.some(x => x.mass <= 0 || x.pct < 0)) throw new Error('Masses must be positive and abundances cannot be negative');
+    const totalPct = r.reduce((s, x) => s + x.pct, 0);
+    const parts = r.map(x => ({ mass: x.mass, pct: x.pct, contrib: x.mass * x.pct / 100 }));
+    return { avg: parts.reduce((s, x) => s + x.contrib, 0), parts, totalPct };
+  }
+
+  /* ---------- Empirical / molecular formula ---------- rows: [{sym, amt}] (grams or percents) */
+  function empiricalFormula(rows, molarMassOfCompound) {
+    const r = rows.filter(x => x && x.sym);
+    if (r.length < 2) throw new Error('Enter at least two elements');
+    const data = r.map(x => {
+      const e = BY_SYM[x.sym];
+      if (!e) throw new Error('"' + x.sym + '" is not an element symbol');
+      if (!(x.amt > 0)) throw new Error('Enter a positive amount for ' + x.sym);
+      return { sym: x.sym, amt: x.amt, am: e.m, mol: x.amt / e.m };
+    });
+    const min = Math.min(...data.map(d => d.mol));
+    data.forEach(d => { d.ratio = d.mol / min; });
+    let mult = 1;
+    for (let k = 1; k <= 8; k++) {
+      if (data.every(d => Math.abs(d.ratio * k - Math.round(d.ratio * k)) < 0.1)) { mult = k; break; }
+      if (k === 8) mult = 1;
+    }
+    data.forEach(d => { d.sub = Math.max(1, Math.round(d.ratio * mult)); });
+    const formula = data.map(d => d.sym + (d.sub > 1 ? d.sub : '')).join('');
+    const efm = data.reduce((s, d) => s + d.sub * d.am, 0);
+    const out = { data, mult, formula, efm };
+    if (molarMassOfCompound > 0) {
+      const n = Math.round(molarMassOfCompound / efm);
+      if (n < 1) throw new Error('The molar mass is smaller than the empirical formula mass (' + efm.toFixed(2) + ' g/mol). Check the values.');
+      out.n = n;
+      out.nExact = molarMassOfCompound / efm;
+      out.molecular = data.map(d => d.sym + (d.sub * n > 1 ? d.sub * n : '')).join('');
+    }
+    return out;
+  }
+
+  /* ---------- Stoichiometry ----------
+     given: {i, amount, unit:'g'|'mol'}, target index t, optional second reactant {i, amount, unit}
+     returns moles/grams of target, limiting reactant analysis. */
+  function stoich(eq, given, t, second) {
+    const b = balance(eq);
+    const species = b.reactants.concat(b.products);
+    const mm = species.map(f => molarMass(f).total);
+    const toMol = g => g.unit === 'g' ? g.amount / mm[g.i] : g.amount;
+    const cands = [given].concat(second ? [second] : []).map(g => {
+      if (!(g.amount > 0)) throw new Error('Enter a positive amount');
+      const mol = toMol(g);
+      return { i: g.i, mol, product: mol * b.coef[t] / b.coef[g.i] };
+    });
+    let lim = cands[0];
+    if (cands.length > 1) {
+      if (cands[0].i === cands[1].i) throw new Error('Pick two different reactants to compare');
+      if (cands.some(c => c.i >= b.reactants.length)) throw new Error('A limiting-reactant check needs two reactants');
+      lim = cands[0].product <= cands[1].product ? cands[0] : cands[1];
+    }
+    const molT = lim.product;
+    const res = { b, species, mm, cands, limiting: lim.i, molT, gT: molT * mm[t] };
+    if (cands.length > 1) {
+      const ex = cands.find(c => c !== lim);
+      const used = lim.mol * b.coef[ex.i] / b.coef[lim.i];
+      res.excess = { i: ex.i, used, left: ex.mol - used, leftG: (ex.mol - used) * mm[ex.i] };
+    }
+    return res;
+  }
+
+  /* ---------- Heat (NYS Reference Table B values for water) ---------- */
+  const WATER = { C: 4.18, Hf: 334, Hv: 2260 };
+
+  const api = { avgAtomicMass, empiricalFormula, stoich, WATER, index, parseFormula, molarMass, balance, sigFigs, roundSig, CONST, P_TO_KPA, V_TO_L, toK, fromK, normalize, BY_SYM };
   if (typeof module !== 'undefined' && module.exports) module.exports = api;
   else root.Chem = api;
 })(this);

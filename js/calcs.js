@@ -1,7 +1,8 @@
 /* Catalyst - calculators. Kevin's PWA pattern: NAMES array + CALCS dict {html, init} + go(idx).
    Every calculator shows its work ("steps") so it teaches, not just answers. */
 'use strict';
-const NAMES = ['Molar Mass & Moles', 'Equation Balancer', 'Gas Laws', 'Solutions', 'pH & pOH', 'Measurement'];
+const NAMES = ['Molar Mass & Moles', 'Equation Balancer', 'Gas Laws', 'Solutions', 'pH & pOH', 'Measurement',
+  'Average Atomic Mass', 'Empirical Formula', 'Stoichiometry', 'Heat'];  // append only: lessons call go(n) by index
 const CALCS = {};
 
 function go(idx, prefill) { goPage('calc', String(idx) + (prefill ? ':' + prefill : '')); }
