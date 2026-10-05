@@ -1,10 +1,10 @@
 /* Catalyst service worker.
    RELEASE RULE: bump CACHE together with VERSION in js/app.js on every release, and list every
    file in ASSETS. Changing this file is what tells installed copies an update exists. */
-const CACHE = 'catalyst-v0.2.0';
+const CACHE = 'catalyst-v0.3.0';
 const ASSETS = ['./', './index.html', './manifest.json', './icon.svg', './icon-192.png', './icon-512.png',
   './icon-maskable-512.png', './elements.js', './js/chem.js', './js/app.js', './js/ptable.js', './js/calcs.js',
-  './js/calcs2.js', './js/study.js', './js/lessons/u1.js', './js/lessons/u2.js', './js/lessons/u3.js',
+  './js/calcs2.js', './js/study.js', './js/regents.js', './js/lessons/u1.js', './js/lessons/u2.js', './js/lessons/u3.js',
   './js/lessons/u4.js', './js/lessons/u5.js', './js/lessons/u6.js', './js/lessons/u7.js', './js/lessons/mid.js'];
 self.addEventListener('install', e => {
   // cache: 'reload' bypasses the browser HTTP cache (GitHub Pages caches ~10 min) so we never store stale files

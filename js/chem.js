@@ -234,20 +234,20 @@
     return c + ' \u00D7 10' + String(parseInt(e, 10)).split('').map(ch => SUP[ch]).join('');
   }
 
-  /* ---------- Constants (match NYS Reference Tables, Table B) ---------- */
+  /* ---------- Constants (match the 2025 Reference Tables for Physical Science: Chemistry, Table 6) ---------- */
   const CONST = {
     NA: 6.02e23,          // Avogadro
     R_kPa: 8.31,          // L·kPa/(mol·K)
     R_atm: 0.0821,        // L·atm/(mol·K)
-    STP_P_kPa: 101.3, STP_T_K: 273,
+    STP_P_kPa: 101.3, STP_T_K: 273.15,   // STP = 273.15 K and 1 atm (101.3 kPa); 1 mol ideal gas = 22.4 L
     Kw: 1.0e-14,
   };
 
   /* Pressure/volume/temperature unit conversion to a base (kPa, L, K) */
   const P_TO_KPA = { kPa: 1, atm: 101.3, mmHg: 101.3 / 760, torr: 101.3 / 760 };
   const V_TO_L = { L: 1, mL: 0.001 };
-  function toK(v, u) { return u === 'C' ? v + 273 : v; }
-  function fromK(v, u) { return u === 'C' ? v - 273 : v; }
+  function toK(v, u) { return u === 'C' ? v + 273.15 : v; }   // K = °C + 273.15 (2025 RT)
+  function fromK(v, u) { return u === 'C' ? v - 273.15 : v; }
 
   /* ---------- Average atomic mass ---------- rows: [{mass, pct}] */
   function avgAtomicMass(rows) {
@@ -319,7 +319,8 @@
     return res;
   }
 
-  /* ---------- Heat (NYS Reference Table B values for water) ---------- */
+  /* ---------- Heat: typical values for water. NOT printed on the 2025 Reference Tables;
+     Regents questions supply c, Hf or Hv when needed. ---------- */
   const WATER = { C: 4.18, Hf: 334, Hv: 2260 };
 
   const api = { avgAtomicMass, empiricalFormula, stoich, WATER, index, parseFormula, molarMass, balance, sigFigs, roundSig, CONST, P_TO_KPA, V_TO_L, toK, fromK, normalize, BY_SYM };

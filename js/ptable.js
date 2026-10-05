@@ -99,8 +99,8 @@ function fmtVal(x) { return x < 0.01 ? x.toExponential(1) : (Math.round(x * 100)
 function fmtMass(m) { return m >= 100 ? m.toFixed(1) : m.toFixed(2).replace(/0$/, ''); }
 function trendNote(v) {
   return {
-    en: '<b>Trend:</b> electronegativity increases going <b>up</b> a group and <b>to the right</b> across a period. Fluorine is highest (4.0). Noble gases have no value.',
-    ie: '<b>Trend:</b> ionization energy increases going <b>up</b> a group and <b>to the right</b> across a period. Electrons held closer to the nucleus are harder to remove.',
+    en: '<b>Trend:</b> electronegativity increases going <b>up</b> a group and <b>to the right</b> across a period. Fluorine is highest (4.0). Noble gases have no value. These values are not on the 2025 Reference Tables; learn the pattern.',
+    ie: '<b>Trend:</b> ionization energy increases going <b>up</b> a group and <b>to the right</b> across a period. Electrons held closer to the nucleus are harder to remove (stronger Coulombic attraction). Not on the 2025 Reference Tables; learn the pattern.',
     m: 'Atomic mass generally increases with atomic number.',
     d: 'Shown on a log scale because densities range from gases (tiny) to osmium (22.6 g/cm³).'
   }[v] || '';

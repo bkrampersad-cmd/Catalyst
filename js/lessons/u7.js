@@ -41,11 +41,11 @@ LESSONS.u7 = {
       <div class="key">1 atm = 101.3 kPa = 760 mmHg (or torr)</div>
       <h3>Temperature</h3>
       <p>Gas law problems <b>always use kelvin</b>, because kelvin starts at absolute zero, where particle motion is at its minimum. Using &deg;C could give zero or negative values, which don't work in these formulas.</p>
-      <div class="key">K = &deg;C + 273</div>
+      <div class="key">K = &deg;C + 273.15 &nbsp;(Reference Table 6)</div>
       <h3>STP: standard temperature and pressure</h3>
-      <p><b>273 K (0 &deg;C)</b> and <b>101.3 kPa (1 atm)</b>. These values are on your Reference Tables.</p>
+      <p><b>273.15 K (0 &deg;C)</b> and <b>1 atm (101.3 kPa)</b>. Both are on Reference Table 6.</p>
       <div class="steps"><div class="st">Quick conversions</div>
-        27 &deg;C = 27 + 273 = <b>300 K</b><br>
+        27 &deg;C = 27 + 273.15 = <b>300.15 K</b><br>
         202.6 kPa &divide; 101.3 = <b>2.00 atm</b><br>
         380 mmHg &divide; 760 = <b>0.500 atm</b></div>` },
     { t: 'The three gas laws', h: `
@@ -61,7 +61,7 @@ LESSONS.u7 = {
       <div class="steps"><div class="st">Example (Charles)</div>A balloon holds 3.0 L at 300. K. What is its volume at 600. K (same pressure)?<br>V<sub>2</sub> = V<sub>1</sub>T<sub>2</sub> / T<sub>1</sub> = (3.0 &times; 600.) / 300. = <b>6.0 L</b></div>` },
     { t: 'Combined gas law', h: `
       <h2>The combined gas law</h2>
-      <p>Your Reference Tables give one formula that covers all three laws:</p>
+      <p>Reference Table 5 gives one formula that covers all three laws:</p>
       <div class="key" style="font-size:18px;text-align:center">P<sub>1</sub>V<sub>1</sub> / T<sub>1</sub> = P<sub>2</sub>V<sub>2</sub> / T<sub>2</sub></div>
       <p>If something stays constant, cross it out on both sides and you get Boyle's, Charles's or Gay-Lussac's law.</p>
       <h3>Problem-solving steps</h3>
@@ -69,11 +69,11 @@ LESSONS.u7 = {
         <li>Convert all temperatures to <b>kelvin</b>.</li><li>Make sure both pressures (and both volumes) use the same units.</li>
         <li>Rearrange, plug in, and solve. Ask yourself whether the answer makes sense.</li></ol>
       <div class="steps"><div class="st">Worked example</div>A gas occupies 2.00 L at 27 &deg;C and 101.3 kPa. What volume will it occupy at 127 &deg;C and 202.6 kPa?<br>
-        T<sub>1</sub> = 27 + 273 = 300. K &nbsp;&middot;&nbsp; T<sub>2</sub> = 127 + 273 = 400. K<br>
-        V<sub>2</sub> = P<sub>1</sub>V<sub>1</sub>T<sub>2</sub> / (T<sub>1</sub>P<sub>2</sub>) = (101.3 &times; 2.00 &times; 400.) / (300. &times; 202.6) = <b>1.33 L</b><br>
+        T<sub>1</sub> = 27 + 273.15 = 300.15 K &nbsp;&middot;&nbsp; T<sub>2</sub> = 127 + 273.15 = 400.15 K<br>
+        V<sub>2</sub> = P<sub>1</sub>V<sub>1</sub>T<sub>2</sub> / (T<sub>1</sub>P<sub>2</sub>) = (101.3 &times; 2.00 &times; 400.15) / (300.15 &times; 202.6) = <b>1.33 L</b><br>
         <span class="rl">Sense check: doubling the pressure would halve the volume, and the higher temperature makes it a bit bigger again.</span></div>
       <div class="br"><button class="btn bt" onclick="go(2)">Open the Gas Laws calculator</button></div>` },
-    { t: 'Ideal gas law', h: `
+    { t: 'Ideal gas law (enrichment)', h: `
       <h2>The ideal gas law</h2>
       <p>When you know (or need) the number of <b>moles</b> of gas, use:</p>
       <div class="key" style="font-size:18px;text-align:center">PV = nRT</div>
@@ -81,17 +81,17 @@ LESSONS.u7 = {
         <li><b>R = 8.31 L&middot;kPa/(mol&middot;K)</b>, the gas constant. (If pressure is in atm, R = 0.0821 L&middot;atm/(mol&middot;K).)</li></ul>
       <div class="steps"><div class="st">Example</div>How many moles of gas are in a 10.0 L tank at 300. K and 249 kPa?<br>
         n = PV / RT = (249 &times; 10.0) / (8.31 &times; 300.) = <b>0.999 mol</b> (about 1.00 mol)</div>
-      <div class="tip"><b>Check:</b> at STP, n = 1 mol gives V = (1 &times; 8.31 &times; 273) / 101.3 = 22.4 L, the molar volume from Unit 6.</div>
-      <p class="hint">Not every Regents class covers PV = nRT. Ask your teacher if it will be on your tests.</p>
+      <div class="tip"><b>Check:</b> at STP, n = 1 mol gives V = (1 &times; 8.31 &times; 273.15) / 101.3 = 22.4 L, the molar volume on Reference Table 6.</div>
+      <p class="hint"><b>Enrichment:</b> PV = nRT and R are <i>not</i> on the 2025 Reference Tables (Table 5 has only the combined gas law). Ask your teacher whether you need it.</p>
       <div class="br"><button class="btn bt" onclick="go(2)">Solve PV = nRT</button></div>` }
   ],
   quiz: [
     { q: 'Under which conditions does a real gas behave most like an ideal gas?', o: ['low temperature, low pressure', 'low temperature, high pressure', 'high temperature, low pressure', 'high temperature, high pressure'], a: 2, x: 'At high temperature and low pressure the particles are far apart and fast, so attractions and particle volume matter least.' },
     { q: 'Which gas behaves most like an ideal gas?', o: ['He', 'NH<sub>3</sub>', 'CO<sub>2</sub>', 'H<sub>2</sub>O'], a: 0, x: 'Helium is small with very weak attractions. NH<sub>3</sub> and H<sub>2</sub>O have strong hydrogen bonding, so they deviate the most.' },
-    { q: 'What is 50 &deg;C in kelvin?', o: ['223 K', '273 K', '323 K', '350 K'], a: 2, x: 'K = &deg;C + 273 = 50 + 273 = 323 K.' },
+    { q: 'What is 50 &deg;C in kelvin?', o: ['223.15 K', '273.15 K', '323.15 K', '350.15 K'], a: 2, x: 'K = &deg;C + 273.15 = 50 + 273.15 = 323.15 K.' },
     { q: 'At constant temperature, if the pressure on a gas doubles, its volume:', o: ['doubles', 'is halved', 'stays the same', 'quadruples'], a: 1, x: 'Boyle\'s law: P and V are inversely proportional. Doubling P halves V.' },
     { q: 'A gas at constant pressure is heated from 200. K to 400. K. Its volume:', o: ['is halved', 'stays the same', 'doubles', 'quadruples'], a: 2, x: 'Charles\'s law: V is directly proportional to kelvin temperature. Doubling T doubles V.' },
-    { q: 'What are the conditions at STP?', o: ['0 K and 1 atm', '273 K and 101.3 kPa', '298 K and 101.3 kPa', '273 K and 1 kPa'], a: 1, x: 'Standard temperature and pressure: 273 K (0 &deg;C) and 101.3 kPa (1 atm).' },
+    { q: 'What are the conditions at STP?', o: ['0 K and 1 atm', '273.15 K and 1 atm', '298.15 K and 1 atm', '273.15 K and 1 kPa'], a: 1, x: 'Reference Table 6: STP is 273.15 K (0 &deg;C) and 1 atm (101.3 kPa).' },
     { q: 'A gas occupies 6.0 L at 100. kPa. At constant temperature, what is its volume at 300. kPa?', o: ['2.0 L', '3.0 L', '18 L', '50. L'], a: 0, x: 'V<sub>2</sub> = P<sub>1</sub>V<sub>1</sub>/P<sub>2</sub> = (100. &times; 6.0)/300. = 2.0 L.' },
     { q: 'According to the KMT, ideal gas particles:', o: ['attract each other strongly', 'are in constant random motion', 'lose energy in every collision', 'have large volumes'], a: 1, x: 'Ideal gas particles move constantly and randomly, have negligible volume, no attractions, and elastic collisions.' },
     { q: 'Equal volumes of H<sub>2</sub> and O<sub>2</sub> at the same temperature and pressure contain:', o: ['equal masses', 'equal numbers of molecules', 'more O<sub>2</sub> molecules', 'more H<sub>2</sub> molecules'], a: 1, x: 'Avogadro\'s hypothesis: same T, P and V means the same number of particles. Their masses differ, because O<sub>2</sub> molecules are heavier.' },

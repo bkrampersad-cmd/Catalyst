@@ -79,6 +79,13 @@ LESSONS.u4 = {
       <h3>Metallic character</h3>
       <p>How easily an element loses electrons. It is the opposite trend: it increases <b>down</b> and to the <b>left</b>. The most reactive metals (Fr, Cs) are bottom-left; the most reactive nonmetal (F) is top-right.</p>
       <div class="key"><b>Why?</b> Two things: the number of shells (distance) and the nuclear charge (pull). More shells means weaker hold; more protons in the same shell means stronger hold.</div>
+      <h3>The physics behind the trends: Coulomb's law</h3>
+      <p>Reference Table 5 gives <b>Coulomb's law</b>, the force between two charged particles:</p>
+      <div class="key" style="text-align:center;font-size:17px">F = q<sub>1</sub>q<sub>2</sub> / d<sup>2</sup></div>
+      <p class="hint">The table leaves out a constant, so read it as "the force is <i>proportional</i> to q<sub>1</sub>q<sub>2</sub>/d<sup>2</sup>". It's for comparing forces, not calculating exact ones.</p>
+      <ul><li><b>Bigger charges</b> (q) mean a <b>stronger</b> attraction. More protons in the nucleus pull harder on the electrons.</li>
+        <li><b>Greater distance</b> (d) means a <b>much weaker</b> attraction, because d is squared. Doubling the distance cuts the force to one-fourth.</li></ul>
+      <p>Going down a group, valence electrons sit in shells farther from the nucleus, so the attraction is weaker. The atom is bigger and gives up an electron more easily. Going across a period, the nuclear charge grows while the distance stays about the same, so electrons are held more tightly.</p>
       <div class="br"><button class="btn bt" onclick="goPage('table')">See the trends in color</button></div>
       <p class="hint">Tip: in the Periodic Table, change "Color by" to Electronegativity or Ionization energy.</p>` },
     { t: 'Ions & ionic radius', h: `
@@ -102,6 +109,7 @@ LESSONS.u4 = {
       <p>They have a full valence shell, so they are very stable and rarely react. All are monatomic gases.</p>` }
   ],
   quiz: [
+    { q: 'According to Coulomb\'s law (F = q<sub>1</sub>q<sub>2</sub>/d<sup>2</sup>), what happens to the attraction between a nucleus and a valence electron if the distance between them doubles?', o: ['It doubles', 'It is cut in half', 'It becomes one-fourth as strong', 'It stays the same'], a: 2, x: 'The force depends on 1/d<sup>2</sup>. Doubling d gives 1/2<sup>2</sup> = 1/4 of the original force. This is why atoms with more shells hold their valence electrons less tightly.' },
     { q: 'The modern periodic table is arranged in order of increasing:', o: ['atomic mass', 'atomic number', 'number of neutrons', 'density'], a: 1, x: 'Moseley showed that ordering by atomic number (number of protons) fixes the problems with Mendeleev\'s mass-based order.' },
     { q: 'Elements in the same group have similar chemical properties because they have the same number of:', o: ['protons', 'neutrons', 'electron shells', 'valence electrons'], a: 3, x: 'Chemical behavior depends mostly on valence electrons, which match within a group.' },
     { q: 'Which element has the largest atomic radius?', o: ['Li', 'Na', 'K', 'Rb'], a: 3, x: 'All are in Group 1. Radius increases down a group as shells are added, so rubidium (Period 5) is largest.' },

@@ -88,14 +88,14 @@ LESSONS.u1 = {
         '<li><b>Gas:</b> particles far apart, moving fast and randomly. No definite shape or volume.</li></ul>' +
         '<figure>' + FIG1.phase + '<figcaption>Going right (toward gas) absorbs energy: endothermic. Going left releases energy: exothermic.</figcaption></figure>' +
         '<div class="key"><b>Temperature</b> measures the average kinetic energy of the particles. During a phase change, temperature stays constant: the energy goes into changing the arrangement of the particles, not into speeding them up.</div>' +
-        '<p><b>Temperature scales:</b> K = °C + 273. Water freezes at 0 °C (273 K) and boils at 100 °C (373 K).</p>' +
-        '<h3>Heat energy</h3><p>Heat is energy transferred from a warmer object to a cooler one, measured in joules (J). Your Reference Tables give three heat formulas: <b>q = mCΔT</b> (changing temperature), <b>q = mH<sub>f</sub></b> (melting or freezing) and <b>q = mH<sub>v</sub></b> (boiling or condensing). For water, C = 4.18 J/g·K, H<sub>f</sub> = 334 J/g and H<sub>v</sub> = 2260 J/g.</p>' +
+        '<p><b>Temperature scales:</b> K = °C + 273.15 (Reference Table 6). Water freezes at 0 °C (273.15 K) and boils at 100 °C (373.15 K).</p>' +
+        '<h3>Heat energy</h3><p>Heat is energy transferred from a warmer object to a cooler one, measured in joules (J). Reference Table 5 gives three heat formulas: <b>q = mcΔT</b> (changing temperature; c is the specific heat capacity), <b>q = mH<sub>f</sub></b> (melting or freezing) and <b>q = mH<sub>v</sub></b> (boiling or condensing). The values for water (c = 4.18 J/g·K, H<sub>f</sub> = 334 J/g, H<sub>v</sub> = 2260 J/g) are <i>not</i> printed on the 2025 Reference Tables, so a problem will give you the numbers it needs.</p>' +
         '<div class="br"><button class="btn bt" onclick="go(9)">Open the Heat calculator</button></div>' },
       { t: 'Measurement & SI units', h:
         '<h2>Measurement and SI units</h2><p>Every measurement needs a <b>number and a unit</b>. Science uses the metric system. These are the units you will use most in chemistry:</p>' +
         '<table class="tbl"><tr><th>Quantity</th><th>Unit</th><th>Symbol</th></tr><tr><td>Mass</td><td>gram / kilogram</td><td>g / kg</td></tr><tr><td>Length</td><td>meter</td><td>m</td></tr><tr><td>Volume</td><td>liter (or cm³)</td><td>L, mL</td></tr><tr><td>Temperature</td><td>kelvin</td><td>K</td></tr><tr><td>Amount of substance</td><td>mole</td><td>mol</td></tr><tr><td>Pressure</td><td>kilopascal</td><td>kPa</td></tr><tr><td>Energy</td><td>joule</td><td>J</td></tr></table><p class="hint">Strictly, the official SI units are the kilogram for mass and the cubic meter for volume, but chemists use grams and liters every day.</p>' +
         '<h3>Metric prefixes</h3><table class="tbl"><tr><th>Prefix</th><th>Symbol</th><th>Means</th></tr><tr><td>kilo-</td><td>k</td><td>10³ = 1000</td></tr><tr><td>deci-</td><td>d</td><td>10⁻¹ = 0.1</td></tr><tr><td>centi-</td><td>c</td><td>10⁻² = 0.01</td></tr><tr><td>milli-</td><td>m</td><td>10⁻³ = 0.001</td></tr><tr><td>micro-</td><td>μ</td><td>10⁻⁶</td></tr><tr><td>nano-</td><td>n</td><td>10⁻⁹</td></tr></table>' +
-        '<p class="hint">These prefixes are on your Reference Tables. 1 mL = 1 cm³, and 1000 mL = 1 L.</p>' +
+        '<p class="hint">Kilo-, milli-, micro- and nano- are on Reference Table 8 (Selected Metric Prefixes), and common units are on Table 7. 1 mL = 1 cm³, and 1000 mL = 1 L.</p>' +
         '<h3>Accuracy vs. precision</h3><figure>' + FIG1.target + '</figure>' +
         '<ul><li><b>Accuracy:</b> how close a measurement is to the true (accepted) value.</li><li><b>Precision:</b> how close repeated measurements are to <i>each other</i>.</li></ul>' },
       { t: 'Significant figures', h:
@@ -123,6 +123,6 @@ LESSONS.u1 = {
       { q: 'Which phase change is exothermic?', o: ['Melting', 'Boiling', 'Sublimation', 'Freezing'], a: 3, x: 'Freezing releases energy as particles lock into place. Melting, boiling and sublimation all absorb energy.' },
       { q: 'Which mixture is heterogeneous?', o: ['Air', 'Sand and water', 'Sugar water', 'Brass (a metal alloy)'], a: 1, x: 'You can see the separate parts of sand in water. The others are uniform throughout (solutions).' },
       { q: 'A student measures 9.5 g for a sample whose accepted mass is 10.0 g. What is the percent error?', o: ['−5.0%', '−0.5%', '5.3%', '95%'], a: 0, x: '(9.5 − 10.0) ÷ 10.0 × 100 = −5.0%.' },
-      { q: 'What is 25 °C in kelvin?', o: ['248 K', '273 K', '298 K', '25 K'], a: 2, x: 'K = °C + 273 = 25 + 273 = 298 K.' }
+      { q: 'What is 25 °C in kelvin?', o: ['248.15 K', '273.15 K', '298.15 K', '25 K'], a: 2, x: 'K = °C + 273.15 = 25 + 273.15 = 298.15 K (Reference Table 6).' }
     ]
   };

@@ -1,23 +1,39 @@
 /* Catalyst - Study Guide. Units follow the class syllabus order (Enriched Chemistry 2026-27, 1st semester).
-   Second-semester units are typical Regents topics and are marked tentative until the syllabus/textbook confirms them.
-   To add a lesson: add an entry to LESSONS keyed by unit id, with sections [{t, h}] and quiz [{q, o:[...], a, x}]. */
+   The class follows the NEW Regents course, "Physical Science: Chemistry" (NYS P-12 Science Learning Standards),
+   with the 2025 Reference Tables. Each unit lists the Performance Expectations (PEs) it supports.
+   Second-semester units are organized by the remaining PEs and stay tentative until the teacher's plan is known.
+   To add a lesson: create js/lessons/<id>.js setting LESSONS.<id> = { sections:[{t,h}], quiz:[{q, o:[...], a, x, ctx?}] }. */
 'use strict';
+const PE_TITLES = {
+  'HS-PS1-1': 'Valence electrons and properties of elements', 'HS-PS1-2': 'Simple chemical reactions',
+  'HS-PS1-3': 'Electrical forces and bulk-scale structure', 'HS-PS1-4': 'Bond energy changes in reactions',
+  'HS-PS1-5': 'Collision theory and reaction rates', 'HS-PS1-6': 'Designing for more product at equilibrium',
+  'HS-PS1-7': 'Conservation of atoms (stoichiometry)', 'HS-PS1-8': 'Fission, fusion and radioactive decay',
+  'HS-PS1-9': 'Combined gas law (NYS)', 'HS-PS1-10': 'Solutions (NYS)', 'HS-PS1-11': 'Acids and bases (NYS)',
+  'HS-PS1-12': 'Transfer of electrons (NYS)', 'HS-PS2-6': 'Molecular structure of designed materials',
+  'HS-PS3-1': 'Energy change in a system', 'HS-PS3-5': 'Electric forces and energy between interacting charges',
+  'HS-PS4-4': 'Absorption of electromagnetic radiation', 'HS-LS1-5': 'Photosynthesis and energy',
+  'HS-ETS1': 'Engineering design'
+};
 const UNITS = [
-  { id: 'u1', t: 'Matter & Measurement', d: 'Classifying matter, physical vs. chemical changes, states of matter, SI units, significant figures, density and percent error.' },
-  { id: 'u2', t: 'Atomic Structure', d: 'Protons, neutrons and electrons, isotopes, average atomic mass, the history of the atom, electron shells and excited states.' },
-  { id: 'u3', t: 'Formulas & Equations', d: 'Ions, writing and naming compounds, balancing equations and types of reactions.' },
-  { id: 'u4', t: 'Periodic Table', d: 'Groups and periods, metals vs. nonmetals, and trends in radius, electronegativity and ionization energy.' },
-  { id: 'u5', t: 'Bonding', d: 'Ionic, covalent and metallic bonds, Lewis dot structures, molecular shape and polarity, intermolecular forces.' },
-  { id: 'u6', t: 'Mathematics of Chemistry', d: 'The mole, molar mass, percent composition, empirical formulas and stoichiometry.' },
-  { id: 'u7', t: 'Gas Laws', d: 'Kinetic molecular theory, pressure, and Boyle\'s, Charles\'s, Gay-Lussac\'s and the combined gas law.' },
-  { id: 'mid', t: 'Midterm Review', d: 'Mixed practice across Units 1–7.' },
-  { id: 'u8', t: 'Solutions', d: 'Solubility curves, molarity, ppm, and colligative properties.', s2: true },
-  { id: 'u9', t: 'Kinetics & Equilibrium', d: 'Reaction rates, energy diagrams, and Le Chatelier\'s principle.', s2: true },
-  { id: 'u10', t: 'Acids & Bases', d: 'Arrhenius theory, pH, indicators and neutralization/titration.', s2: true },
-  { id: 'u11', t: 'Redox & Electrochemistry', d: 'Oxidation numbers, half-reactions, voltaic and electrolytic cells.', s2: true },
-  { id: 'u12', t: 'Organic Chemistry', d: 'Hydrocarbons, functional groups and organic reactions.', s2: true },
-  { id: 'u13', t: 'Nuclear Chemistry', d: 'Radioactive decay, half-life, fission and fusion.', s2: true }
+  { id: 'u1', t: 'Matter & Measurement', d: 'Classifying matter, physical vs. chemical changes, states of matter and heat, metric units, significant figures, density and percent error.', pe: ['HS-PS1-3', 'HS-PS3-1'] },
+  { id: 'u2', t: 'Atomic Structure', d: 'Models of the atom, protons, neutrons and electrons, isotopes, average atomic mass, electron shells, excited states and the electromagnetic spectrum.', pe: ['HS-PS1-1', 'HS-PS4-4'] },
+  { id: 'u3', t: 'Formulas & Equations', d: 'Ions, writing and naming compounds, balancing equations (conservation of atoms) and types of reactions.', pe: ['HS-PS1-2', 'HS-PS1-7'] },
+  { id: 'u4', t: 'Periodic Table', d: 'Groups and periods, metals vs. nonmetals, periodic trends and the Coulombic attraction behind them.', pe: ['HS-PS1-1', 'HS-PS1-2', 'HS-PS3-5'] },
+  { id: 'u5', t: 'Bonding', d: 'Ionic, covalent and metallic bonds, Lewis structures, shape and polarity, intermolecular forces and bulk properties.', pe: ['HS-PS1-3', 'HS-PS1-4', 'HS-PS2-6', 'HS-PS3-5'] },
+  { id: 'u6', t: 'Mathematics of Chemistry', d: 'The mole, molar mass, percent composition, empirical formulas and stoichiometry.', pe: ['HS-PS1-7'] },
+  { id: 'u7', t: 'Gas Laws', d: 'Kinetic molecular theory, pressure, and Boyle\'s, Charles\'s, Gay-Lussac\'s and the combined gas law.', pe: ['HS-PS1-9'] },
+  { id: 'mid', t: 'Midterm Review', d: 'Formula sheet, big ideas, and mixed practice across Units 1\u20137, including a storyline question set like the new Regents.', pe: [] },
+  { id: 'u8', t: 'Solutions', d: 'Solubility, molarity (n = MV), ppm, and how dissolved particles change a solution\'s properties.', s2: true, pe: ['HS-PS1-10'] },
+  { id: 'u9', t: 'Reaction Rates & Equilibrium', d: 'Collision theory, factors that change reaction rate, equilibrium and Le Chatelier\'s principle.', s2: true, pe: ['HS-PS1-5', 'HS-PS1-6'] },
+  { id: 'u10', t: 'Acids & Bases', d: 'Properties of acids and bases, pH, indicators, neutralization and titration.', s2: true, pe: ['HS-PS1-11'] },
+  { id: 'u11', t: 'Redox & Electrochemistry', d: 'Oxidation and reduction, electron transfer, and electrochemical cells.', s2: true, pe: ['HS-PS1-12'] },
+  { id: 'u12', t: 'Energy in Reactions & Living Systems', d: 'Bond energy, endothermic vs. exothermic reactions, energy diagrams, photosynthesis and cellular respiration.', s2: true, pe: ['HS-PS1-4', 'HS-PS3-1', 'HS-LS1-5'] },
+  { id: 'u13', t: 'Nuclear Chemistry', d: 'Radioactive decay, nuclear equations, half-life, fission and fusion.', s2: true, pe: ['HS-PS1-8'] }
 ];
+function peChips(list) {
+  return (list || []).map(p => '<span class="pe" title="' + esc(PE_TITLES[p] || '') + '">' + p + '</span>').join('');
+}
 
 /* Lesson content lives in js/lessons/<unit>.js, each assigning LESSONS.<unitId>. */
 const LESSONS = {};
@@ -69,12 +85,13 @@ RENDER.study = function (arg) {
   const card = (u, i) => {
     const has = !!LESSONS[u.id], p = unitProgress(u.id);
     return '<div class="unit' + (has ? '' : ' locked') + '" onclick="goPage(\'study\',\'' + u.id + '\')"><div class="unum">' + (u.id === 'mid' ? '★' : i) + '</div><div style="flex:1"><h3>' + u.t +
-      (has ? '' : ' <span class="badge">coming soon</span>') + '</h3><p>' + u.d + '</p>' + (has ? '<div class="prog"><i style="width:' + p + '%"></i></div><div class="rl" style="margin-top:3px">' + p + '% complete</div>' : '') + '</div></div>';
+      (has ? '' : ' <span class="badge">coming soon</span>') + '</h3><p>' + u.d + '</p>' + (u.pe && u.pe.length ? '<div class="pes">' + peChips(u.pe) + '</div>' : '') + (has ? '<div class="prog"><i style="width:' + p + '%"></i></div><div class="rl" style="margin-top:3px">' + p + '% complete</div>' : '') + '</div></div>';
   };
   let n = 0;
-  $('pg').innerHTML = '<div class="pt">Study Guide</div><div class="ps">Units follow your class syllabus, in the same order. Each unit has short lessons with diagrams, then a practice quiz with explanations.</div>' +
+  $('pg').innerHTML = '<div class="pt">Study Guide</div><div class="ps">Units follow your class syllabus, in the same order. Each unit has short lessons with diagrams, then a practice quiz with explanations. The tags (like HS-PS1-1) are the NYS Performance Expectations each unit covers.</div>' +
+    '<button class="tile" style="width:100%;margin-bottom:14px;display:flex;gap:14px;align-items:center" onclick="goPage(\'regents\')"><div class="ti">\uD83C\uDF93</div><div><h3 style="margin:0 0 2px">The new Regents: Physical Science: Chemistry</h3><p>How the exam works, the six topic areas and their weights, the 2025 Reference Tables, and which Catalyst units cover each one.</p></div></button>' +
     '<div class="grp" style="color:var(--mu);padding-left:0">First semester</div>' + first.map(u => card(u, u.id === 'mid' ? 0 : ++n)).join('') +
-    '<div class="grp" style="color:var(--mu);padding-left:0;margin-top:14px">Second semester (tentative - typical Regents topics)</div>' + second.map(u => card(u, ++n)).join('');
+    '<div class="grp" style="color:var(--mu);padding-left:0;margin-top:14px">Second semester (tentative, organized by the remaining Performance Expectations)</div>' + second.map(u => card(u, ++n)).join('');
 };
 
 function renderLesson(arg) {
@@ -83,7 +100,7 @@ function renderLesson(arg) {
   if (!unit) return RENDER.study();
   if (!L) {
     $('pg').innerHTML = '<button class="btn bs" onclick="goPage(\'study\')">‹ All units</button><div class="pt" style="margin-top:12px">' + unit.t + '</div>' +
-      '<div class="ps">' + unit.d + '</div><div class="card"><div class="cb" style="font-size:14px;line-height:1.6">This unit\'s lessons are coming soon. They will follow your textbook and class notes once those are added.' +
+      '<div class="ps">' + unit.d + '</div><div class="card"><div class="cb" style="font-size:14px;line-height:1.6">This unit\'s lessons are coming soon. They will follow your class notes and packets once those are added.' +
       (id === 'u4' ? '<div class="br"><button class="btn bc" onclick="goPage(\'table\')">Explore the Periodic Table now</button></div>' : '') +
       (id === 'u6' ? '<div class="br"><button class="btn bc" onclick="go(0)">Try the Molar Mass calculator</button></div>' : '') +
       (id === 'u7' ? '<div class="br"><button class="btn bc" onclick="go(2)">Try the Gas Laws calculator</button></div>' : '') +
@@ -105,6 +122,7 @@ function renderLesson(arg) {
       '<button class="btn bc" onclick="goPage(\'study\',' + next + ')">' + (sec < L.sections.length - 1 ? 'Next: ' + L.sections[sec + 1].t + ' ›' : 'Take the practice quiz ›') + '</button></div>';
   }
   $('pg').innerHTML = '<button class="btn bs" onclick="goPage(\'study\')">‹ All units</button><div class="pt" style="margin-top:12px">' + unit.t + '</div><div class="ps">' + unit.d + '</div>' +
+    (unit.pe && unit.pe.length ? '<div class="pes" style="margin:-8px 0 12px">' + peChips(unit.pe) + '</div>' : '') +
     '<div class="lnav">' + nav + '</div>' + body;
   if (sec === 'quiz') bindQuiz(id, L.quiz);
 }
@@ -112,7 +130,7 @@ function renderLesson(arg) {
 function renderQuiz(id, quiz) {
   const best = Store.get('quiz.' + id, null);
   return '<div class="ps">' + quiz.length + ' questions. Tap an answer to check it and see the explanation.' + (best ? ' Your best score: <b>' + best + '/' + quiz.length + '</b>.' : '') + '</div>' +
-    quiz.map((q, i) => '<div class="q" data-q="' + i + '"><div class="qt">' + (i + 1) + '. ' + q.q + '</div>' +
+    quiz.map((q, i) => (q.ctx ? '<div class="ctx">' + q.ctx + '</div>' : '') + '<div class="q" data-q="' + i + '"><div class="qt">' + (i + 1) + '. ' + q.q + '</div>' +
       q.o.map((o, j) => '<button class="opt" data-j="' + j + '">' + o + '</button>').join('') + '<div class="qx"></div></div>').join('') +
     '<div id="qscore"></div>';
 }

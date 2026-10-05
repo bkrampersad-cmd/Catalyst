@@ -1,11 +1,19 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.2.0';
-const BUILD_DATE = 'October 2, 2026';
+const VERSION = '0.3.0';
+const BUILD_DATE = 'October 4, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.3.0', d: 'October 4, 2026', notes: [
+    'Aligned to the new Regents course, Physical Science: Chemistry, and its 2025 Reference Tables.',
+    'Temperatures now use K = \u00B0C + 273.15 and STP = 273.15 K and 1 atm, as on the 2025 tables. Calculators, lessons and quizzes updated.',
+    'Lessons now point to the 2025 Reference Table numbers (Tables 1\u20138) and note what is no longer on them (electron configurations, electronegativity, charges, activity series, heat constants).',
+    'New page: The new Regents (exam format, the six topic areas and their weights, Required Investigations, and the 2025 Reference Tables).',
+    'Each unit is tagged with the NYS Performance Expectations it covers. Second-semester units were reorganized around the remaining Performance Expectations.',
+    'New lessons: Light & the EM spectrum (Unit 2) and Coulomb\'s law (Units 4 and 5). The Midterm Review adds a storyline question set like the new exam.'
+  ] },
   { v: '0.2.0', d: 'October 2, 2026', notes: [
     'Study Guide: the whole first semester is now written. Units 2\u20137 (Atomic Structure, Formulas & Equations, Periodic Table, Bonding, Mathematics of Chemistry, Gas Laws) plus a Midterm Review, each with illustrated lessons and a practice quiz.',
     'Unit 1 adds a short section on heat energy (q = mC\u0394T, q = mHf, q = mHv).',
@@ -89,7 +97,7 @@ function route() {
   toggleNav(false);
   $('ct').scrollTop = 0;
   fn(arg);
-  if (p !== 'calc') setActive(RENDER[p] ? p : 'home');
+  if (p !== 'calc') setActive(RENDER[p] ? ((PAGES[p] && PAGES[p].nav) || p) : 'home');
   document.title = (PAGES[p] && p !== 'home' ? PAGES[p].t + ' — ' : '') + 'Catalyst';
 }
 
@@ -139,12 +147,12 @@ RENDER.about = function () {
     log += '<div style="margin-bottom:12px"><b>v' + c.v + '</b> <span class="rl">· ' + c.d + '</span><ul style="margin:4px 0 0 20px;font-size:13px;line-height:1.6">' +
       c.notes.map(n => '<li>' + esc(n) + '</li>').join('') + '</ul></div>';
   });
-  $('pg').innerHTML = '<div class="pt">About Catalyst</div><div class="ps">Chemistry, accelerated. Built for NYS Regents (Enriched) Chemistry.</div>' +
+  $('pg').innerHTML = '<div class="pt">About Catalyst</div><div class="ps">Chemistry, accelerated. Built for the NYS Regents course Physical Science: Chemistry (2025 standards and Reference Tables).</div>' +
     '<div class="t2"><div class="card"><div class="ch">App</div><div class="cb">' +
     rr('Version', 'v' + VERSION) + rr('Built', BUILD_DATE) + rr('Elements', ELEMENTS.length) + rr('Calculators', NAMES.length) + rr('Works offline', 'Yes') +
     '</div></div><div class="card"><div class="ch">Data & credits</div><div class="cb" style="font-size:13px;line-height:1.6">' +
     'Element data: <b>PubChem</b> (National Library of Medicine, public domain), via the MIT-licensed <i>periodic-table-data</i> package. ' +
-    'Ionization energies converted from eV to kJ/mol. Constants follow the NYS Chemistry Reference Tables (Table B).' +
+    'Ionization energies converted from eV to kJ/mol. Constants and formulas follow the 2025 Reference Tables for Physical Science: Chemistry.' +
     '<p class="hint">Always use your class Reference Tables on tests. If a value here ever differs from your Reference Tables, go with the Reference Tables.</p>' +
     '</div></div></div>' +
     '<div class="card"><div class="ch">Version history</div><div class="cb">' + log + '</div></div>' +

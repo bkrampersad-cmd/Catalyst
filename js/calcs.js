@@ -115,13 +115,13 @@ const V_UNITS = '<option value="L">L</option><option value="mL">mL</option>';
 const T_UNITS = '<option value="K">K</option><option value="C">°C</option>';
 function gasRow(id, label, units) { return '<div class="fr"><label for="' + id + '">' + label + '</label><div class="iu"><input id="' + id + '" type="number" inputmode="decimal"><select id="' + id + 'u">' + units + '</select></div></div>'; }
 CALCS['Gas Laws'] = {
-  sub: 'Leave the unknown blank. Temperatures are converted to kelvin automatically (K = °C + 273).',
+  sub: 'Leave the unknown blank. Temperatures are converted to kelvin automatically (K = °C + 273.15, as on Reference Table 6).',
   html: '<div class="seg" id="gmode"></div><div id="gbody"></div>',
   init() {
     const combined = '<div class="card"><div class="ch">Combined gas law: P₁V₁/T₁ = P₂V₂/T₂</div><div class="cb"><div class="t2"><div>' +
       gasRow('p1', 'P₁ (initial pressure)', P_UNITS) + gasRow('v1', 'V₁ (initial volume)', V_UNITS) + gasRow('t1', 'T₁ (initial temp.)', T_UNITS) + '</div><div>' +
       gasRow('p2', 'P₂ (final pressure)', P_UNITS) + gasRow('v2', 'V₂ (final volume)', V_UNITS) + gasRow('t2', 'T₂ (final temp.)', T_UNITS) + '</div></div>' +
-      '<div class="hint">Boyle\'s, Charles\'s and Gay-Lussac\'s laws are all special cases: if something stays constant, enter the same value on both sides. STP = 101.3 kPa and 273 K.</div>' +
+      '<div class="hint">Boyle\'s, Charles\'s and Gay-Lussac\'s laws are all special cases: if something stays constant, enter the same value on both sides. STP = 273.15 K and 1 atm (101.3 kPa).</div>' +
       '<div class="br"><button class="btn bc" id="ggo">Solve</button><button class="btn bs" id="gclr">Clear</button></div><div id="gout"></div></div></div>';
     const ideal = '<div class="card"><div class="ch">Ideal gas law: PV = nRT</div><div class="cb">' +
       gasRow('ip', 'P (pressure)', P_UNITS) + gasRow('iv', 'V (volume)', V_UNITS) +
@@ -158,7 +158,7 @@ function solveCombined() {
   const b = ids.map((id, i) => toBase(id, kinds[i]));
   const blanks = b.map((x, i) => x === null ? i : -1).filter(i => i >= 0);
   if (blanks.length !== 1) { showErr('gout', 'Leave exactly one box blank - that is the value Catalyst will solve for.'); return; }
-  if (b.some(x => x !== null && x <= 0)) { showErr('gout', 'Pressures, volumes and kelvin temperatures must be greater than zero. (Check that °C values are above −273.)'); return; }
+  if (b.some(x => x !== null && x <= 0)) { showErr('gout', 'Pressures, volumes and kelvin temperatures must be greater than zero. (Check that °C values are above −273.15.)'); return; }
   const k = blanks[0];
   const [P1, V1, T1, P2, V2, T2] = b;
   let x;
@@ -174,7 +174,7 @@ function solveCombined() {
   const ans = fromBase(x, id, kinds[k]), unit = UNAME[$(id + 'u').value];
   const rearr = ['P₁ = P₂V₂T₁ / (T₂V₁)', 'V₁ = P₂V₂T₁ / (T₂P₁)', 'T₁ = P₁V₁T₂ / (P₂V₂)',
     'P₂ = P₁V₁T₂ / (T₁V₂)', 'V₂ = P₁V₁T₂ / (T₁P₂)', 'T₂ = P₂V₂T₁ / (P₁V₁)'][k];
-  const tNote = ['t1', 't2'].filter(i => $(i + 'u').value === 'C' && val(i) !== null).map(i => val(i) + ' °C + 273 = ' + (val(i) + 273) + ' K').join('<br>');
+  const tNote = ['t1', 't2'].filter(i => $(i + 'u').value === 'C' && val(i) !== null).map(i => val(i) + ' °C + 273.15 = ' + +(val(i) + 273.15).toFixed(2) + ' K').join('<br>');
   $('gout').innerHTML = '<div class="rb"><div class="rl">' + name + '</div><div class="big">' + fmt(ans, 3) + ' ' + unit + '</div></div>' +
     '<div class="steps"><div class="st">Steps</div>' + (tNote ? '1. Convert to kelvin:<br>' + tNote + '<br>2. ' : '1. ') + 'Rearrange: <b>' + rearr + '</b><br>' +
     (tNote ? '3. ' : '2. ') + 'Plug in (units must match on both sides) and solve: <b>' + name + ' = ' + fmt(ans, 3) + ' ' + unit + '</b>' +
@@ -196,7 +196,7 @@ function solveIdeal() {
 
 /* ============ 3. Solutions ============ */
 CALCS['Solutions'] = {
-  sub: 'Molarity, dilution and parts per million (ppm), using the Reference Table formulas.',
+  sub: 'Molarity, dilution and parts per million (ppm). Reference Table 5 gives n = MV and the ppm formula.',
   html: '<div class="seg" id="smode"></div><div id="sbody"></div>',
   init() {
     const views = {

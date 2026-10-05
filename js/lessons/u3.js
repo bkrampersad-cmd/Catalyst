@@ -34,11 +34,11 @@ LESSONS.u3 = {
       <figure>${FIG3.ions}</figure>
       <ul><li><b>Cation (positive ion):</b> formed when an atom <b>loses</b> electrons. Metals form cations: Na<sup>+</sup>, Mg<sup>2+</sup>, Al<sup>3+</sup>.</li>
         <li><b>Anion (negative ion):</b> formed when an atom <b>gains</b> electrons. Nonmetals form anions: Cl<sup>&minus;</sup>, O<sup>2&minus;</sup>, N<sup>3&minus;</sup>.</li></ul>
-      <p>The periodic table on your Reference Tables lists each element's <b>selected oxidation states</b> (common charges). Main-group elements follow a pattern by group:</p>
+      <p>The 2025 Reference Tables don't list charges, so predict them from the element's <b>group</b> (how many electrons it needs to lose or gain to reach an octet):</p>
       <table class="tbl"><tr><th>Group</th><th>1</th><th>2</th><th>13</th><th>15</th><th>16</th><th>17</th><th>18</th></tr>
         <tr><td>Common charge</td><td>+1</td><td>+2</td><td>+3</td><td>&minus;3</td><td>&minus;2</td><td>&minus;1</td><td>0</td></tr></table>
       <h3>Polyatomic ions</h3>
-      <p>A <b>polyatomic ion</b> is a group of atoms that stays together and carries a charge. Your Reference Tables list them. Some you will see constantly:</p>
+      <p>A <b>polyatomic ion</b> is a group of atoms that stays together and carries a charge. Reference Table 4 (Selected Ions Forming Aqueous Solutions) lists several, such as ammonium, acetate, nitrate and hydrogen carbonate. Some you will see constantly:</p>
       <table class="tbl"><tr><th>Ion</th><th>Name</th><th>Ion</th><th>Name</th></tr>
         <tr><td>NH<sub>4</sub><sup>+</sup></td><td>ammonium</td><td>OH<sup>&minus;</sup></td><td>hydroxide</td></tr>
         <tr><td>NO<sub>3</sub><sup>&minus;</sup></td><td>nitrate</td><td>SO<sub>4</sub><sup>2&minus;</sup></td><td>sulfate</td></tr>
@@ -94,7 +94,7 @@ LESSONS.u3 = {
       <figure>${FIG3.types}</figure>
       <ul><li><b>Synthesis:</b> two or more substances combine into one product.</li>
         <li><b>Decomposition:</b> one compound breaks down into simpler substances (usually requires energy).</li>
-        <li><b>Single replacement:</b> a free element replaces another element in a compound. A more active metal replaces a less active one, and a more active halogen replaces a less active one. The activity series is on your Reference Tables.</li>
+        <li><b>Single replacement:</b> a free element replaces another element in a compound. A more active metal replaces a less active one, and a more active halogen replaces a less active one. When you need an activity series, the problem or your teacher will provide it (it is not on the 2025 Reference Tables).</li>
         <li><b>Double replacement:</b> two compounds swap partners. Often a precipitate (solid), a gas, or water forms.</li>
         <li><b>Combustion:</b> a substance reacts with oxygen. When a hydrocarbon burns completely, the products are CO<sub>2</sub> and H<sub>2</sub>O.</li></ul>
       <div class="tip"><b>How to identify the type:</b> first check for combustion: a fuel plus O<sub>2</sub> making CO<sub>2</sub> and H<sub>2</sub>O. Then: one compound alone breaking apart is decomposition. Two or more reactants making one product is synthesis. An element plus a compound making a different element plus a compound is single replacement. Two compounds swapping partners is double replacement.</div>` }

@@ -45,7 +45,7 @@ LESSONS.u5 = {
         <tr><td><b>Covalent</b></td><td>nonmetal + nonmetal</td><td>shared</td></tr>
         <tr><td><b>Metallic</b></td><td>metal + metal</td><td>free to move ("sea of electrons")</td></tr></table>
       <h3>Electronegativity difference</h3>
-      <p>Look up both electronegativities. The bigger the difference, the more unevenly the electrons are held:</p>
+      <p>Compare the two atoms' electronegativities. They are not printed on the 2025 Reference Tables, so a question will give the values or expect you to use the periodic trend; Catalyst's periodic table shows them all. The bigger the difference, the more unevenly the electrons are held:</p>
       <ul><li>Difference near <b>0</b>: <b>nonpolar covalent</b> (equal sharing), e.g. H<sub>2</sub>, Cl<sub>2</sub>.</li>
         <li>Moderate difference: <b>polar covalent</b> (unequal sharing), e.g. H&ndash;Cl, O&ndash;H.</li>
         <li>Large difference (about <b>1.7 or more</b>): <b>ionic</b>, e.g. NaCl (3.2 &minus; 0.9 = 2.3).</li></ul>
@@ -54,6 +54,8 @@ LESSONS.u5 = {
       <h2>Ionic bonding</h2>
       <p>In an ionic bond, a <b>metal transfers electrons to a nonmetal</b>. The positive and negative ions that result are held together by electrostatic attraction.</p>
       <div class="steps"><div class="st">Example: sodium chloride</div>Na (2-8-1) gives its 1 valence electron to Cl (2-8-7).<br>Na<sup>+</sup> (2-8) and Cl<sup>&minus;</sup> (2-8-8) each now have a stable octet.<br>Lewis form: <b>Na<sup>+</sup></b> and <b>[Cl]<sup>&minus;</sup></b> with 8 dots around the Cl inside the brackets. Show the charges, and draw no line, because nothing is shared.</div>
+      <h3>Why some ionic compounds are "stronger"</h3>
+      <p>Coulomb's law (Reference Table 5) says the attraction grows with the size of the charges. In MgO the ions are Mg<sup>2+</sup> and O<sup>2&minus;</sup>; in NaCl they are only Na<sup>+</sup> and Cl<sup>&minus;</sup>. That is why MgO melts at about 2850 &deg;C while NaCl melts at about 801 &deg;C.</p>
       <h3>Properties of ionic compounds</h3>
       <ul><li>Form a <b>crystal lattice</b>: a repeating 3-D pattern of ions, with no separate molecules.</li>
         <li><b>High melting and boiling points</b>, and hard but brittle.</li>
@@ -92,6 +94,11 @@ LESSONS.u5 = {
       <h3>Metallic bonding</h3>
       <figure>${FIG5.metal}<figcaption>Positive metal ions in a "sea" of mobile valence electrons.</figcaption></figure>
       <p>The mobile electrons explain why metals <b>conduct electricity</b> (even as solids), and why they are <b>malleable</b> and <b>ductile</b>: the ions can slide past each other without breaking the bond.</p>
+      <h3>Designed materials: structure decides function</h3>
+      <p>Engineers choose molecules for their structure. A few examples:</p>
+      <ul><li><b>Non-stick pans</b> are coated with a polymer whose surface is covered in fluorine atoms. It is nonpolar with very weak attractions, so food and water don't cling to it.</li>
+        <li><b>Soaps and detergents</b> have a long nonpolar tail that dissolves grease and a polar or ionic head that dissolves in water, so they carry oil away in the rinse water.</li>
+        <li><b>Copper wire</b> works because metallic bonding gives free-moving electrons (conducts) while the layers can slide (bendable). The plastic coating around it is a covalent polymer with no free electrons, so it insulates.</li></ul>
       <h3>Intermolecular forces (IMF)</h3>
       <p>These are attractions <b>between</b> molecules. They are much weaker than the bonds <i>inside</i> molecules. They decide melting point, boiling point, and solubility.</p>
       <ul><li><b>Dispersion (London) forces:</b> weak, temporary attractions found between all molecules. They get stronger as molecules get bigger, which is why I<sub>2</sub> is a solid but F<sub>2</sub> is a gas.</li>
@@ -101,6 +108,7 @@ LESSONS.u5 = {
       <p><b>"Like dissolves like":</b> polar and ionic substances dissolve in polar solvents (salt or sugar in water). Nonpolar substances dissolve in nonpolar solvents (oil in gasoline). Oil and water don't mix.</p>` }
   ],
   quiz: [
+    { q: 'Magnesium oxide (Mg<sup>2+</sup>O<sup>2&minus;</sup>) has a much higher melting point than sodium chloride (Na<sup>+</sup>Cl<sup>&minus;</sup>). The best explanation is:', o: ['MgO molecules are heavier', 'The larger ion charges in MgO create a stronger attraction between the ions', 'NaCl has covalent bonds', 'MgO contains hydrogen bonds'], a: 1, x: 'By Coulomb\'s law, attraction is proportional to the product of the charges: (2)(2) = 4 for MgO versus (1)(1) = 1 for NaCl. A stronger attraction takes more energy to overcome.' },
     { q: 'Which pair of elements forms an ionic bond?', o: ['C and O', 'H and Cl', 'K and Br', 'N and N'], a: 2, x: 'Potassium (a metal) transfers an electron to bromine (a nonmetal). The others are all nonmetal pairs, which share electrons.' },
     { q: 'When a chemical bond forms, energy is:', o: ['absorbed', 'released', 'neither absorbed nor released', 'destroyed'], a: 1, x: 'Bond formation is exothermic: the bonded atoms are lower in energy and more stable. Breaking bonds absorbs energy.' },
     { q: 'Which substance conducts electricity in the solid state?', o: ['NaCl(s)', 'C<sub>6</sub>H<sub>12</sub>O<sub>6</sub>(s)', 'Cu(s)', 'H<sub>2</sub>O(s)'], a: 2, x: 'Metals have mobile electrons. Ionic solids like NaCl conduct only when melted or dissolved.' },

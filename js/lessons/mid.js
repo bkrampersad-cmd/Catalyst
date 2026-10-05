@@ -4,25 +4,27 @@ LESSONS.mid = {
   sections: [
     { t: 'Key formulas', h: `
       <h2>Key formulas for the midterm</h2>
-      <p>Formulas marked &#9733; are <b>not</b> on the Reference Tables, so memorize those. Know <i>when</i> to use each one.</p>
+      <p>Your <b>2025 Reference Tables for Physical Science: Chemistry</b> give some of these. Formulas marked &#9733; are <b>not</b> on the Reference Tables, so memorize those. Know <i>when</i> to use each one.</p>
       <table class="tbl">
-        <tr><th>What</th><th>Formula</th><th>Lesson unit</th></tr>
-        <tr><td>Density</td><td>D = m / V</td><td>1</td></tr>
-        <tr><td>Percent error</td><td>(measured &minus; accepted) / accepted &times; 100</td><td>1</td></tr>
-        <tr><td>Temperature</td><td>K = &deg;C + 273</td><td>1, 7</td></tr>
-        <tr><td>Heat (temperature change)</td><td>q = mC&Delta;T</td><td>1</td></tr>
-        <tr><td>Heat (melting / boiling)</td><td>q = mH<sub>f</sub> &nbsp;&middot;&nbsp; q = mH<sub>v</sub></td><td>1</td></tr>
-        <tr><td>Neutrons &#9733;</td><td>mass number &minus; atomic number</td><td>2</td></tr>
-        <tr><td>Average atomic mass &#9733;</td><td>&Sigma; (isotope mass &times; abundance as a decimal)</td><td>2</td></tr>
-        <tr><td>Moles</td><td>given mass / gram-formula mass</td><td>6</td></tr>
-        <tr><td>Percent composition</td><td>mass of part / mass of whole &times; 100</td><td>6</td></tr>
-        <tr><td>Percent yield &#9733;</td><td>actual / theoretical &times; 100</td><td>6</td></tr>
-        <tr><td>Combined gas law</td><td>P<sub>1</sub>V<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>/T<sub>2</sub></td><td>7</td></tr>
-        <tr><td>Ideal gas law &#9733;</td><td>PV = nRT, with R = 8.31 L&middot;kPa/(mol&middot;K)</td><td>7</td></tr></table>
+        <tr><th>What</th><th>Formula</th><th>Where</th></tr>
+        <tr><td>Density &#9733;</td><td>D = m / V</td><td>Unit 1</td></tr>
+        <tr><td>Percent error &#9733;</td><td>(measured &minus; accepted) / accepted &times; 100</td><td>Unit 1</td></tr>
+        <tr><td>Temperature</td><td>K = &deg;C + 273.15</td><td>RT Table 6</td></tr>
+        <tr><td>Heat (temperature change)</td><td>q = mc&Delta;T</td><td>RT Table 5</td></tr>
+        <tr><td>Heat (melting / boiling)</td><td>q = mH<sub>f</sub> &nbsp;&middot;&nbsp; q = mH<sub>v</sub></td><td>RT Table 5</td></tr>
+        <tr><td>Neutrons &#9733;</td><td>mass number &minus; atomic number</td><td>Unit 2</td></tr>
+        <tr><td>Average atomic mass &#9733;</td><td>&Sigma; (isotope mass &times; abundance as a decimal)</td><td>Unit 2</td></tr>
+        <tr><td>Coulomb's law</td><td>F = q<sub>1</sub>q<sub>2</sub> / d<sup>2</sup></td><td>RT Table 5</td></tr>
+        <tr><td>The mole</td><td>1 mole = molar mass (g) = 6.02 &times; 10<sup>23</sup> particles = 22.4 L (ideal gas at STP)</td><td>RT Table 6</td></tr>
+        <tr><td>Percent composition &#9733;</td><td>mass of part / mass of whole &times; 100</td><td>Unit 6</td></tr>
+        <tr><td>Percent yield &#9733;</td><td>actual / theoretical &times; 100</td><td>Unit 6</td></tr>
+        <tr><td>Combined gas law</td><td>P<sub>1</sub>V<sub>1</sub>/T<sub>1</sub> = P<sub>2</sub>V<sub>2</sub>/T<sub>2</sub></td><td>RT Table 5</td></tr>
+        <tr><td>Molarity / ppm</td><td>n = MV &nbsp;&middot;&nbsp; ppm = mass of solute / mass of solution &times; 1,000,000</td><td>RT Table 5</td></tr>
+        <tr><td>Ideal gas law &#9733;</td><td>PV = nRT (enrichment; R = 8.31 L&middot;kPa/(mol&middot;K))</td><td>Unit 7</td></tr></table>
       <h3>Numbers to know</h3>
-      <ul><li>Avogadro's number: <b>6.02 &times; 10<sup>23</sup></b> particles per mole</li>
-        <li>Molar volume of a gas at STP: <b>22.4 L/mol</b> &#9733;</li>
-        <li>STP: <b>273 K</b> and <b>101.3 kPa</b> (1 atm = 760 mmHg)</li></ul>` },
+      <ul><li>STP: <b>273.15 K</b> and <b>1 atm</b> (1 atm = 101.3 kPa). On RT Table 6.</li>
+        <li>Avogadro's number <b>6.02 &times; 10<sup>23</sup></b> and molar volume <b>22.4 L</b>. Both on RT Table 6.</li>
+        <li>1 atm = 760 mmHg &#9733;</li></ul>` },
     { t: 'Big ideas by unit', h: `
       <h2>Big ideas by unit</h2>
       <h3>1 &middot; Matter &amp; Measurement</h3>
@@ -48,6 +50,9 @@ LESSONS.mid = {
         <li>Gases are most ideal at high temperature and low pressure. H<sub>2</sub> and He are the most ideal.</li></ul>` }
   ],
   quiz: [
+    { ctx: '<h3>Storyline: The weather balloon</h3>Students launch a helium weather balloon to collect data about the upper atmosphere. At launch it holds 5,000 L of helium. The balloon is made of stretchy latex and bursts if its volume goes over 60,000 L.<table class="tbl" style="margin-top:8px;background:#fff"><tr><th>Altitude</th><th>Air pressure</th><th>Temperature</th></tr><tr><td>Ground (launch)</td><td>101.3 kPa</td><td>293.15 K (20 &deg;C)</td></tr><tr><td>10 km</td><td>26.5 kPa</td><td>223.15 K (&minus;50 &deg;C)</td></tr><tr><td>20 km</td><td>5.5 kPa</td><td>218.15 K (&minus;55 &deg;C)</td></tr></table><p class="hint" style="margin-top:6px">Like the new Regents, the next three questions all use this information. Assume the gas inside matches the outside pressure and temperature.</p>', q: 'Using the combined gas law, what is the approximate volume of the balloon at 10 km?', o: ['1,310 L', '3,810 L', '14,500 L', '19,100 L'], a: 2, x: 'V<sub>2</sub> = P<sub>1</sub>V<sub>1</sub>T<sub>2</sub> / (T<sub>1</sub>P<sub>2</sub>) = (101.3 &times; 5,000 &times; 223.15) / (293.15 &times; 26.5) &asymp; 14,500 L. 19,100 L forgets the temperature drop, and 3,810 L forgets the pressure drop.' },
+    { q: 'Which statement best explains why the balloon gets bigger as it rises?', o: ['The helium atoms themselves get larger', 'The outside air pressure decreases, so the gas inside pushes the stretchy balloon outward', 'The temperature rises with altitude', 'New helium atoms form inside the balloon'], a: 1, x: 'The data show pressure falling a lot with altitude. With less pressure pushing in, the gas expands (Boyle). The temperature actually drops, which shrinks it a little, but the pressure effect is much larger.' },
+    { q: 'At 20 km this balloon would reach about 68,500 L and burst. Which design change would best let it reach 20 km without bursting?', o: ['Launch with 4,000 L of helium instead of 5,000 L', 'Launch on a colder day', 'Add more helium before launch', 'Paint the balloon black so it absorbs more sunlight'], a: 0, x: 'Volume is proportional to the starting volume: 4,000 L would grow to about 54,800 L at 20 km, under the 60,000 L limit. The other choices make it larger: a colder launch packs more moles of helium into the same 5,000 L, and extra helium or extra solar heating also add volume. Weighing a trade-off like this against a limit is an engineering design question.' },
     { q: 'Which is a homogeneous mixture?', o: ['Salt water', 'Sand and iron filings', 'Pure water', 'Sodium chloride'], a: 0, x: 'Salt water is uniform throughout (a solution). Pure water and NaCl are compounds, and sand with iron filings is heterogeneous.' },
     { q: 'How many significant figures are in 0.0800?', o: ['1', '2', '3', '4'], a: 2, x: 'Leading zeros don\'t count. The 8 and the two trailing zeros after the decimal do: 3 sig figs.' },
     { q: 'Which particle has a positive charge and is found in the nucleus?', o: ['Electron', 'Neutron', 'Proton', 'Alpha particle'], a: 2, x: 'Protons are +1 and live in the nucleus with the neutral neutrons.' },

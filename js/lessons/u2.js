@@ -1,6 +1,22 @@
 /* Catalyst - Unit 2: Atomic Structure. */
 'use strict';
 const FIG2 = {
+  spectrum: (function () {
+    const bands = [['Radio', '#B0BEC5'], ['Microwave', '#90A4AE'], ['Infrared', '#E57373'], ['Visible', null], ['Ultraviolet', '#9575CD'], ['X-ray', '#7E57C2'], ['Gamma', '#4527A0']];
+    let s = '', x = 20, w = 82;
+    bands.forEach(b => {
+      if (b[1]) s += '<rect x="' + x + '" y="40" width="' + w + '" height="34" fill="' + b[1] + '"/>';
+      else {
+        s += '<defs><linearGradient id="vis" x1="0" x2="1"><stop offset="0" stop-color="#E53935"/><stop offset=".25" stop-color="#FB8C00"/><stop offset=".45" stop-color="#FDD835"/><stop offset=".65" stop-color="#43A047"/><stop offset="1" stop-color="#5E35B1"/></linearGradient></defs>' +
+          '<rect x="' + x + '" y="40" width="' + w + '" height="34" fill="url(#vis)"/>';
+      }
+      s += SV.t(x + w / 2, 92, b[0], 'sv-s');
+      x += w;
+    });
+    s += SV.arrow(30, 22, 584, 22, '#0FA89B') + SV.t(307, 16, 'higher frequency, higher energy, shorter wavelength \u2192', 'sv-s');
+    s += SV.t(307, 118, 'Visible light: red 7.00 \u00D7 10\u207B\u2077 m  \u2192  violet 4.00 \u00D7 10\u207B\u2077 m (Reference Table 2)', 'sv-s');
+    return SV.wrap(614, 128, 'The electromagnetic spectrum from radio waves to gamma rays', s);
+  })(),
   models: (function () {
     let s = '';
     const xs = [60, 180, 300, 420, 540];
@@ -73,7 +89,7 @@ LESSONS.u2 = {
       <table class="tbl"><tr><th>Particle</th><th>Charge</th><th>Mass</th><th>Location</th></tr>
         <tr><td><b>Proton</b> (p<sup>+</sup>)</td><td>+1</td><td>1 u</td><td>nucleus</td></tr>
         <tr><td><b>Neutron</b> (n<sup>0</sup>)</td><td>0</td><td>1 u</td><td>nucleus</td></tr>
-        <tr><td><b>Electron</b> (e<sup>&minus;</sup>)</td><td>&minus;1</td><td>about 1/1836 u</td><td>outside the nucleus, in shells/orbitals</td></tr></table>
+        <tr><td><b>Electron</b> (e<sup>&minus;</sup>)</td><td>&minus;1</td><td>about 1/1836 of a proton's mass (&asymp; 0.00055 u)</td><td>outside the nucleus, in shells/orbitals</td></tr></table>
       <p class="hint">u = atomic mass unit. Protons and neutrons together are called <b>nucleons</b>.</p>
       <h3>The numbers that describe an atom</h3>
       <ul>
@@ -106,7 +122,8 @@ LESSONS.u2 = {
     { t: 'Electron shells', h: `
       <h2>Electron shells and configurations</h2>
       <p>In the Bohr model, electrons fill <b>shells</b> (energy levels) starting closest to the nucleus. Shells farther out hold electrons with <b>more energy</b>.</p>
-      <ul><li>The periodic table on your Reference Tables lists each element's <b>electron configuration</b>, such as sodium: <b>2-8-1</b>. That means 2 electrons in the first shell, 8 in the second, and 1 in the third.</li>
+      <ul><li>An <b>electron configuration</b> like sodium's <b>2-8-1</b> means 2 electrons in the first shell, 8 in the second, and 1 in the third.</li>
+        <li>The periodic table on the 2025 Reference Tables shows only each element's symbol, atomic number and average atomic mass, so <b>you work the configuration out</b> from the atomic number. For the first 20 elements, fill the shells 2, then 8, then 8, then 2. Catalyst's periodic table shows the configuration for every element.</li>
         <li>The number of numbers is the number of occupied shells, which equals the element's <b>period</b>.</li>
         <li>The maximum in shell <i>n</i> is 2n&sup2;: 2, 8, 18, 32.</li></ul>
       <h3>Valence electrons</h3>
@@ -117,7 +134,7 @@ LESSONS.u2 = {
       <div class="br"><button class="btn bt" onclick="goPage('table')">Tap any element to see its Bohr diagram</button></div>` },
     { t: 'Excited states & spectra', h: `
       <h2>Ground state, excited state and bright-line spectra</h2>
-      <ul><li><b>Ground state:</b> electrons are in the lowest energy shells available. This is the configuration on the periodic table.</li>
+      <ul><li><b>Ground state:</b> electrons are in the lowest energy shells available. This is the normal configuration you work out from the atomic number (Catalyst's periodic table shows it).</li>
         <li><b>Excited state:</b> an electron <b>absorbs energy</b> (from heat, electricity or light) and jumps to a higher shell. The atom has the <i>same total number of electrons</i>, arranged differently.</li></ul>
       <div class="steps"><div class="st">Example: sodium (11 electrons)</div>Ground state: <b>2-8-1</b><br>Possible excited states: <b>2-7-2</b>, 2-8-0-1, 1-8-2. Each still adds up to 11.</div>
       <figure>${FIG2.excited}</figure>
@@ -126,9 +143,28 @@ LESSONS.u2 = {
       <ul><li>Passing that light through a prism or spectroscope separates it into a pattern of bright lines.</li>
         <li>Each element has its own unique pattern, like a fingerprint, so spectra can identify elements, even in distant stars.</li>
         <li><b>Flame tests</b> use the same idea: lithium and strontium burn red, sodium yellow-orange, potassium violet, and copper blue-green.</li></ul>
-      <div class="key"><b>Remember:</b> absorb energy &rarr; jump up (excited). Release energy &rarr; fall down, and light is emitted.</div>` }
+      <div class="key"><b>Remember:</b> absorb energy &rarr; jump up (excited). Release energy &rarr; fall down, and light is emitted.</div>` },
+    { t: 'Light & the EM spectrum', h: `
+      <h2>Light and the electromagnetic spectrum</h2>
+      <p>Visible light is one small part of the <b>electromagnetic (EM) spectrum</b>. Reference Table 2 shows the whole spectrum, from radio waves to gamma rays.</p>
+      <figure>${FIG2.spectrum}</figure>
+      <ul><li><b>Wavelength</b> is the distance between wave crests; <b>frequency</b> is how many waves pass per second (in hertz, Hz).</li>
+        <li>They are <b>inversely</b> related: shorter wavelength means higher frequency.</li>
+        <li>Higher frequency means <b>more energy</b> per photon. Violet light carries more energy than red light, and gamma rays the most of all.</li></ul>
+      <p>The colors in a bright-line spectrum (Lesson 5) come from electrons dropping between shells. A bigger drop releases more energy, so it gives light of a higher frequency (toward violet).</p>
+      <h3>What happens when matter absorbs radiation</h3>
+      <table class="tbl"><tr><th>Radiation</th><th>Typical effect on matter</th></tr>
+        <tr><td>Radio</td><td>Mostly passes through matter (it can drive electric currents in antennas)</td></tr>
+        <tr><td>Microwave</td><td>Makes molecules like water rotate faster, which warms them (this is how a microwave oven heats food)</td></tr>
+        <tr><td>Infrared</td><td>Makes molecules vibrate faster, which we feel as heat</td></tr>
+        <tr><td>Visible</td><td>Excites electrons; plants use it for photosynthesis, and our eyes detect it</td></tr>
+        <tr><td>Ultraviolet</td><td>Enough energy to <b>break some chemical bonds</b>, such as in DNA (sunburn, skin cancer). Only the highest-energy UV is ionizing. This is why we use sunscreen.</td></tr>
+        <tr><td>X-ray, gamma</td><td><b>Ionizing:</b> knocks electrons off atoms and breaks bonds, which can damage living cells. This is why we use lead aprons.</td></tr></table>
+      <div class="tip"><b>Evaluating a claim:</b> when an ad or article says some radiation is "dangerous," ask: what frequency is it, how much energy does it carry, and is there evidence it can break bonds? Higher-frequency radiation is the kind that can.</div>` }
   ],
   quiz: [
+    { q: 'Which type of electromagnetic radiation has the highest energy?', o: ['Radio waves', 'Infrared', 'Visible light', 'Gamma rays'], a: 3, x: 'Energy increases with frequency. Gamma rays have the highest frequency and shortest wavelength on Reference Table 2.' },
+    { q: 'Why can ultraviolet light damage skin cells but radio waves cannot?', o: ['UV has a longer wavelength', 'UV has a higher frequency, so it carries enough energy to break chemical bonds', 'Radio waves cannot pass through air', 'UV light is visible'], a: 1, x: 'Higher frequency means more energy. UV photons carry enough energy to break bonds in molecules like DNA; radio waves only make molecules move a little faster.' },
     { q: 'What did the gold foil experiment show?', o: ['Atoms are solid, indivisible spheres', 'Electrons move in fixed orbits', 'Atoms are mostly empty space with a small, dense, positive nucleus', 'Atoms contain neutrons'], a: 2, x: 'Most alpha particles passed straight through (empty space), and a few bounced back off something small, dense and positive: the nucleus.' },
     { q: 'How many neutrons are in an atom of iron-56?', o: ['26', '30', '56', '82'], a: 1, x: 'Iron\'s atomic number is 26. Neutrons = mass number &minus; atomic number = 56 &minus; 26 = 30.' },
     { q: 'Isotopes of the same element have different numbers of:', o: ['protons', 'electrons', 'neutrons', 'valence electrons'], a: 2, x: 'Isotopes have the same number of protons (same element) but a different number of neutrons, so their mass numbers differ.' },

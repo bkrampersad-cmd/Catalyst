@@ -128,17 +128,17 @@ CALCS['Stoichiometry'] = {
 
 /* ============ 9. Heat ============ */
 CALCS['Heat'] = {
-  sub: 'Heat energy (q) in joules, using the Reference Table formulas. Leave the unknown blank.',
+  sub: 'Heat energy (q) in joules, using the Reference Table 5 formulas. Leave the unknown blank.',
   html: '<div class="seg" id="qmode"></div><div id="qbody"></div>',
   init() {
     const W = Chem.WATER;
     const views = {
-      c: '<div class="card"><div class="ch">q = mCΔT (temperature change, no phase change)</div><div class="cb">' +
+      c: '<div class="card"><div class="ch">q = mcΔT (temperature change, no phase change)</div><div class="cb">' +
         '<div class="fr"><label for="qq">Heat q (J)</label><input id="qq" type="number" inputmode="decimal"></div>' +
         '<div class="fr"><label for="qm">Mass m (g)</label><input id="qm" type="number" inputmode="decimal"></div>' +
-        '<div class="fr"><label for="qc">Specific heat C (J/g·K)</label><input id="qc" type="number" inputmode="decimal" value="' + W.C + '"></div>' +
+        '<div class="fr"><label for="qc">Specific heat capacity c (J/g·K)</label><input id="qc" type="number" inputmode="decimal" value="' + W.C + '"></div>' +
         '<div class="fr"><label for="qt">Temperature change ΔT (K or °C)</label><input id="qt" type="number" inputmode="decimal"></div>' +
-        '<div class="hint">C = 4.18 J/g·K for liquid water. A change of 1 °C equals a change of 1 K, so ΔT is the same in both. Use final − initial; a negative q means heat was released.</div>' +
+        '<div class="hint">4.18 J/g·K is liquid water\'s value. It is <b>not</b> printed on the 2025 Reference Tables, so use the value the problem gives you. A change of 1 °C equals a change of 1 K, so ΔT is the same in both. Use final − initial; a negative q means heat was released.</div>' +
         '<div class="br"><button class="btn bc" id="qgo">Solve</button></div><div id="qout"></div></div></div>',
       f: phase('f', 'q = mH<sub>f</sub> (melting or freezing)', 'Heat of fusion H<sub>f</sub> (J/g)', W.Hf),
       v: phase('v', 'q = mH<sub>v</sub> (boiling or condensing)', 'Heat of vaporization H<sub>v</sub> (J/g)', W.Hv)
@@ -148,7 +148,7 @@ CALCS['Heat'] = {
         '<div class="fr"><label for="pq' + k + '">Heat q (J)</label><input id="pq' + k + '" type="number" inputmode="decimal"></div>' +
         '<div class="fr"><label for="pm' + k + '">Mass m (g)</label><input id="pm' + k + '" type="number" inputmode="decimal"></div>' +
         '<div class="fr"><label for="ph' + k + '">' + lbl + '</label><input id="ph' + k + '" type="number" inputmode="decimal" value="' + def + '"></div>' +
-        '<div class="hint">Value shown is for water. During a phase change the temperature stays constant.</div>' +
+        '<div class="hint">The value shown is water\'s. It is not printed on the 2025 Reference Tables, so use the value the problem gives you. During a phase change the temperature stays constant.</div>' +
         '<div class="br"><button class="btn bc" id="pg' + k + '">Solve</button></div><div id="po' + k + '"></div></div></div>';
     }
     const show = k => {
@@ -162,10 +162,10 @@ CALCS['Heat'] = {
       if ((m !== null && m <= 0) || (C !== null && C <= 0)) { showErr('qout', 'Mass and specific heat must be greater than zero.'); return; }
       if ((q === 0 && dT === null) || (dT === 0 && q !== null)) { showErr('qout', 'With q or ΔT equal to zero there is nothing to solve.'); return; }
       let r, st;
-      if (q === null) { r = m * C * dT; st = 'q = mCΔT = ' + m + ' × ' + C + ' × ' + dT + ' = <b>' + fmt(r, 3) + ' J</b>'; r = fmt(r, 3) + ' J'; }
-      else if (m === null) { r = q / (C * dT); st = 'm = q / (CΔT) = ' + q + ' / (' + C + ' × ' + dT + ') = <b>' + fmt(r, 3) + ' g</b>'; r = fmt(r, 3) + ' g'; }
-      else if (C === null) { r = q / (m * dT); st = 'C = q / (mΔT) = ' + q + ' / (' + m + ' × ' + dT + ') = <b>' + fmt(r, 3) + ' J/g·K</b>'; r = fmt(r, 3) + ' J/g·K'; }
-      else { r = q / (m * C); st = 'ΔT = q / (mC) = ' + q + ' / (' + m + ' × ' + C + ') = <b>' + fmt(r, 3) + ' K</b>'; r = fmt(r, 3) + ' K (same as °C)'; }
+      if (q === null) { r = m * C * dT; st = 'q = mcΔT = ' + m + ' × ' + C + ' × ' + dT + ' = <b>' + fmt(r, 3) + ' J</b>'; r = fmt(r, 3) + ' J'; }
+      else if (m === null) { r = q / (C * dT); st = 'm = q / (cΔT) = ' + q + ' / (' + C + ' × ' + dT + ') = <b>' + fmt(r, 3) + ' g</b>'; r = fmt(r, 3) + ' g'; }
+      else if (C === null) { r = q / (m * dT); st = 'c = q / (mΔT) = ' + q + ' / (' + m + ' × ' + dT + ') = <b>' + fmt(r, 3) + ' J/g·K</b>'; r = fmt(r, 3) + ' J/g·K'; }
+      else { r = q / (m * C); st = 'ΔT = q / (mc) = ' + q + ' / (' + m + ' × ' + C + ') = <b>' + fmt(r, 3) + ' K</b>'; r = fmt(r, 3) + ' K (same as °C)'; }
       if ((q === null || C === null || m === null) && typeof r === 'string' && /^-/.test(r) && m === null) { showErr('qout', 'That gives a negative mass. Check the signs of q and ΔT (they must match).'); return; }
       $('qout').innerHTML = '<div class="rb"><div class="big">' + r + '</div></div><div class="steps"><div class="st">Steps</div>' + st + '</div>';
     }

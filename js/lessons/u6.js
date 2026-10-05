@@ -18,8 +18,8 @@ LESSONS.u6 = {
       <h2>The mole</h2>
       <p>Atoms are far too small to count one by one, so chemists count them in groups. A <b>mole</b> (mol) is <b>6.02 &times; 10<sup>23</sup></b> particles. This number is called <b>Avogadro's number</b>.</p>
       <p>A dozen eggs is 12 eggs; a mole of water is 6.02 &times; 10<sup>23</sup> molecules of water.</p>
-      <h3>Molar mass (gram-formula mass)</h3>
-      <p>The <b>molar mass</b> is the mass of one mole of a substance, in grams per mole (g/mol). Your Reference Tables call it the <b>gram-formula mass</b>. Add up the atomic masses of every atom in the formula.</p>
+      <h3>Molar mass</h3>
+      <p>The <b>molar mass</b> is the mass of one mole of a substance, in grams per mole (g/mol). Reference Table 6 puts it this way: <b>1 mole = molar mass (g) = 6.02 &times; 10<sup>23</sup> particles = 22.4 L</b>. To find a molar mass, add up the average atomic masses (from the periodic table) of every atom in the formula.</p>
       <div class="steps"><div class="st">Example: Ca(OH)<sub>2</sub></div>
         Ca: 1 &times; 40.08 = 40.08<br>O: 2 &times; 16.00 = 32.00<br>H: 2 &times; 1.008 = 2.016<br><b>Molar mass = 74.10 g/mol</b></div>
       <div class="tip">The subscript after a parenthesis multiplies <b>everything</b> inside. In Ca(OH)<sub>2</sub> there are 2 O and 2 H.</div>
@@ -28,12 +28,12 @@ LESSONS.u6 = {
     { t: 'Mole conversions', h: `
       <h2>Converting between grams, moles and particles</h2>
       <figure>${FIG6.map}</figure>
-      <div class="key">moles = given mass &divide; molar mass &nbsp;&nbsp;(the "mole calculations" formula on your Reference Tables)</div>
+      <div class="key">moles = given mass &divide; molar mass</div>
       <div class="steps"><div class="st">Example 1: grams to moles</div>How many moles are in 36.0 g of H<sub>2</sub>O (molar mass 18.0 g/mol)?<br>36.0 g &divide; 18.0 g/mol = <b>2.00 mol</b></div>
       <div class="steps"><div class="st">Example 2: moles to grams</div>What is the mass of 0.500 mol of NaCl (58.4 g/mol)?<br>0.500 mol &times; 58.4 g/mol = <b>29.2 g</b></div>
       <div class="steps"><div class="st">Example 3: moles to particles</div>How many molecules are in 2.00 mol of CO<sub>2</sub>?<br>2.00 &times; 6.02 &times; 10<sup>23</sup> = <b>1.20 &times; 10<sup>24</sup> molecules</b></div>
       <h3>Gas volume at STP</h3>
-      <p>At STP (273 K and 101.3 kPa), one mole of any ideal gas takes up <b>22.4 L</b>, and real gases come very close. So 44.8 L of O<sub>2</sub> at STP is 2.00 mol.</p><p class="hint">22.4 L/mol is not on the Reference Tables, so memorize it.</p>
+      <p>At STP (273.15 K and 1 atm), one mole of any ideal gas takes up <b>22.4 L</b>, and real gases come very close. So 44.8 L of O<sub>2</sub> at STP is 2.00 mol.</p><p class="hint">22.4 L is on Reference Table 6.</p>
       <div class="br"><button class="btn bt" onclick="go(0)">Practice conversions</button></div>` },
     { t: 'Percent composition', h: `
       <h2>Percent composition</h2>
@@ -90,7 +90,7 @@ LESSONS.u6 = {
       <div class="br"><button class="btn bt" onclick="go(8)">Try a limiting-reactant problem</button></div>` }
   ],
   quiz: [
-    { q: 'What is the gram-formula mass of CO<sub>2</sub>?', o: ['28.0 g/mol', '32.0 g/mol', '44.0 g/mol', '56.0 g/mol'], a: 2, x: 'C (12.0) + 2 O (2 &times; 16.0 = 32.0) = 44.0 g/mol.' },
+    { q: 'What is the molar mass of CO<sub>2</sub>?', o: ['28.0 g/mol', '32.0 g/mol', '44.0 g/mol', '56.0 g/mol'], a: 2, x: 'C (12.0) + 2 O (2 &times; 16.0 = 32.0) = 44.0 g/mol.' },
     { q: 'How many moles are in 80.0 g of NaOH (40.0 g/mol)?', o: ['0.500 mol', '2.00 mol', '40.0 mol', '3200 mol'], a: 1, x: 'moles = mass &divide; molar mass = 80.0 &divide; 40.0 = 2.00 mol.' },
     { q: 'One mole of any substance contains:', o: ['6.02 &times; 10<sup>23</sup> particles', '22.4 particles', '1 gram', '12 particles'], a: 0, x: 'Avogadro\'s number: 6.02 &times; 10<sup>23</sup> particles per mole.' },
     { q: 'What volume does 0.500 mol of a gas occupy at STP?', o: ['5.60 L', '11.2 L', '22.4 L', '44.8 L'], a: 1, x: '0.500 mol &times; 22.4 L/mol = 11.2 L.' },
