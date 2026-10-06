@@ -1,7 +1,7 @@
 /* Catalyst service worker.
    RELEASE RULE: bump CACHE together with VERSION in js/app.js on every release, and list every
    file in ASSETS. Changing this file is what tells installed copies an update exists. */
-const CACHE = 'catalyst-v0.3.0';
+const CACHE = 'catalyst-v0.3.1';
 const ASSETS = ['./', './index.html', './manifest.json', './icon.svg', './icon-192.png', './icon-512.png',
   './icon-maskable-512.png', './elements.js', './js/chem.js', './js/app.js', './js/ptable.js', './js/calcs.js',
   './js/calcs2.js', './js/study.js', './js/regents.js', './js/lessons/u1.js', './js/lessons/u2.js', './js/lessons/u3.js',

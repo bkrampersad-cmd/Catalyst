@@ -1,11 +1,14 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.3.0';
-const BUILD_DATE = 'October 4, 2026';
+const VERSION = '0.3.1';
+const BUILD_DATE = 'October 6, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.3.1', d: 'October 6, 2026', notes: [
+    'Each unit now links to the matching chapters in the class reference book (Addison-Wesley Chemistry): gray "Ch." tags on the unit list and a "Read more in your textbook" line at the top of each unit.'
+  ] },
   { v: '0.3.0', d: 'October 4, 2026', notes: [
     'Aligned to the new Regents course, Physical Science: Chemistry, and its 2025 Reference Tables.',
     'Temperatures now use K = \u00B0C + 273.15 and STP = 273.15 K and 1 atm, as on the 2025 tables. Calculators, lessons and quizzes updated.',
