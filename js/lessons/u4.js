@@ -1,6 +1,22 @@
 /* Catalyst - Unit 4: The Periodic Table. */
 'use strict';
 const FIG4 = {
+  massPairs: (function () {
+    const pairs = [['18', 'Ar', '39.95', '19', 'K', '39.10'], ['27', 'Co', '58.93', '28', 'Ni', '58.69'], ['52', 'Te', '127.60', '53', 'I', '126.90']];
+    let s = '';
+    pairs.forEach((p, i) => {
+      const x = 14 + i * 205;
+      const tile = (tx, z, sym, m, hi) => '<rect x="' + tx + '" y="22" width="68" height="74" rx="8" fill="' + (hi ? '#FFE0B2' : '#E6E0F8') + '" stroke="' + (hi ? '#E07A5F' : '#9C8FD0') + '" stroke-width="2"/>' +
+        '<text class="sv-s" x="' + (tx + 8) + '" y="38" style="text-anchor:start">' + z + '</text>' +
+        '<text class="sv-a" x="' + (tx + 34) + '" y="58">' + sym + '</text>' +
+        '<text class="sv-s" x="' + (tx + 34) + '" y="88" style="' + (hi ? 'fill:#B23C17;font-weight:700' : '') + '">' + m + '</text>';
+      s += tile(x, p[0], p[1], p[2], true) + tile(x + 92, p[3], p[4], p[5], false);
+      s += SV.arrow(x + 70, 59, x + 90, 59, '#9C8FD0');
+      s += SV.t(x + 80, 116, 'heavier one comes first', 'sv-s');
+    });
+    s += SV.t(310, 142, 'The orange element has fewer protons but more mass, so atomic number, not mass, sets the order.', 'sv-s');
+    return SV.wrap(620, 152, 'Three pairs where the element with the lower atomic number has the higher atomic mass', s);
+  })(),
   map: (function () {
     // simplified 18-column map: metals / metalloids staircase / nonmetals / noble gases
     const metalloids = [[2, 13], [3, 14], [4, 14], [4, 15], [5, 15], [5, 16]]; // [row, group]: B Si Ge As Sb Te
@@ -49,6 +65,23 @@ LESSONS.u4 = {
         <tr><td>1</td><td>Alkali metals</td><td>1</td></tr><tr><td>2</td><td>Alkaline earth metals</td><td>2</td></tr>
         <tr><td>3&ndash;12</td><td>Transition metals</td><td>varies</td></tr><tr><td>17</td><td>Halogens</td><td>7</td></tr><tr><td>18</td><td>Noble gases</td><td>8 (He has 2)</td></tr></table>
       <div class="br"><button class="btn bt" onclick="goPage('table')">Explore the interactive periodic table</button></div>` },
+    { t: 'Atomic mass across the table', h: `
+      <h2>Does atomic mass get bigger across the table?</h2>
+      <p><b>Usually, yes.</b> Each step to the right adds one proton (the atomic number goes up by 1), and heavier atoms also tend to have more neutrons. So atomic mass generally <b>increases across a period and down a group</b>.</p>
+      <div class="steps"><div class="st">Example: Period 3</div>
+        Na 22.99 &rarr; Mg 24.31 &rarr; Al 26.98 &rarr; Si 28.09 &rarr; P 30.97 &rarr; S 32.07 &rarr; Cl 35.45 &rarr; Ar 39.95<br>Each element is heavier than the one before it.</div>
+      <h3>The exceptions</h3>
+      <p>In a few places the order flips: an element is <b>heavier</b> than the element that comes right after it.</p>
+      <figure>${FIG4.massPairs}</figure>
+      <ul><li><b>Argon (39.95)</b> is heavier than <b>potassium (39.10)</b>.</li>
+        <li><b>Cobalt (58.93)</b> is heavier than <b>nickel (58.69)</b>.</li>
+        <li><b>Tellurium (127.60)</b> is heavier than <b>iodine (126.90)</b>.</li></ul>
+      <h3>Why it happens</h3>
+      <p>The mass on the periodic table is an <b>average of the element's isotopes</b>, weighted by how common each one is (Unit 2). Most argon atoms are argon-40, with 22 neutrons. Most potassium atoms are potassium-39, with only 20 neutrons. So even though potassium has one more proton, an average argon atom weighs more.</p>
+      <h3>Why the table is ordered by atomic number</h3>
+      <p>If you lined the elements up strictly by mass, tellurium and iodine would trade places. Iodine would land in the oxygen family and tellurium with the halogens, even though iodine clearly behaves like a halogen. Mendeleev noticed this and put them in the right groups anyway. Moseley later showed why that works: the table is really ordered by <b>atomic number</b>, the number of protons.</p>
+      <div class="key"><b>Remember:</b> atomic number <i>always</i> goes up by exactly 1 across the table. Atomic mass <i>usually</i> goes up, but not always.</div>
+      <div class="br"><button class="btn bt" onclick="PT.view='m';goPage('table')">See atomic mass in color on the periodic table</button></div>` },
     { t: 'Metals, nonmetals & metalloids', h: `
       <h2>Metals, nonmetals and metalloids</h2>
       <figure>${FIG4.map}<figcaption>The metalloids (green) form a "staircase" that separates the metals from the nonmetals.</figcaption></figure>
@@ -109,6 +142,7 @@ LESSONS.u4 = {
       <p>They have a full valence shell, so they are very stable and rarely react. All are monatomic gases.</p>` }
   ],
   quiz: [
+    { q: 'Argon (atomic number 18) has an atomic mass of 39.95, but potassium (atomic number 19) has an atomic mass of only 39.10. What explains this?', o: ['The periodic table has a mistake', 'Argon\'s most common isotope has more neutrons than potassium\'s most common isotope', 'Argon has more protons than potassium', 'Noble gases are always the heaviest in their period'], a: 1, x: 'Atomic mass is a weighted average of isotopes. Most argon is argon-40 (22 neutrons), while most potassium is potassium-39 (20 neutrons). Potassium still has more protons, which is why it comes after argon.' },
     { q: 'According to Coulomb\'s law (F = q<sub>1</sub>q<sub>2</sub>/d<sup>2</sup>), what happens to the attraction between a nucleus and a valence electron if the distance between them doubles?', o: ['It doubles', 'It is cut in half', 'It becomes one-fourth as strong', 'It stays the same'], a: 2, x: 'The force depends on 1/d<sup>2</sup>. Doubling d gives 1/2<sup>2</sup> = 1/4 of the original force. This is why atoms with more shells hold their valence electrons less tightly.' },
     { q: 'The modern periodic table is arranged in order of increasing:', o: ['atomic mass', 'atomic number', 'number of neutrons', 'density'], a: 1, x: 'Moseley showed that ordering by atomic number (number of protons) fixes the problems with Mendeleev\'s mass-based order.' },
     { q: 'Elements in the same group have similar chemical properties because they have the same number of:', o: ['protons', 'neutrons', 'electron shells', 'valence electrons'], a: 3, x: 'Chemical behavior depends mostly on valence electrons, which match within a group.' },

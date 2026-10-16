@@ -1,11 +1,15 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.3.1';
-const BUILD_DATE = 'October 6, 2026';
+const VERSION = '0.4.0';
+const BUILD_DATE = 'October 15, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.4.0', d: 'October 15, 2026', notes: [
+    'New Search: ask a question in plain words (for example "why is argon heavier than potassium?") and Catalyst lists the lessons, calculators, practice questions and elements that answer it. Opening a result jumps straight to the right part of the lesson. If a topic isn\u2019t covered yet, Search points to the textbook chapter to read. Search is in the menu and on the Home page; press / on a keyboard to open it.',
+    'Unit 4 has a new lesson, "Atomic mass across the table": why atomic mass usually increases, the three exceptions (Ar/K, Co/Ni, Te/I), and why the table is ordered by atomic number. It comes with a diagram and a new practice question.'
+  ] },
   { v: '0.3.1', d: 'October 6, 2026', notes: [
     'Each unit now links to the matching chapters in the class reference book (Addison-Wesley Chemistry): gray "Ch." tags on the unit list and a "Read more in your textbook" line at the top of each unit.'
   ] },
@@ -61,7 +65,7 @@ const RENDER = {}; // page key -> function(arg)
 
 function buildNav() {
   let h = '';
-  ['home', 'table', 'calc', 'study', 'tutor'].forEach(k => {
+  ['home', 'search', 'table', 'calc', 'study', 'tutor'].forEach(k => {
     const p = PAGES[k];
     h += '<button class="nb' + (p.soon ? ' soon' : '') + '" data-p="' + k + '" onclick="goPage(\'' + k + '\')"><span class="ic">' + p.ic + '</span>' + p.t + (p.soon ? '<span class="badge">soon</span>' : '') + '</button>';
     if (k === 'calc') {
@@ -108,6 +112,7 @@ function boot() {
   buildNav();
   window.addEventListener('hashchange', route);
   document.addEventListener('keydown', e => {
+    if (e.key === '/' && !/INPUT|TEXTAREA|SELECT/.test((document.activeElement || {}).tagName || '') && !$('md').classList.contains('open')) { e.preventDefault(); goPage('search'); return; }
     if (!$('md').classList.contains('open')) return;
     if (e.key === 'Escape') closeEl();
     if (e.key === 'ArrowRight') stepEl(1);
@@ -122,6 +127,7 @@ RENDER.home = function () {
   $('pg').innerHTML =
     '<div class="hero"><img src="icon.svg" alt=""><div><h1>Catalyst</h1>' +
     '<p>Your chemistry study companion: look up any element, check your math step by step, and review each unit in the same order as class.</p></div></div>' +
+    '<form class="sbar" style="margin-bottom:16px" onsubmit="event.preventDefault();doSearch(this.q.value)"><input name="q" type="search" placeholder="Ask a question, e.g. why is argon heavier than potassium?" autocomplete="off" enterkeyhint="search"><button class="btn bc" type="submit">Search</button></form>' +
     '<div class="grid">' +
     tile('table', '🧪', 'Periodic Table', 'Tap any element to see its electron configuration, Bohr diagram, and properties. Switch to trend views for electronegativity and ionization energy.') +
     tile('calc', '🧮', 'Calculators', 'Molar mass, balancing equations, gas laws, molarity, pH, and sig figs. Every answer shows the steps.') +
