@@ -4,7 +4,7 @@
 
 ![Version](https://img.shields.io/badge/version-0.5.1-5B3FD0) ![PWA](https://img.shields.io/badge/PWA-offline%20ready-0FA89B) ![No ads](https://img.shields.io/badge/ads-none-22145A)
 
-**Live at:** https://catalyst.beeransapps.com *(not yet deployed)*
+**Live at:** https://catalyst.beeransapps.com 
 
 ## Features
 
