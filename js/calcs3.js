@@ -17,16 +17,16 @@ const SUBD = d => String(d).replace(/[0-9]/g, c => '₀₁₂₃₄₅₆₇₈�
 
 /* ============ 10. Bond Polarity ============ */
 CALCS['Bond Polarity'] = {
-  sub: 'Pick the two atoms in a bond. Catalyst finds the difference in electronegativity (ΔEN) and tells you if the bond is nonpolar covalent, polar covalent or ionic, using your class\'s ranges.',
+  sub: 'Pick the two atoms in a bond. Catalyst finds the difference in electronegativity (ΔEN) and tells you if the bond is nonpolar covalent, polar covalent or ionic, using your teacher\'s ranges.',
   html: '<div class="card"><div class="ch">The bond</div><div class="cb">' +
     '<div class="t2"><div class="fr"><label for="bp1">Atom 1</label><input id="bp1" placeholder="H" autocomplete="off" autocapitalize="words"></div>' +
     '<div class="fr"><label for="bp2">Atom 2</label><input id="bp2" placeholder="Cl" autocomplete="off" autocapitalize="words"></div></div>' +
     '<div class="hint">Type a symbol or a name, like O or oxygen.</div>' +
     '<div class="br"><button class="btn bc" id="bpgo">Find ΔEN</button><button class="btn bs" id="bpex1">H–Cl</button><button class="btn bs" id="bpex2">Na–Cl</button><button class="btn bs" id="bpex3">C–H</button><button class="btn bs" id="bpex4">H–F</button></div>' +
     '<div id="bpout"></div></div></div>' +
-    '<div class="card"><div class="ch">Your class\'s ranges</div><div class="cb"><table class="tbl"><tr><th>ΔEN</th><th>Bond type</th><th>Electrons are…</th></tr>' +
-    '<tr><td>0.0 – 0.3</td><td>Nonpolar covalent</td><td>shared equally</td></tr><tr><td>0.4 – 1.7</td><td>Polar covalent</td><td>shared unequally (δ+ and δ−)</td></tr>' +
-    '<tr><td>more than 1.7</td><td>Ionic</td><td>transferred (full + and − charges)</td></tr></table>' +
+    '<div class="card"><div class="ch">Your teacher\'s ranges</div><div class="cb"><table class="tbl"><tr><th>ΔEN</th><th>Bond type</th><th>Electrons are…</th></tr>' +
+    '<tr><td>less than 0.4</td><td>Nonpolar covalent</td><td>shared equally</td></tr><tr><td>0.4 – 1.6</td><td>Polar covalent</td><td>shared unequally (δ+ and δ−)</td></tr>' +
+    '<tr><td>1.7 or greater</td><td>Ionic</td><td>transferred (full + and − charges)</td></tr></table>' +
     '<div class="hint">Electronegativity values are not on the 2025 Reference Tables. A test question gives you the values; use the ones it gives. Catalyst uses the 2-decimal Pauling values from your class chart (H 2.20, Cl 3.16). Older charts round them (H 2.1, Cl 3.0), so ΔEN can come out slightly different, but the bond type is almost always the same.</div></div></div>',
   init(pre) {
     const run = () => {
@@ -35,11 +35,11 @@ CALCS['Bond Polarity'] = {
       if (a.en == null || b.en == null) { showErr('bpout', (a.en == null ? a.n : b.n) + ' has no electronegativity value. Noble gases almost never form bonds.'); return; }
       const hi = a.en >= b.en ? a : b, lo = hi === a ? b : a, d = Math.round((hi.en - lo.en) * 100) / 100;
       let type, why = '';
-      if (d < 0.4) { type = 'Nonpolar covalent'; if (d > 0.3) why = 'ΔEN ' + d.toFixed(2) + ' falls between your class\'s ranges (0.3 and 0.4). Bonds like C–H are treated as nonpolar.'; }
-      else if (d <= 1.7) type = 'Polar covalent';
+      if (d < 0.4) type = 'Nonpolar covalent';
+      else if (d < 1.7) type = 'Polar covalent';
       else type = 'Ionic';
       const bothNon = !isMetal(a) && !isMetal(b), metalNon = (isMetal(a) && isNonmetal(b)) || (isMetal(b) && isNonmetal(a));
-      if (type === 'Ionic' && bothNon) { type = 'Very polar covalent'; why = 'ΔEN is above 1.7, but both atoms are nonmetals, and two nonmetals always <b>share</b> electrons. H–F is the classic example: a very polar covalent bond, not ionic.'; }
+      if (type === 'Ionic' && bothNon) { type = 'Very polar covalent'; why = 'ΔEN is 1.7 or more, but both atoms are nonmetals, and two nonmetals always <b>share</b> electrons. H–F is the classic example: a very polar covalent bond, not ionic.'; }
       if (type !== 'Ionic' && metalNon) why = 'By ΔEN alone this is ' + type.toLowerCase() + ', but a metal bonded to a nonmetal is a <b>salt</b>, and your class treats salts as <b>ionic</b>.';
       if (a.z === b.z) why = 'Two atoms of the same element pull equally, so ΔEN is 0 and the electrons are shared equally.';
       const polar = d >= 0.4;
@@ -50,7 +50,7 @@ CALCS['Bond Polarity'] = {
         (why ? '<div class="hint" style="margin-top:8px">' + why + '</div>' : '') +
         '<figure style="text-align:center;margin:10px 0">' + fig + '</figure>' +
         '<div class="steps"><div class="st">Steps</div>1. Look up each electronegativity: ' + a.n + ' = ' + a.en.toFixed(2) + ', ' + b.n + ' = ' + b.en.toFixed(2) + '.<br>' +
-        '2. Bigger − smaller: ' + hi.en.toFixed(2) + ' − ' + lo.en.toFixed(2) + ' = <b>' + d.toFixed(2) + '</b>.<br>3. Compare with the ranges: ' + (d < 0.4 ? '0.0–0.3 (nonpolar)' : d <= 1.7 ? '0.4–1.7 (polar)' : 'more than 1.7 (ionic)') + '.' +
+        '2. Bigger − smaller: ' + hi.en.toFixed(2) + ' − ' + lo.en.toFixed(2) + ' = <b>' + d.toFixed(2) + '</b>.<br>3. Compare with the ranges: ' + (d < 0.4 ? 'less than 0.4 (nonpolar)' : d < 1.7 ? '0.4–1.6 (polar)' : '1.7 or greater (ionic)') + '.' +
         (polar && type !== 'Ionic' ? '<br>4. ' + hi.n + ' pulls the shared electrons harder, so it gets δ− and ' + lo.n.toLowerCase() + ' gets δ+. The dipole arrow points toward ' + hi.s + ', with the cross at the δ+ end.' : '') + '</div>';
     };
     const ex = (x, y) => () => { $('bp1').value = x; $('bp2').value = y; run(); };

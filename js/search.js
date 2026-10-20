@@ -171,7 +171,7 @@ function showResults(q) {
     h += '<a class="sr" href="#table/' + e.s + '"><div class="srk">Element</div><div class="srt">' + e.n + ' (' + e.s + ')</div><div class="srs">Atomic number ' + e.z + ' · atomic mass ' + e.m + ' · ' + e.sh + '. Open its card on the Periodic Table.</div></a>';
   }
   r.results.forEach(({ d }) => {
-    const where = d.unit ? (d.unit.id === 'mid' ? 'Midterm Review' : 'Unit ' + (UNITS.filter(u => !u.s2 && u.id !== 'mid').concat(UNITS.filter(u => u.s2)).indexOf(d.unit) + 1) + ': ' + d.unit.t) : '';
+    const where = d.unit ? (d.unit.id === 'mid' ? 'Midterm Review' : d.unit.lab ? d.unit.t : 'Unit ' + (UNITS.filter(u => !u.s2 && !u.lab && u.id !== 'mid').concat(UNITS.filter(u => u.s2)).indexOf(d.unit) + 1) + ': ' + d.unit.t) : '';
     const kind = { lesson: 'Lesson', quiz: 'Practice quiz', calc: 'Calculator', page: 'Page', unit: 'Coming soon' }[d.kind];
     const title = d.kind === 'lesson' ? d.title + (d.heading && d.heading !== d.title ? ' › ' + d.heading : '') : d.title;
     const book = d.unit && d.unit.book && d.unit.book.length ? '<div class="srb">📖 Textbook: ' + d.unit.book.map(c => 'Ch. ' + c).join(', ') + '</div>' : '';

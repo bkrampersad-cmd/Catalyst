@@ -49,12 +49,12 @@ CLUSTERS.push({
       type: 'row', pe: 'HS-PS1-1', tp: ['en', 'pol'],
       ctx: '<p>The molecules in Figure 1 are held together by covalent bonds between nonmetal atoms. Figure 2 gives electronegativity values from the class chart.</p>' +
         '<div style="text-align:center;margin-top:8px"><b>Figure 2: Electronegativity Values</b></div><table class="tbl" style="background:#fff"><tr><th>Element</th><th>H</th><th>C</th><th>N</th><th>O</th></tr><tr><td>Electronegativity</td><td class="n">2.20</td><td class="n">2.55</td><td class="n">3.04</td><td class="n">3.44</td></tr></table>' +
-        '<p class="hint">Class ranges for ΔEN: 0.0–0.3 nonpolar covalent, 0.4–1.7 polar covalent, greater than 1.7 ionic.</p>',
+        '<p class="hint">Class ranges for ΔEN: less than 0.4 nonpolar covalent, 0.4–1.6 polar covalent, 1.7 or greater ionic.</p>',
       q: 'Using Figure 2, which row correctly gives the electronegativity difference (ΔEN) and the bond type for an O–H bond in water and an N–H bond in ammonia?',
       cols: ['Row', 'O–H bond in H₂O', 'N–H bond in NH₃'],
       rows: [['(1)', '5.64, polar covalent', '5.24, polar covalent'], ['(2)', '1.24, polar covalent', '0.84, polar covalent'], ['(3)', '1.24, ionic', '0.84, polar covalent'], ['(4)', '1.24, polar covalent', '0.84, nonpolar covalent']],
       a: 1,
-      x: 'ΔEN = <b>bigger − smaller</b>. O–H: 3.44 − 2.20 = <b>1.24</b>. N–H: 3.04 − 2.20 = <b>0.84</b>. Both fall in the 0.4–1.7 range, so both are <b>polar covalent</b>: the electrons are shared unequally, pulled toward O or N (δ−), leaving H δ+. Row (1) adds the values instead of subtracting. Row (3) calls O–H ionic, but two nonmetals always <b>share</b> electrons, and 1.24 is below 1.7 anyway. Row (4) puts 0.84 in the wrong range.'
+      x: 'ΔEN = <b>bigger − smaller</b>. O–H: 3.44 − 2.20 = <b>1.24</b>. N–H: 3.04 − 2.20 = <b>0.84</b>. Both fall in the 0.4–1.6 range, so both are <b>polar covalent</b>: the electrons are shared unequally, pulled toward O or N (δ−), leaving H δ+. Row (1) adds the values instead of subtracting. Row (3) calls O–H ionic, but two nonmetals always <b>share</b> electrons, and 1.24 is below 1.7 anyway. Row (4) puts 0.84 in the wrong range.'
     },
     {
       type: 'mc', pe: 'HS-PS1-3', tp: ['vsepr', 'snap'],
@@ -86,7 +86,7 @@ CLUSTERS.push({
     {
       type: 'short', pe: 'HS-PS1-3', tp: ['en', 'pol', 'snap'],
       q: 'Using Figure 2, calculate the electronegativity difference (ΔEN) for a C–O bond in carbon dioxide and classify the bond. Then explain why CO₂ is a <b>nonpolar</b> molecule even though its bonds are polar.',
-      model: '<p>ΔEN = 3.44 − 2.55 = <b>0.89</b>, which is in the 0.4–1.7 range, so each C=O bond is <b>polar covalent</b> (O is δ−, C is δ+).</p>' +
+      model: '<p>ΔEN = 3.44 − 2.55 = <b>0.89</b>, which is in the 0.4–1.6 range, so each C=O bond is <b>polar covalent</b> (O is δ−, C is δ+).</p>' +
         '<p>CO₂ is <b>linear</b> and <b>symmetrical</b>: it passes the fold test. The two polar bonds are equal and point in <b>opposite directions</b>, so their pulls cancel and the charge is spread evenly. By SNAP, Symmetrical = Nonpolar. Bond polarity is not the same as molecular polarity.</p>',
       rubric: ['ΔEN = 0.89 (3.44 − 2.55)', 'Classifies the C–O bond as polar covalent', 'States CO₂ is linear / symmetrical', 'Explains the two bond polarities are equal and opposite, so they cancel (SNAP)']
     }

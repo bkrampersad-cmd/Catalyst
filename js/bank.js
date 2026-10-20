@@ -91,7 +91,7 @@ const BANK = [
     q: `Which pair of elements is most likely to form an <b>ionic</b> bond?`,
     o: [`carbon and oxygen`, `hydrogen and fluorine`, `potassium and bromine`, `nitrogen and hydrogen`],
     a: 2,
-    x: `Ionic bonds form between a <b>metal and a nonmetal</b>: potassium gives an electron to bromine, making K⁺ and Br⁻. Hydrogen and fluorine is the trap. Their ΔEN is 1.78 (just over 1.7), but H and F are <b>two nonmetals</b>, which always share electrons, so H–F is a very polar <b>covalent</b> bond, not ionic. C–O and N–H are also nonmetal pairs.` },
+    x: `Ionic bonds form between a <b>metal and a nonmetal</b>: potassium gives an electron to bromine, making K⁺ and Br⁻. Hydrogen and fluorine is the trap. Their ΔEN is 1.78 (over 1.7), but H and F are <b>two nonmetals</b>, which always share electrons, so H–F is a very polar <b>covalent</b> bond, not ionic. C–O and N–H are also nonmetal pairs.` },
 
   { id: 'b14', tp: ['ionic'],
     ctx: `<h3>Melting Points of Some Salts</h3><table class="tbl"><tr><th>Salt</th><th>Ions</th><th>Melting point (°C)</th></tr><tr><td>KCl</td><td>K⁺, Cl⁻</td><td class="n">771</td></tr><tr><td>NaCl</td><td>Na⁺, Cl⁻</td><td class="n">801</td></tr><tr><td>CaO</td><td>Ca²⁺, O²⁻</td><td class="n">2613</td></tr><tr><td>MgO</td><td>Mg²⁺, O²⁻</td><td class="n">2825</td></tr></table>`,

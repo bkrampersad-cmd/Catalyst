@@ -99,7 +99,7 @@ LESSONS.u1 = {
         '<h3>Accuracy vs. precision</h3><figure>' + FIG1.target + '</figure>' +
         '<ul><li><b>Accuracy:</b> how close a measurement is to the true (accepted) value.</li><li><b>Precision:</b> how close repeated measurements are to <i>each other</i>.</li></ul>' },
       { t: 'Significant figures', h:
-        '<h2>Significant figures</h2><p>Significant figures (sig figs) are the digits in a measurement that you actually know, plus one estimated digit. They show how precise a measurement is.</p>' +
+        '<h2>Significant figures</h2><div class="tip"><b>In Mrs. Israel\'s class:</b> you don\'t need the sig fig rules. When you round an answer, <b>three significant figures</b> is always safe.</div><p>Significant figures (sig figs) are the digits in a measurement that you actually know, plus one estimated digit. They show how precise a measurement is.</p>' +
         '<h3>Counting rules</h3><ol><li>Non-zero digits are <b>always</b> significant. (<b>347</b> has 3)</li><li>Zeros <b>between</b> non-zero digits are significant. (<b>4005</b> has 4)</li>' +
         '<li><b>Leading</b> zeros are <b>never</b> significant. (0.00<b>52</b> has 2)</li><li><b>Trailing</b> zeros are significant only if there is a decimal point. (<b>25.0</b> has 3; <b>2500</b> has 2; <b>2500.</b> has 4)</li></ol>' +
         '<div class="tip"><b>Shortcut (Atlantic-Pacific rule):</b> If a decimal point is <b>P</b>resent, start counting from the <b>P</b>acific (left) side at the first non-zero digit. If it is <b>A</b>bsent, start from the <b>A</b>tlantic (right) side at the first non-zero digit.</div>' +

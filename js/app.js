@@ -1,11 +1,17 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.6.0';
+const VERSION = '0.7.0';
 const BUILD_DATE = 'October 20, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.7.0', d: 'October 20, 2026', notes: [
+    'Matched to Mrs. Israel\'s answers. Bond polarity uses her ranges: less than 0.4 is nonpolar, 0.4–1.6 is polar, and 1.7 or greater is ionic. Metalloids are B, Si, Ge, As, Sb and Te. Atomic masses are rounded to the tenths place in the calculators and examples. The sig figs lesson notes that three significant figures is always safe.',
+    'The Study Guide follows the class order for the rest of the first half: Formulas & Equations, then Mathematics of Chemistry (stoichiometry), then the Midterm. The Midterm practice test covers those units. Gas Laws, Matter & Measurement and Atomic Models & Light are waiting on the class calendar.',
+    'New pre-lab review for the Bend and Stretch Investigation: why metals bend, salts shatter and polymers stretch, plus lab skills and a practice quiz.',
+    'Test Prep notes that unit exams use storyline clusters, like the exam-style clusters here.'
+  ] },
   { v: '0.6.0', d: 'October 20, 2026', notes: [
     'Photo Tutor is live. Take a photo of a problem, choose one, paste a screenshot, or type it in. Catalyst reads it on your device and gives a hint first. Then it points to the lesson, opens the right calculator with the problem\'s numbers, and suggests similar practice questions. The camera runs inside the app, so pictures are never saved to the photo library, and nothing is uploaded. An optional "Ask Google Lens" button can share the photo with Google when you\'re really stuck.',
     'Test Prep is now organized by test: Unit Test 1, Midterm, Final / Regents, or a custom set of units. The checklist, practice tests, drills, misses and clusters all follow the test you pick.',

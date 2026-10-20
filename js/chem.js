@@ -74,6 +74,7 @@
   /* Molar mass with per-element breakdown. Masses rounded per NYS practice option. */
   function molarMass(formula, opts) {
     opts = opts || {};
+    if (opts.round === undefined && api.defaultRound !== undefined) opts = Object.assign({}, opts, { round: api.defaultRound });
     const counts = parseFormula(formula);
     const rows = [];
     let total = 0;

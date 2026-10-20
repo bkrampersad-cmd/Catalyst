@@ -8,10 +8,11 @@
 const CLUSTERS = [];
 PAGES.prep = { t: 'Test Prep', ic: '🎯' };
 PAGES.clusters = { t: 'Regents Clusters', nav: 'prep' };
-/* units: an array of unit ids, 's1' (all first-semester units), 'all', or 'custom' (chosen by the student) */
+/* units: an array of unit ids, 'all', or 'custom' (chosen by the student). Midterm = the first-half units Mrs. Israel
+   listed (bonding, atomic structure, periodic table, formulas & equations, stoichiometry). Add Unit Test 2… as the class goes. */
 const TESTS = [
   { id: 't1', name: 'Unit Test 1', sub: 'Atoms, Ions & Bonding', units: ['c1', 'c2', 'c3'] },
-  { id: 'mid', name: 'Midterm', sub: 'Every first-semester unit', units: 's1' },
+  { id: 'mid', name: 'Midterm', sub: 'Every first-semester unit', units: ['c1', 'c2', 'c3', 'u3', 'u6'] },
   { id: 'final', name: 'Final / Regents', sub: 'Every unit in the course', units: 'all' },
   { id: 'custom', name: 'Custom', sub: 'Pick the units yourself', units: 'custom' }
 ];
@@ -28,7 +29,7 @@ const TOPIC_NAME = Object.fromEntries(TOPICS);
 
 /* ---------- which test, which units ---------- */
 function curTest() { return TESTS.find(t => t.id === Store.get('ptest', 't1')) || TESTS[0]; }
-function unitNum(u) { const list = UNITS.filter(x => !x.s2 && x.id !== 'mid').concat(UNITS.filter(x => x.s2)); return u.id === 'mid' ? '★' : list.indexOf(u) + 1; }
+function unitNum(u) { const list = UNITS.filter(x => !x.s2 && !x.lab && x.id !== 'mid').concat(UNITS.filter(x => x.s2)); return u.id === 'mid' ? '★' : u.lab ? 'L' : list.indexOf(u) + 1; }
 function testUnits(t) {
   t = t || curTest();
   let ids = t.units === 's1' ? UNITS.filter(u => !u.s2).map(u => u.id) : t.units === 'all' ? UNITS.map(u => u.id) : t.units === 'custom' ? Store.get('pcustom', ['c1', 'c2', 'c3']) : t.units;
@@ -109,7 +110,7 @@ RENDER.prep = function (arg) {
     (units.length ? '<div class="grid" style="margin-bottom:14px">' +
     ptile('test', '🔀', 'Practice test', nTest + ' questions pulled at random from ' + pool.length + ', with the answer choices shuffled. A new mix every time.' + (best !== null ? ' Best: <b>' + best + '/' + nTest + '</b>.' : '')) +
     ptile('miss', '🔁', 'Review my misses', nMiss ? '<b>' + nMiss + '</b> question' + (nMiss > 1 ? 's' : '') + ' you got wrong on this test\'s units. Get one right and it leaves the list.' : 'Nothing here yet. Questions you miss anywhere in Catalyst land here.') +
-    (cls.length ? '<button class="tile" onclick="goPage(\'clusters\')"><div class="ti">📰</div><h3>Regents-style clusters</h3><p>' + cls.length + ' story-based question set' + (cls.length > 1 ? 's' : '') + ' like the new exam, with model answers for the written questions.</p></button>' : '') +
+    (cls.length ? '<button class="tile" onclick="goPage(\'clusters\')"><div class="ti">📰</div><h3>Exam-style clusters</h3><p>Your unit exams use storyline clusters like these. ' + cls.length + ' story-based question set' + (cls.length > 1 ? 's' : '') + ', with model answers for the written questions.</p></button>' : '') +
     (shaky ? ptile('shaky', '🎯', 'Drill my shaky topics', 'Questions only from the ' + shaky + ' topic' + (shaky > 1 ? 's' : '') + ' you marked Shaky.') : '') +
     '</div>' +
     '<div class="card"><div class="ch">Topics on this test <span class="rl" style="text-transform:none;letter-spacing:0">· ' + got + ' of ' + keys.length + ' marked Got it</span></div><div class="cb">' +

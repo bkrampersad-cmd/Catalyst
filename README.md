@@ -2,7 +2,7 @@
 
 **Chemistry, accelerated.** A free, installable study companion for high school chemistry: an interactive color periodic table, step-by-step chemistry calculators, and a study guide that follows the class syllabus. It is built for the new NYS Regents course **Physical Science: Chemistry** (2025 standards and Reference Tables) and works offline once installed.
 
-![Version](https://img.shields.io/badge/version-0.6.0-5B3FD0) ![PWA](https://img.shields.io/badge/PWA-offline%20ready-0FA89B) ![No ads](https://img.shields.io/badge/ads-none-22145A)
+![Version](https://img.shields.io/badge/version-0.7.0-5B3FD0) ![PWA](https://img.shields.io/badge/PWA-offline%20ready-0FA89B) ![No ads](https://img.shields.io/badge/ads-none-22145A)
 
 **Live at:** https://catalyst.beeransapps.com
 

@@ -230,7 +230,7 @@ LESSONS.c2 = {
         ${FIGC2.naK}
         This is why potassium is <b>bigger</b> than sodium: it has more <b>shells</b> (energy levels), not just more electrons. In your K/Na reading, a K<sup>+</sup> ion (1.38 &Aring;) is larger than a Na<sup>+</sup> ion (1.02 &Aring;), and the cell's proteins use that size difference to put each ion on the correct side of the membrane.</div>
       <h3>Metals, nonmetals and metalloids</h3>
-      <figure>${FIG4.map}<figcaption>Metals are on the left, nonmetals on the right, and the metalloids (green) sit on the "staircase" between them: B, Si, Ge, As, Sb, Te. Your notes also list astatine (At), which some tables count as a metalloid; this map colors it with the nonmetals.</figcaption></figure>
+      <figure>${FIG4.map}<figcaption>Metals are on the left, nonmetals on the right, and the metalloids (green) sit on the "staircase" between them: B, Si, Ge, As, Sb, Te. This is the list your teacher uses.</figcaption></figure>
       <div class="c2-sc"><table class="tbl"><tr><th></th><th>Metals</th><th>Nonmetals</th><th>Metalloids</th></tr>
         <tr><td><b>Where</b></td><td>Left of the staircase</td><td>Right of the staircase (plus H)</td><td>On the staircase</td></tr>
         <tr><td><b>Look</b></td><td>Shiny (<b>luster</b>)</td><td>Dull</td><td>Often shiny</td></tr>

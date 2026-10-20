@@ -29,12 +29,13 @@ const UNITS = [
   { id: 'c1', cls: 'Sep 2–16', t: 'Atoms & Water', d: 'Atoms, elements and molecules, why water is special (surface tension, conductivity, solubility), the parts of an atom, isotopes and atomic mass, and ions.', book: [2, 5], pe: ['HS-PS1-1'] },
   { id: 'c2', cls: 'Sep 18–28', t: 'Ions & Salts', d: 'Electrolytes and mobile ions, groups and periods, metals vs. nonmetals, Bohr and Lewis dot diagrams, ionic bonds, and writing and naming salts.', book: [5, 6, 15], pe: ['HS-PS1-1', 'HS-PS1-2', 'HS-PS1-3'] },
   { id: 'c3', cls: 'Oct 1–19', t: 'Bonding & Shapes', d: 'Coulombic attraction and periodic trends, covalent bonds and multiple bonds, polar bonds (ΔEN), SNAP, intermolecular forces and hydrogen bonding, how water dissolves salts, metallic bonding, and VSEPR shapes.', book: [14, 15, 16, 17], pe: ['HS-PS1-1', 'HS-PS1-3', 'HS-PS2-6'] },
-  { id: 'u1', later: true, t: 'Matter & Measurement', d: 'Classifying matter, physical vs. chemical changes, states of matter and heat, metric units, significant figures, density and percent error.', book: [1, 2, 3, 4, 10, 11], pe: ['HS-PS1-3', 'HS-PS3-1'] },
-  { id: 'u2', later: true, t: 'Atomic Models, Electrons & Light', d: 'Models of the atom, electron shells, excited states, spectra and the electromagnetic spectrum (it also reviews particles and isotopes).', book: [5, 13], pe: ['HS-PS1-1', 'HS-PS4-4'] },
   { id: 'u3', later: true, t: 'Formulas & Equations', d: 'More ions (including polyatomic ions), writing and naming compounds, balancing equations (conservation of atoms) and types of reactions.', book: [6, 8], pe: ['HS-PS1-2', 'HS-PS1-7'] },
   { id: 'u6', later: true, t: 'Mathematics of Chemistry', d: 'The mole, molar mass, percent composition, empirical formulas and stoichiometry.', book: [7, 9], pe: ['HS-PS1-7'] },
-  { id: 'u7', later: true, t: 'Gas Laws', d: 'Kinetic molecular theory, pressure, and Boyle\'s, Charles\'s, Gay-Lussac\'s and the combined gas law.', book: [10, 12], pe: ['HS-PS1-9'] },
-  { id: 'mid', later: true, t: 'Midterm Review', d: 'Formula sheet, big ideas, and mixed practice across the first semester, including a storyline question set like the new Regents.', book: [], pe: [] },
+  { id: 'mid', later: true, t: 'Midterm Review', d: 'Formula sheet, big ideas and mixed practice, including a storyline question set like the new Regents. It will be updated to match the class midterm once the class calendar arrives.', book: [], pe: [] },
+  { id: 'u1', tbd: true, t: 'Matter & Measurement', d: 'Classifying matter, physical vs. chemical changes, states of matter and heat, metric units, significant figures, density and percent error.', book: [1, 2, 3, 4, 10, 11], pe: ['HS-PS1-3', 'HS-PS3-1'] },
+  { id: 'u2', tbd: true, t: 'Atomic Models, Electrons & Light', d: 'Models of the atom, electron shells, excited states, spectra and the electromagnetic spectrum (it also reviews particles and isotopes).', book: [5, 13], pe: ['HS-PS1-1', 'HS-PS4-4'] },
+  { id: 'u7', tbd: true, t: 'Gas Laws', d: 'Kinetic molecular theory, pressure, and Boyle\'s, Charles\'s, Gay-Lussac\'s and the combined gas law.', book: [10, 12], pe: ['HS-PS1-9'] },
+  { id: 'lab1', lab: true, t: 'Pre-lab: Bend and Stretch', d: 'Background for the required Investigation on designed materials: why metals bend, salts shatter and polymers stretch, plus the lab skills for good data.', book: [15, 24, 26], pe: ['HS-PS2-6'] },
   { id: 'u8', t: 'Solutions', d: 'Solubility, molarity (n = MV), ppm, and how dissolved particles change a solution\'s properties.', s2: true, book: [17, 18], pe: ['HS-PS1-10'] },
   { id: 'u9', t: 'Reaction Rates & Equilibrium', d: 'Collision theory, factors that change reaction rate, equilibrium and Le Chatelier\'s principle.', s2: true, book: [19], pe: ['HS-PS1-5', 'HS-PS1-6'] },
   { id: 'u10', t: 'Acids & Bases', d: 'Properties of acids and bases, pH, indicators, neutralization and titration.', s2: true, book: [20, 21], pe: ['HS-PS1-11'] },
@@ -144,7 +145,7 @@ function unitProgress(id) {
 
 RENDER.study = function (arg) {
   if (arg) return renderLesson(arg);
-  const now = UNITS.filter(u => u.cls), later = UNITS.filter(u => u.later), second = UNITS.filter(u => u.s2);
+  const now = UNITS.filter(u => u.cls), labs = UNITS.filter(u => u.lab), later = UNITS.filter(u => u.later), tbd = UNITS.filter(u => u.tbd), second = UNITS.filter(u => u.s2);
   const card = (u, i) => {
     const has = !!LESSONS[u.id], p = unitProgress(u.id);
     return '<div class="unit' + (has ? '' : ' locked') + '" onclick="goPage(\'study\',\'' + u.id + '\')"><div class="unum">' + (u.id === 'mid' ? '★' : i) + '</div><div style="flex:1"><h3>' + u.t +
@@ -156,7 +157,9 @@ RENDER.study = function (arg) {
     '<button class="tile" style="width:100%;margin-bottom:10px;display:flex;gap:14px;align-items:center;border-color:var(--tl)" onclick="goPage(\'prep\')"><div class="ti">🎯</div><div><h3 style="margin:0 0 2px">Test Prep for the unit test</h3><p>Your test topic checklist, shuffled practice tests, topic drills, Regents-style clusters, and a review of the questions you missed.</p></div></button>' +
     '<button class="tile" style="width:100%;margin-bottom:6px;display:flex;gap:14px;align-items:center" onclick="goPage(\'regents\')"><div class="ti">🎓</div><div><h3 style="margin:0 0 2px">The new Regents: Physical Science: Chemistry</h3><p>How the exam works, the six topic areas and their weights, the 2025 Reference Tables, and which Catalyst units cover each one.</p></div></button>' +
     grp('In class now: "How should we search for life beyond Earth?"') + now.map(u => card(u, ++n)).join('') +
-    grp('Coming up (from the syllabus; the order will follow class)') + later.map(u => card(u, u.id === 'mid' ? 0 : ++n)).join('') +
+    grp('Labs: pre-lab reviews') + labs.map(u => card(u, 'L')).join('') +
+    grp('Coming up this semester') + later.map(u => card(u, u.id === 'mid' ? 0 : ++n)).join('') +
+    grp('Also in the course (timing to be confirmed with the class calendar)') + tbd.map(u => card(u, ++n)).join('') +
     grp('Second semester (tentative, organized by the remaining Performance Expectations)') + second.map(u => card(u, ++n)).join('');
 };
 

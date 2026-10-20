@@ -16,12 +16,13 @@ LESSONS.u6 = {
   sections: [
     { t: 'The mole', h: `
       <h2>The mole</h2>
+      <div class="tip"><b>Class rule:</b> round atomic masses to the <b>tenths place</b> before you add them (H = 1.0, C = 12.0, O = 16.0, Na = 23.0, Cl = 35.5). Catalyst's calculators do this too.</div>
       <p>Atoms are far too small to count one by one, so chemists count them in groups. A <b>mole</b> (mol) is <b>6.02 &times; 10<sup>23</sup></b> particles. This number is called <b>Avogadro's number</b>.</p>
       <p>A dozen eggs is 12 eggs; a mole of water is 6.02 &times; 10<sup>23</sup> molecules of water.</p>
       <h3>Molar mass</h3>
       <p>The <b>molar mass</b> is the mass of one mole of a substance, in grams per mole (g/mol). Reference Table 6 puts it this way: <b>1 mole = molar mass (g) = 6.02 &times; 10<sup>23</sup> particles = 22.4 L</b>. To find a molar mass, add up the average atomic masses (from the periodic table) of every atom in the formula.</p>
       <div class="steps"><div class="st">Example: Ca(OH)<sub>2</sub></div>
-        Ca: 1 &times; 40.08 = 40.08<br>O: 2 &times; 16.00 = 32.00<br>H: 2 &times; 1.008 = 2.016<br><b>Molar mass = 74.10 g/mol</b></div>
+        Ca: 1 &times; 40.1 = 40.1<br>O: 2 &times; 16.0 = 32.0<br>H: 2 &times; 1.0 = 2.0<br><b>Molar mass = 74.1 g/mol</b></div>
       <div class="tip">The subscript after a parenthesis multiplies <b>everything</b> inside. In Ca(OH)<sub>2</sub> there are 2 O and 2 H.</div>
       <div class="br"><button class="btn bt" onclick="go(0,'Ca(OH)2')">Try it in the Molar Mass calculator</button></div>
       <p class="hint">Your class may round atomic masses (for example O = 16, H = 1). Small differences in the last decimal place are normal.</p>` },
@@ -38,11 +39,11 @@ LESSONS.u6 = {
     { t: 'Percent composition', h: `
       <h2>Percent composition</h2>
       <div class="key">% composition by mass = (mass of part &divide; mass of whole) &times; 100</div>
-      <div class="steps"><div class="st">Example: percent oxygen in H<sub>2</sub>O</div>Mass of O = 16.00; molar mass of H<sub>2</sub>O = 18.02<br>(16.00 &divide; 18.02) &times; 100 = <b>88.8% O</b>, and the rest, 11.2%, is H.</div>
+      <div class="steps"><div class="st">Example: percent oxygen in H<sub>2</sub>O</div>Mass of O = 16.0; molar mass of H<sub>2</sub>O = 18.0<br>(16.0 &divide; 18.0) &times; 100 = <b>88.9% O</b>, and the rest, 11.1%, is H.</div>
       <h3>Hydrates</h3>
       <p>A <b>hydrate</b> is an ionic compound with water molecules built into its crystal, written with a dot: CuSO<sub>4</sub>&middot;5H<sub>2</sub>O. Heating it drives the water off, leaving the <b>anhydrous</b> compound.</p>
       <div class="steps"><div class="st">Example: percent water in CuSO<sub>4</sub>&middot;5H<sub>2</sub>O</div>
-        Molar mass of hydrate = 249.7 g/mol. Mass of water = 5 &times; 18.02 = 90.1 g<br>(90.1 &divide; 249.7) &times; 100 = <b>36.1% water</b></div>
+        Molar mass of hydrate = 63.5 + 32.1 + 4(16.0) + 5(18.0) = 249.6 g/mol. Mass of water = 5 &times; 18.0 = 90.0 g<br>(90.0 &divide; 249.6) &times; 100 = <b>36.1% water</b></div>
       <div class="steps"><div class="st">Lab version</div>A 5.00 g hydrate sample weighs 3.20 g after heating. Water lost = 1.80 g.<br>(1.80 &divide; 5.00) &times; 100 = <b>36.0% water</b></div>
       <div class="br"><button class="btn bt" onclick="go(0,'CuSO4*5H2O')">See the % breakdown of CuSO<sub>4</sub>&middot;5H<sub>2</sub>O</button></div>` },
     { t: 'Empirical & molecular formulas', h: `
@@ -56,7 +57,7 @@ LESSONS.u6 = {
         <li>Divide every mole value by the smallest one.</li>
         <li>If you get a ratio like 1.5 or 1.33, multiply everything by 2 or 3 to make whole numbers.</li></ol>
       <div class="steps"><div class="st">Example</div>A compound is 40.0% C, 6.7% H and 53.3% O.<br>
-        C: 40.0 &divide; 12.01 = 3.33 mol &nbsp;&middot;&nbsp; H: 6.7 &divide; 1.008 = 6.6 mol &nbsp;&middot;&nbsp; O: 53.3 &divide; 16.00 = 3.33 mol<br>
+        C: 40.0 &divide; 12.0 = 3.33 mol &nbsp;&middot;&nbsp; H: 6.7 &divide; 1.0 = 6.7 mol &nbsp;&middot;&nbsp; O: 53.3 &divide; 16.0 = 3.33 mol<br>
         Divide by 3.33: C 1, H 2, O 1, giving <b>CH<sub>2</sub>O</b></div>
       <h3>From empirical to molecular</h3>
       <div class="key">multiplier = molar mass of compound &divide; empirical formula mass</div>

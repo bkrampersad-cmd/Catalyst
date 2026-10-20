@@ -4,6 +4,9 @@
 const NAMES = ['Molar Mass & Moles', 'Equation Balancer', 'Gas Laws', 'Solutions', 'pH & pOH', 'Measurement',
   'Average Atomic Mass', 'Empirical Formula', 'Stoichiometry', 'Heat'];  // append only: lessons call go(n) by index
 const CALCS = {};
+/* Mrs. Israel's rule: atomic masses are rounded to the tenths place (O = 16.0, H = 1.0, Cl = 35.5). Calculators that
+   need a molar mass (solutions, stoichiometry, empirical formula) follow it; the Molar Mass calculator has a selector. */
+Chem.defaultRound = 1;
 
 function go(idx, prefill) { goPage('calc', String(idx) + (prefill ? ':' + prefill : '')); }
 
@@ -34,7 +37,7 @@ CALCS['Molar Mass & Moles'] = {
   sub: 'Type a formula to get its molar mass, percent composition, and gram ↔ mole ↔ particle conversions.',
   html: '<div class="card"><div class="ch">Formula</div><div class="cb">' +
     '<div class="fr"><label for="mmf">Chemical formula</label><input id="mmf" placeholder="e.g. H2O, Ca(OH)2, CuSO4*5H2O" autocapitalize="off" autocomplete="off" spellcheck="false"></div>' +
-    '<div class="fr"><label for="mmr">Atomic masses</label><select id="mmr"><option value="">Full precision</option><option value="1">Rounded to 0.1</option><option value="0">Rounded to whole numbers</option></select></div>' +
+    '<div class="fr"><label for="mmr">Atomic masses</label><select id="mmr"><option value="1">Rounded to 0.1 (your class)</option><option value="">Full precision</option><option value="0">Rounded to whole numbers</option></select></div>' +
     '<div class="hint">Case matters: Co is cobalt, CO is carbon monoxide. Use * or · for hydrates.</div>' +
     '<div class="br"><button class="btn bc" id="mmgo">Calculate</button></div><div id="mmout"></div></div></div>' +
     '<div class="card"><div class="ch">Convert</div><div class="cb">' +
@@ -44,7 +47,7 @@ CALCS['Molar Mass & Moles'] = {
     if (pre) $('mmf').value = pre;
     const getMM = () => {
       const rd = $('mmr').value;
-      return Chem.molarMass($('mmf').value, rd === '' ? {} : { round: +rd });
+      return Chem.molarMass($('mmf').value, rd === '' ? { round: null } : { round: +rd });
     };
     const run = () => {
       let r;

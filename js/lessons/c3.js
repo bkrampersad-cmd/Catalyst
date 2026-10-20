@@ -292,8 +292,8 @@ LESSONS.c3 = {
         <li><b>Polar covalent:</b> the electrons are shared <b>unequally</b>. The atom that pulls harder gets a <b>partial negative charge (&delta;&minus;)</b>, and the other atom gets a <b>partial positive charge (&delta;+)</b>. &delta; means "partially": these are not full ions.</li>
         <li><b>Ionic:</b> the pull is so uneven that an electron is <b>transferred</b>. Na<sup>+</sup> and Cl<sup>&minus;</sup> have <b>full</b> charges, so we never write &delta; on them.</li></ul>
       <h3>Find &Delta;EN ("delta E")</h3>
-      <div class="key"><b>&Delta;EN = bigger EN &minus; smaller EN</b>, then use the class ranges:<br>
-        <b>0.0&ndash;0.3</b> nonpolar covalent &nbsp;&middot;&nbsp; <b>0.4&ndash;1.7</b> polar covalent &nbsp;&middot;&nbsp; <b>greater than 1.7</b> ionic</div>
+      <div class="key"><b>&Delta;EN = bigger EN &minus; smaller EN</b>, then use Mrs. Israel's ranges:<br>
+        <b>less than 0.4</b> nonpolar covalent &nbsp;&middot;&nbsp; <b>0.4&ndash;1.6</b> polar covalent &nbsp;&middot;&nbsp; <b>1.7 or greater</b> ionic</div>
       <table class="tbl"><tr><th>Element</th><th>EN</th><th>Element</th><th>EN</th></tr>
         <tr><td>H</td><td class="n">2.20</td><td>Na</td><td class="n">0.93</td></tr>
         <tr><td>C</td><td class="n">2.55</td><td>Mg</td><td class="n">1.31</td></tr>
@@ -306,11 +306,11 @@ LESSONS.c3 = {
       <div class="steps"><div class="st">Worked examples</div>
         <b>H&ndash;Cl:</b> 3.16 &minus; 2.20 = <b>0.96</b> &rarr; polar covalent (H is &delta;+, Cl is &delta;&minus;). The Edpuzzle used older values, 3.0 &minus; 2.1 = 0.9: a slightly different number, same answer.<br>
         <b>H&ndash;H:</b> 2.20 &minus; 2.20 = <b>0.0</b> &rarr; nonpolar covalent.<br>
-        <b>C&ndash;H:</b> 2.55 &minus; 2.20 = <b>0.35</b> &rarr; treated as <b>nonpolar</b>. It is so close to zero that C&ndash;H bonds carry almost no partial charge (that's why methane and mineral oil are nonpolar).<br>
+        <b>C&ndash;H:</b> 2.55 &minus; 2.20 = <b>0.35</b> &rarr; less than 0.4, so <b>nonpolar</b>. It is so close to zero that C&ndash;H bonds carry almost no partial charge (that's why methane and mineral oil are nonpolar).<br>
         <b>O&ndash;H:</b> 3.44 &minus; 2.20 = <b>1.24</b> &rarr; polar covalent. This is the bond in water.<br>
         <b>Na&ndash;Cl:</b> 3.16 &minus; 0.93 = <b>2.23</b> &rarr; ionic (and it's a metal + a nonmetal).<br>
-        <b>H&ndash;F:</b> 3.98 &minus; 2.20 = <b>1.78</b> &rarr; just over 1.7, but H and F are <b>two nonmetals</b>, so they share. HF is a <b>very polar covalent</b> bond, not ionic.</div>
-      <div class="tip"><b>Two nonmetals always share electrons.</b> Use &Delta;EN to decide between nonpolar and polar, but don't call a nonmetal&ndash;nonmetal bond ionic. C&ndash;H sits right on the line between the ranges (with older values it comes out 0.4), so if a test gives its own values and cutoffs, go with the test.</div>
+        <b>H&ndash;F:</b> 3.98 &minus; 2.20 = <b>1.78</b> &rarr; over 1.7, but H and F are <b>two nonmetals</b>, so they share. HF is a <b>very polar covalent</b> bond, not ionic.</div>
+      <div class="tip"><b>Two nonmetals always share electrons.</b> Use &Delta;EN to decide between nonpolar and polar, but don't call a nonmetal&ndash;nonmetal bond ionic. If a test gives its own electronegativity values, always use the test's values.</div>
       <div class="br"><button class="btn bt" onclick="go(10)">Try the Bond Polarity (&Delta;EN) calculator</button></div>` },
     { t: 'SNAP: polar & nonpolar molecules', tp: ['snap'], h: `
       <h2>SNAP: polar and nonpolar molecules</h2>
@@ -418,7 +418,7 @@ LESSONS.c3 = {
       x: 'N has 5 valence electrons with 3 single (unpaired) electrons, so it makes a <b>triple bond</b>: 3 pairs = <b>6 electrons</b> shared. "3" counts the bonds, not the electrons. 8 is the octet each N ends up with (6 shared + 1 lone pair).', tp: ['covl'] },
     { ctx: '<h3>Electronegativity</h3><b>Figure 2: Electronegativity values of selected elements</b><table class="tbl"><tr><th>Element</th><th>EN</th><th>Element</th><th>EN</th></tr><tr><td>H</td><td class="n">2.20</td><td>Na</td><td class="n">0.93</td></tr><tr><td>N</td><td class="n">3.04</td><td>Cl</td><td class="n">3.16</td></tr><tr><td>K</td><td class="n">0.82</td><td></td><td></td></tr></table><p>Class ranges for &Delta;EN: 0.0&ndash;0.3 nonpolar covalent, 0.4&ndash;1.7 polar covalent, greater than 1.7 ionic.</p>',
       q: 'Based on Figure 2, which bond is polar covalent?', o: ['H&ndash;H', 'Na&ndash;Cl', 'K&ndash;Cl', 'N&ndash;H'], a: 3,
-      x: 'N&ndash;H: 3.04 &minus; 2.20 = <b>0.84</b>, which is in the 0.4&ndash;1.7 polar covalent range. H&ndash;H is 0.0 (nonpolar). Na&ndash;Cl (2.23) and K&ndash;Cl (2.34) are greater than 1.7, so they are ionic, which fits since each is a metal + a nonmetal.', tp: ['pol', 'en'] },
+      x: 'N&ndash;H: 3.04 &minus; 2.20 = <b>0.84</b>, which is in the 0.4&ndash;1.6 polar covalent range. H&ndash;H is 0.0 (nonpolar). Na&ndash;Cl (2.23) and K&ndash;Cl (2.34) are 1.7 or greater, so they are ionic, which fits since each is a metal + a nonmetal.', tp: ['pol', 'en'] },
     { q: 'The electronegativity difference in H&ndash;F is 1.78. How is the H&ndash;F bond classified?', o: ['Ionic, because 1.78 is greater than 1.7', 'Very polar covalent, because H and F are both nonmetals and share electrons', 'Nonpolar covalent, because both atoms are gases', 'Metallic, because H is in Group 1'], a: 1,
       x: 'Two nonmetals always <b>share</b> electrons, so H&ndash;F is covalent. Its large &Delta;EN makes it a <b>very polar</b> covalent bond. The 1.7 cutoff is a guide; ionic bonds form between a metal and a nonmetal. H sits in Group 1, but it is a nonmetal.', tp: ['pol'] },
     { q: 'In solid sodium chloride, NaCl, what is the charge on the sodium?', o: ['A full positive charge (Na<sup>+</sup>), because an electron was transferred', 'A partial positive charge (&delta;+), because the electrons are shared unequally', 'No charge, because the compound is neutral', 'A partial negative charge (&delta;&minus;), because sodium has the lower electronegativity'], a: 0,
