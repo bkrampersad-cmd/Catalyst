@@ -1,11 +1,20 @@
-/* Catalyst - Test Prep: topic checklist, shuffled practice tests, topic drills, review of missed
-   questions, and Regents-style clusters. Question sources: unit quizzes c1-c3 (keys "c1:3"),
-   the practice bank in bank.js (keys "b:b01"), and clusters in js/clusters/*.js. */
+/* Catalyst - Test Prep: pick a test (a unit test, the midterm, the final, or custom units), then a topic
+   checklist, shuffled practice tests, topic drills, review of missed questions, and Regents-style clusters.
+   Tests are defined by the units they cover (TESTS), never by dates, so the app works for any school year.
+   The student can enter her own test date (saved on her device only) to see a countdown.
+   Question sources: every unit quiz (keys "c1:3", "u1:0"), the practice bank in bank.js (keys "b:b01"),
+   and clusters in js/clusters/*.js. Bank questions and clusters are placed in units through their topic tags. */
 'use strict';
 const CLUSTERS = [];
 PAGES.prep = { t: 'Test Prep', ic: '🎯' };
 PAGES.clusters = { t: 'Regents Clusters', nav: 'prep' };
-const TEST = { name: 'Unit test', date: '2026-10-22', label: 'Thursday, October 22' };
+/* units: an array of unit ids, 's1' (all first-semester units), 'all', or 'custom' (chosen by the student) */
+const TESTS = [
+  { id: 't1', name: 'Unit Test 1', sub: 'Atoms, Ions & Bonding', units: ['c1', 'c2', 'c3'] },
+  { id: 'mid', name: 'Midterm', sub: 'Every first-semester unit', units: 's1' },
+  { id: 'final', name: 'Final / Regents', sub: 'Every unit in the course', units: 'all' },
+  { id: 'custom', name: 'Custom', sub: 'Pick the units yourself', units: 'custom' }
+];
 const TOPICS = [
   ['aem', 'Atoms, elements & molecules'], ['iso', 'Isotopes'], ['water', 'Properties of water (conductivity, solubility, surface tension)'],
   ['sub', 'Subatomic particles (protons, neutrons, electrons)'], ['ion', 'Ions & electrolytes'], ['name', 'Ionic formula naming & writing'],
@@ -17,6 +26,23 @@ const TOPICS = [
 ];
 const TOPIC_NAME = Object.fromEntries(TOPICS);
 
+/* ---------- which test, which units ---------- */
+function curTest() { return TESTS.find(t => t.id === Store.get('ptest', 't1')) || TESTS[0]; }
+function unitNum(u) { const list = UNITS.filter(x => !x.s2 && x.id !== 'mid').concat(UNITS.filter(x => x.s2)); return u.id === 'mid' ? '★' : list.indexOf(u) + 1; }
+function testUnits(t) {
+  t = t || curTest();
+  let ids = t.units === 's1' ? UNITS.filter(u => !u.s2).map(u => u.id) : t.units === 'all' ? UNITS.map(u => u.id) : t.units === 'custom' ? Store.get('pcustom', ['c1', 'c2', 'c3']) : t.units;
+  return ids.filter(id => LESSONS[id] && UNITS.some(u => u.id === id));
+}
+/* the unit a topic tag is taught in (first section that carries the tag) */
+function unitOfTag(tag) { const s = firstSection(tag); return s ? s.id : null; }
+function tagsOfUnit(id) {
+  const L = LESSONS[id], set = new Set(); if (!L) return set;
+  L.sections.concat(L.quiz).forEach(x => (x.tp || []).forEach(t => set.add(t)));
+  return set;
+}
+function inUnits(tp, units) { return (tp || []).some(t => units.includes(unitOfTag(t))); }
+
 /* ---------- answer tracking (per device) ---------- */
 function recordAnswer(key, tp, ok, noMiss) {
   const st = Store.get('tstat', {});
@@ -27,15 +53,17 @@ function recordAnswer(key, tp, ok, noMiss) {
   if (ok) delete miss[key]; else miss[key] = Date.now();
   Store.set('miss', miss);
 }
-function practicePool() {
+function practicePool(units) {
+  units = units || testUnits();
   const out = [];
-  ['c1', 'c2', 'c3'].forEach(id => {
+  units.forEach(id => {
     const L = LESSONS[id], u = UNITS.find(x => x.id === id);
-    if (L) L.quiz.forEach((q, i) => out.push(Object.assign({ k: id + ':' + i, from: u.t + ' quiz' }, q)));
+    if (L && u) L.quiz.forEach((q, i) => { if (!q.story) out.push(Object.assign({ k: id + ':' + i, unit: id, from: 'Unit ' + unitNum(u) + ' quiz' }, q)); });
   });
-  if (typeof BANK !== 'undefined') BANK.forEach(q => out.push(Object.assign({ k: 'b:' + q.id, from: 'Test Prep bank' }, q)));
+  if (typeof BANK !== 'undefined') BANK.forEach(q => { if (inUnits(q.tp, units)) out.push(Object.assign({ k: 'b:' + q.id, unit: unitOfTag(q.tp[0]), from: 'Test Prep bank' }, q)); });
   return out;
 }
+function clustersFor(units) { return CLUSTERS.filter(c => c.items.some(it => inUnits(it.tp, units))); }
 function shuffle(a) { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
 /* shuffle answer choices, keeping track of the right one; leave "all/none of the above" style lists alone */
 function shuffleOpts(q) {
@@ -44,54 +72,77 @@ function shuffleOpts(q) {
   return Object.assign({}, q, { o: idx.map(i => q.o[i]), a: idx.indexOf(q.a) });
 }
 function firstSection(tag) {
-  for (const id of ['c1', 'c2', 'c3']) { const L = LESSONS[id]; if (!L) continue; const i = L.sections.findIndex(s => (s.tp || []).includes(tag)); if (i >= 0) return { id, i, t: L.sections[i].t }; }
+  for (const u of UNITS) { const L = LESSONS[u.id]; if (!L) continue; const i = L.sections.findIndex(s => (s.tp || []).includes(tag)); if (i >= 0) return { id: u.id, i, t: L.sections[i].t }; }
   return null;
 }
-function daysToTest() { const t = new Date(TEST.date + 'T12:00:00'), n = new Date(); n.setHours(12, 0, 0, 0); return Math.round((t - n) / 864e5); }
+function daysTo(d) { if (!d) return null; const t = new Date(d + 'T12:00:00'), n = new Date(); n.setHours(12, 0, 0, 0); return Math.round((t - n) / 864e5); }
 
 /* ---------- Test Prep home ---------- */
 RENDER.prep = function (arg) {
   if (arg) return renderPractice(arg);
-  const pool = practicePool(), miss = Store.get('miss', {}), st = Store.get('tstat', {}), best = Store.get('ptbest', null);
-  const nMiss = pool.filter(q => miss[q.k]).length, dd = daysToTest();
-  const rated = TOPICS.map(([t]) => Store.get('rate.' + t, '')), got = rated.filter(r => r === 'got').length, shaky = rated.filter(r => r === 'shaky').length;
-  const when = dd > 1 ? 'in ' + dd + ' days' : dd === 1 ? 'tomorrow' : dd === 0 ? 'today. You\'ve got this!' : '';
-  const rows = TOPICS.map(([t, name]) => {
-    const sec = firstSection(t), n = pool.filter(q => (q.tp || []).includes(t)).length, r = st[t], rate = Store.get('rate.' + t, '');
-    return '<tr><td><b style="color:var(--nb)">' + name + '</b><div class="rl">' + (r ? r[0] + ' of ' + r[1] + ' answered right' : 'not practiced yet') + '</div>' +
+  const T = curTest(), units = testUnits(T), pool = practicePool(units), miss = Store.get('miss', {}), st = Store.get('tstat', {});
+  const best = Store.get('ptbest.' + T.id, null), nMiss = pool.filter(q => miss[q.k]).length, cls = clustersFor(units);
+  const dd = daysTo(Store.get('tdate.' + T.id, '')), nTest = Math.min(20, pool.length);
+  const when = dd === null || dd < 0 ? '' : dd > 1 ? 'Your test is in <b>' + dd + ' days</b>.' : dd === 1 ? 'Your test is <b>tomorrow</b>.' : 'Your test is <b>today</b>. You\'ve got this!';
+  // checklist: tagged topics taught in these units, plus a whole-unit row for units without topic tags
+  const tags = TOPICS.map(t => t[0]).filter(t => units.includes(unitOfTag(t)));
+  const plain = units.filter(id => !tagsOfUnit(id).size);
+  const rateBtns = key => { const r = Store.get('rate.' + key, ''); return '<td class="rate"><button class="rt' + (r === 'got' ? ' on got' : '') + '" onclick="rateTopic(\'' + key + '\',\'got\')">✓ Got it</button><button class="rt' + (r === 'shaky' ? ' on shaky' : '') + '" onclick="rateTopic(\'' + key + '\',\'shaky\')">? Shaky</button></td>'; };
+  const rows = tags.map(t => {
+    const sec = firstSection(t), n = pool.filter(q => (q.tp || []).includes(t)).length, r = st[t];
+    return '<tr><td><b style="color:var(--nb)">' + TOPIC_NAME[t] + '</b><div class="rl">' + (r ? r[0] + ' of ' + r[1] + ' answered right' : 'not practiced yet') + '</div>' +
       '<div class="tpbtns">' + (sec ? '<button class="chip" onclick="goPage(\'study\',\'' + sec.id + '.' + sec.i + '\')">📘 Lesson</button>' : '') +
-      (n ? '<button class="chip" onclick="goPage(\'prep\',\'drill.' + t + '\')">✍️ Drill (' + n + ')</button>' : '') + '</div></td>' +
-      '<td class="rate"><button class="rt' + (rate === 'got' ? ' on got' : '') + '" onclick="rateTopic(\'' + t + '\',\'got\')">✓ Got it</button><button class="rt' + (rate === 'shaky' ? ' on shaky' : '') + '" onclick="rateTopic(\'' + t + '\',\'shaky\')">? Shaky</button></td></tr>';
-  }).join('');
-  $('pg').innerHTML = '<div class="pt">Test Prep</div><div class="ps">' + TEST.name + (dd >= 0 ? ': <b>' + TEST.label + '</b>, ' + when : '') + '. Practice saves on this device. Everything here also works offline.</div>' +
-    '<div class="grid" style="margin-bottom:14px">' +
-    ptile('test', '🔀', 'Practice test', '20 questions pulled at random from ' + pool.length + ', with the answer choices shuffled. A new mix every time.' + (best ? ' Best: <b>' + best + '/20</b>.' : '')) +
-    ptile('miss', '🔁', 'Review my misses', nMiss ? '<b>' + nMiss + '</b> question' + (nMiss > 1 ? 's' : '') + ' you got wrong. Get one right and it leaves the list.' : 'Nothing here yet. Questions you miss anywhere in Catalyst land here.') +
-    '<button class="tile" onclick="goPage(\'clusters\')"><div class="ti">📰</div><h3>Regents-style clusters</h3><p>' + CLUSTERS.length + ' story-based question sets like the new exam, with model answers for the written questions.</p></button>' +
+      (n ? '<button class="chip" onclick="goPage(\'prep\',\'drill.' + t + '\')">✍️ Drill (' + n + ')</button>' : '') + '</div></td>' + rateBtns(t) + '</tr>';
+  }).concat(plain.map(id => {
+    const u = UNITS.find(x => x.id === id), n = pool.filter(q => q.unit === id).length;
+    return '<tr><td><b style="color:var(--nb)">Unit ' + unitNum(u) + ': ' + u.t + '</b><div class="rl">whole unit</div><div class="tpbtns"><button class="chip" onclick="goPage(\'study\',\'' + id + '.0\')">📘 Lessons</button>' +
+      (n ? '<button class="chip" onclick="goPage(\'prep\',\'unit.' + id + '\')">✍️ Drill (' + n + ')</button>' : '') + '</div></td>' + rateBtns('unit.' + id) + '</tr>';
+  })).join('');
+  const keys = tags.concat(plain.map(id => 'unit.' + id));
+  const got = keys.filter(k => Store.get('rate.' + k, '') === 'got').length, shaky = keys.filter(k => Store.get('rate.' + k, '') === 'shaky').length;
+  const custom = T.units === 'custom' ? '<div class="card"><div class="ch">Units in your custom test</div><div class="cb">' +
+    UNITS.filter(u => LESSONS[u.id]).map(u => '<label class="rub" style="display:inline-block;margin-right:14px"><input type="checkbox" ' + (units.includes(u.id) ? 'checked ' : '') + 'onchange="toggleCustom(\'' + u.id + '\',this.checked)"> Unit ' + unitNum(u) + ': ' + u.t + '</label>').join('') + '</div></div>' : '';
+  $('pg').innerHTML = '<div class="pt">Test Prep</div>' +
+    '<div class="tpick">' + TESTS.map(t => '<button class="' + (t.id === T.id ? 'on' : '') + '" onclick="pickTest(\'' + t.id + '\')"><b>' + t.name + '</b><span>' + t.sub + '</span></button>').join('') + '</div>' +
+    '<div class="ps">' + (units.length ? 'Covers ' + units.map(id => { const u = UNITS.find(x => x.id === id); return 'Unit ' + unitNum(u) + ' (' + u.t + ')'; }).join(', ') + '.' : 'Pick at least one unit below.') +
+    ' <span class="tdate"><label for="tdate">My test date:</label> <input type="date" id="tdate" value="' + esc(Store.get('tdate.' + T.id, '')) + '" onchange="setTestDate(this.value)"></span> ' + when + '</div>' + custom +
+    (units.length ? '<div class="grid" style="margin-bottom:14px">' +
+    ptile('test', '🔀', 'Practice test', nTest + ' questions pulled at random from ' + pool.length + ', with the answer choices shuffled. A new mix every time.' + (best !== null ? ' Best: <b>' + best + '/' + nTest + '</b>.' : '')) +
+    ptile('miss', '🔁', 'Review my misses', nMiss ? '<b>' + nMiss + '</b> question' + (nMiss > 1 ? 's' : '') + ' you got wrong on this test\'s units. Get one right and it leaves the list.' : 'Nothing here yet. Questions you miss anywhere in Catalyst land here.') +
+    (cls.length ? '<button class="tile" onclick="goPage(\'clusters\')"><div class="ti">📰</div><h3>Regents-style clusters</h3><p>' + cls.length + ' story-based question set' + (cls.length > 1 ? 's' : '') + ' like the new exam, with model answers for the written questions.</p></button>' : '') +
     (shaky ? ptile('shaky', '🎯', 'Drill my shaky topics', 'Questions only from the ' + shaky + ' topic' + (shaky > 1 ? 's' : '') + ' you marked Shaky.') : '') +
     '</div>' +
-    '<div class="card"><div class="ch">Topics on the test <span class="rl" style="text-transform:none;letter-spacing:0">· ' + got + ' of ' + TOPICS.length + ' marked Got it</span></div><div class="cb">' +
+    '<div class="card"><div class="ch">Topics on this test <span class="rl" style="text-transform:none;letter-spacing:0">· ' + got + ' of ' + keys.length + ' marked Got it</span></div><div class="cb">' +
     '<div class="hint" style="margin-bottom:8px">Rate yourself on each topic. Open the lesson to review it, or drill just that topic.</div>' +
-    '<div class="tw"><table class="tbl tptbl">' + rows + '</table></div></div></div>';
+    '<div class="tw"><table class="tbl tptbl">' + rows + '</table></div></div></div>' : '');
   function ptile(m, ic, t, d) { return '<button class="tile" onclick="goPage(\'prep\',\'' + m + '\')"><div class="ti">' + ic + '</div><h3>' + t + '</h3><p>' + d + '</p></button>'; }
 };
-function rateTopic(t, v) { Store.set('rate.' + t, Store.get('rate.' + t, '') === v ? '' : v); const y = $('ct').scrollTop; RENDER.prep(); $('ct').scrollTop = y; }
+function keepScroll(fn) { const y = $('ct').scrollTop; fn(); $('ct').scrollTop = y; }
+function rateTopic(t, v) { Store.set('rate.' + t, Store.get('rate.' + t, '') === v ? '' : v); keepScroll(() => RENDER.prep()); }
+function pickTest(id) { Store.set('ptest', id); keepScroll(() => RENDER.prep()); }
+function setTestDate(v) { Store.set('tdate.' + curTest().id, v || ''); keepScroll(() => RENDER.prep()); }
+function toggleCustom(id, on) { const s = new Set(Store.get('pcustom', ['c1', 'c2', 'c3'])); on ? s.add(id) : s.delete(id); Store.set('pcustom', UNITS.map(u => u.id).filter(x => s.has(x))); keepScroll(() => RENDER.prep()); }
 
 /* ---------- practice sessions ---------- */
 let PR = null;
 function renderPractice(arg) {
-  const pool = practicePool(), miss = Store.get('miss', {});
+  const T = curTest(), pool = practicePool(), miss = Store.get('miss', {});
   let title, sub, items, mode = arg;
-  if (arg === 'test') { title = 'Practice test'; sub = '20 random questions from every unit quiz and the Test Prep bank. Answer choices are shuffled.'; items = shuffle(pool).slice(0, 20); }
-  else if (arg === 'miss') { title = 'Review my misses'; sub = 'Questions you got wrong. Get one right and it comes off the list.'; items = shuffle(pool.filter(q => miss[q.k])); }
-  else if (arg === 'shaky') { const tags = TOPICS.map(t => t[0]).filter(t => Store.get('rate.' + t, '') === 'shaky'); title = 'Shaky topics drill'; sub = 'Only: ' + tags.map(t => TOPIC_NAME[t]).join(' · '); items = shuffle(pool.filter(q => (q.tp || []).some(t => tags.includes(t)))); }
-  else if (/^drill\./.test(arg)) { const t = arg.slice(6); title = 'Drill: ' + (TOPIC_NAME[t] || t); sub = 'Every practice question on this topic, in a new order.'; items = shuffle(pool.filter(q => (q.tp || []).includes(t))); mode = 'drill'; }
+  if (arg === 'test') { title = 'Practice test · ' + T.name; sub = 'Random questions from the unit quizzes and the Test Prep bank for this test. Answer choices are shuffled.'; items = shuffle(pool).slice(0, 20); }
+  else if (arg === 'miss') { title = 'Review my misses · ' + T.name; sub = 'Questions you got wrong. Get one right and it comes off the list.'; items = shuffle(pool.filter(q => miss[q.k])); }
+  else if (arg === 'shaky') {
+    const keys = TOPICS.map(t => t[0]).concat(UNITS.map(u => 'unit.' + u.id)).filter(k => Store.get('rate.' + k, '') === 'shaky');
+    title = 'Shaky topics drill'; sub = 'Only: ' + keys.map(k => k.startsWith('unit.') ? (UNITS.find(u => 'unit.' + u.id === k) || {}).t : TOPIC_NAME[k]).join(' · ');
+    items = shuffle(pool.filter(q => (q.tp || []).some(t => keys.includes(t)) || keys.includes('unit.' + q.unit)));
+  }
+  else if (/^drill\./.test(arg)) { const t = arg.slice(6); title = 'Drill: ' + (TOPIC_NAME[t] || t); sub = 'Every practice question on this topic, in a new order.'; items = shuffle(practicePool(UNITS.map(u => u.id)).filter(q => (q.tp || []).includes(t))); mode = 'drill'; }
+  else if (/^unit\./.test(arg)) { const id = arg.slice(5), u = UNITS.find(x => x.id === id); if (!u) return RENDER.prep(); title = 'Drill: Unit ' + unitNum(u) + ', ' + u.t; sub = 'Every practice question in this unit, in a new order.'; items = shuffle(practicePool([id])); mode = 'drill'; }
   else return RENDER.prep();
-  PR = { mode, arg, items: items.map(shuffleOpts), answered: {} };
+  PR = { mode, arg, test: T.id, items: items.map(shuffleOpts), answered: {} };
   const empty = !items.length ? '<div class="card"><div class="cb">' + (arg === 'miss' ? 'No missed questions right now. Take a practice test, and any you miss will show up here.' : 'No questions here yet.') + '</div></div>' : '';
   $('pg').innerHTML = '<button class="btn bs" onclick="goPage(\'prep\')">‹ Test Prep</button><div class="pt" style="margin-top:12px">' + title + '</div><div class="ps">' + esc(sub) + (items.length ? ' ' + items.length + ' question' + (items.length > 1 ? 's' : '') + '.' : '') + '</div>' + empty +
     PR.items.map((q, i) => (q.ctx ? '<div class="ctx">' + q.ctx + '</div>' : '') + '<div class="q" data-q="' + i + '"><div class="qt">' + (i + 1) + '. ' + q.q + '</div>' +
-      q.o.map((o, j) => '<button class="opt" data-j="' + j + '">' + o + '</button>').join('') + '<div class="qx"></div><div class="qsrc">' + (q.tp || []).map(t => TOPIC_NAME[t]).filter(Boolean).join(' · ') + ' · ' + q.from + '</div></div>').join('') +
+      q.o.map((o, j) => '<button class="opt" data-j="' + j + '">' + o + '</button>').join('') + '<div class="qx"></div><div class="qsrc">' + (q.tp || []).map(t => TOPIC_NAME[t]).filter(Boolean).concat([q.from]).join(' · ') + '</div></div>').join('') +
     '<div id="qscore"></div>';
   wrapTables($('pg'));
   document.querySelectorAll('.q').forEach(qe => {
@@ -105,7 +156,7 @@ function renderPractice(arg) {
       const qx = qe.querySelector('.qx'); qx.innerHTML = (ok ? '✅ <b>Correct.</b> ' : '❌ <b>Not quite.</b> ') + q.x; qx.classList.add('show');
       if (Object.keys(PR.answered).length === PR.items.length) {
         const score = Object.values(PR.answered).filter(Boolean).length, tot = PR.items.length;
-        if (PR.mode === 'test' && score > Store.get('ptbest', 0)) Store.set('ptbest', score);
+        if (PR.mode === 'test' && score > Store.get('ptbest.' + PR.test, 0)) Store.set('ptbest.' + PR.test, score);
         const weak = {}; PR.items.forEach((x, k) => { if (!PR.answered[k]) (x.tp || []).forEach(t => weak[t] = (weak[t] || 0) + 1); });
         const wk = Object.keys(weak).sort((a, b) => weak[b] - weak[a]).slice(0, 4);
         $('qscore').innerHTML = '<div class="rb"><div class="big">' + score + ' / ' + tot + '</div><div class="rl">' +
@@ -122,8 +173,8 @@ RENDER.clusters = function (arg) {
   if (arg) return renderCluster(arg);
   $('pg').innerHTML = '<button class="btn bs" onclick="goPage(\'prep\')">‹ Test Prep</button><div class="pt" style="margin-top:12px">Regents-style clusters</div>' +
     '<div class="ps">The new Regents is built from clusters: a short real-world story with figures and data, followed by about six questions. Some are multiple choice; others ask you to make a claim with evidence, support or refute a claim, or draw a model. Do the written ones on paper, then compare with the model answer.</div>' +
-    CLUSTERS.map(c => { const b = Store.get('cl.' + c.id, null); return '<div class="unit" onclick="goPage(\'clusters\',\'' + c.id + '\')"><div class="unum">📰</div><div style="flex:1"><h3>' + c.t + (c.src ? ' <span class="badge" style="background:#ECE7FB;color:#4C2A9E">' + c.src + '</span>' : '') + '</h3><p>' + c.sub + ' · ' + c.items.length + ' questions</p>' +
-      '<div class="pes">' + peChips(c.pe) + '</div>' + (b !== null ? '<div class="rl" style="margin-top:4px">Best: ' + b + '/' + c.items.length + '</div>' : '') + '</div></div>'; }).join('');
+    (function () { const T = curTest(), list = clustersFor(testUnits(T)); return (list.length < CLUSTERS.length ? '<div class="hint" style="margin-bottom:10px">Showing the clusters for <b>' + T.name + '</b>. Pick a different test on the Test Prep page to see others.</div>' : '') + list.map(c => { const b = Store.get('cl.' + c.id, null); return '<div class="unit" onclick="goPage(\'clusters\',\'' + c.id + '\')"><div class="unum">📰</div><div style="flex:1"><h3>' + c.t + (c.src ? ' <span class="badge" style="background:#ECE7FB;color:#4C2A9E">' + c.src + '</span>' : '') + '</h3><p>' + c.sub + ' · ' + c.items.length + ' questions</p>' +
+      '<div class="pes">' + peChips(c.pe) + '</div>' + (b !== null ? '<div class="rl" style="margin-top:4px">Best: ' + b + '/' + c.items.length + '</div>' : '') + '</div></div>'; }).join(''); })();
 };
 let CL = null;
 function renderCluster(id) {

@@ -2,7 +2,7 @@
 
 **Chemistry, accelerated.** A free, installable study companion for high school chemistry: an interactive color periodic table, step-by-step chemistry calculators, and a study guide that follows the class syllabus. It is built for the new NYS Regents course **Physical Science: Chemistry** (2025 standards and Reference Tables) and works offline once installed.
 
-![Version](https://img.shields.io/badge/version-0.5.1-5B3FD0) ![PWA](https://img.shields.io/badge/PWA-offline%20ready-0FA89B) ![No ads](https://img.shields.io/badge/ads-none-22145A)
+![Version](https://img.shields.io/badge/version-0.6.0-5B3FD0) ![PWA](https://img.shields.io/badge/PWA-offline%20ready-0FA89B) ![No ads](https://img.shields.io/badge/ads-none-22145A)
 
 **Live at:** https://catalyst.beeransapps.com
 
@@ -27,12 +27,12 @@
   - Bond Polarity: ΔEN between two atoms, labeled nonpolar, polar or ionic using the class ranges, with partial charges and a dipole arrow
   - Atom & Ion Counter: protons, neutrons and electrons for any atom, isotope or ion, with Bohr and Lewis dot diagrams
 - **Study Guide.** The first units follow the class lesson by lesson, using the teacher's own terms: Atoms & Water, Ions & Salts, and Bonding & Shapes. The rest of the syllabus (Matter & Measurement, Atomic Models & Light, Formulas & Equations, Mathematics of Chemistry, Gas Laws, Midterm Review) is written too. Each unit has illustrated lessons and a practice quiz that explains each answer, plus links to the matching chapters in the class reference book (Addison-Wesley *Chemistry*). Progress is saved on the device.
-- **Test Prep.** A checklist of every topic on the test to rate yourself on, 20-question practice tests shuffled fresh every time, drills on one topic or on the topics you marked shaky, and a review of every question you missed.
+- **Test Prep.** Pick a test (a unit test, the midterm, the final, or your own set of units) and get a checklist of its topics to rate yourself on, 20-question practice tests shuffled fresh every time, drills on one topic or on the topics you marked shaky, and a review of every question you missed.
 - **Regents-style clusters.** Story-based question sets like the new exam, including "which row" questions, claim–evidence–explanation, support or refute, and draw-a-model questions with model answers.
 - **Search.** Ask a question in plain words and jump straight to the part of the lesson that answers it, or get pointed to the right textbook chapter.
 - **The new Regents.** A guide to the new exam format, its six topic areas, the 2025 Reference Tables, and the Performance Expectations each unit covers.
 - **Updates itself.** When a new version is posted, the installed app refreshes on its own.
-- **Photo Tutor** *(coming later)*. Snap a problem and get hints first, then the steps, then the answer.
+- **Photo Tutor.** Snap, choose, paste or type a problem. Catalyst reads it on the device and gives a hint first, then the lesson, a calculator filled in with the problem's numbers, and similar practice questions. The camera runs inside the app, so pictures are never saved to the photo library and nothing is uploaded. If you're really stuck, an optional button shares the photo with Google Lens.
 
 ## Install
 
@@ -47,6 +47,6 @@ After that it runs like a regular app, including offline.
 
 ## Credits
 
-Element data comes from [PubChem](https://pubchem.ncbi.nlm.nih.gov/periodic-table/) (NIH, public domain). Constants follow the NYS Chemistry Reference Tables.
+Element data comes from [PubChem](https://pubchem.ncbi.nlm.nih.gov/periodic-table/) (NIH, public domain). The Photo Tutor reads text with [Tesseract.js](https://github.com/naptha/tesseract.js) (Apache-2.0). Constants follow the NYS Chemistry Reference Tables.
 
 © 2026 Beeran Rampersad. See [LICENSE.md](LICENSE.md).

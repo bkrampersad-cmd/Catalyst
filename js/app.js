@@ -1,11 +1,16 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.5.1';
+const VERSION = '0.6.0';
 const BUILD_DATE = 'October 20, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.6.0', d: 'October 20, 2026', notes: [
+    'Photo Tutor is live. Take a photo of a problem, choose one, paste a screenshot, or type it in. Catalyst reads it on your device and gives a hint first. Then it points to the lesson, opens the right calculator with the problem\'s numbers, and suggests similar practice questions. The camera runs inside the app, so pictures are never saved to the photo library, and nothing is uploaded. An optional "Ask Google Lens" button can share the photo with Google when you\'re really stuck.',
+    'Test Prep is now organized by test: Unit Test 1, Midterm, Final / Regents, or a custom set of units. The checklist, practice tests, drills, misses and clusters all follow the test you pick.',
+    'There are no built-in test dates anymore. Enter your own test date to see a countdown; it is saved on your device only.'
+  ] },
   { v: '0.5.1', d: 'October 20, 2026', notes: [
     'The About page now opens with a note on who inspired Catalyst.'
   ] },
@@ -68,7 +73,6 @@ const PAGES = {
   table:   { t: 'Periodic Table', ic: '🧪' },
   calc:    { t: 'Calculators', ic: '🧮' },
   study:   { t: 'Study Guide', ic: '📘' },
-  tutor:   { t: 'Photo Tutor', ic: '📷', soon: true },
   about:   { t: 'About' }
 };
 const RENDER = {}; // page key -> function(arg)
@@ -143,21 +147,9 @@ RENDER.home = function () {
     tile('calc', '🧮', 'Calculators', 'Molar mass, balancing equations, gas laws, molarity, pH, and sig figs. Every answer shows the steps.') +
     tile('study', '📘', 'Study Guide', last ? 'Pick up where you left off: ' + esc(last.title) + '.' : 'Lessons and practice quizzes for each unit, following your class.') +
     tile('prep', '🎯', 'Test Prep', 'Your test topic checklist, shuffled practice tests, topic drills, Regents-style clusters, and a review of the questions you missed.') +
-    tile('tutor', '📷', 'Photo Tutor <span class="badge">soon</span>', 'Snap a homework problem and get hints and steps (not just the answer). Coming in a later version.') +
+    tile('tutor', '📷', 'Photo Tutor', 'Snap a problem from a worksheet. Catalyst reads it, gives you a hint first, then the lesson and a calculator with your numbers.') +
     '</div><footer class="cp">v' + VERSION + ' · ' + COPYRIGHT + '</footer>';
   function tile(p, ic, t, d) { return '<button class="tile" onclick="goPage(\'' + p + '\')"><div class="ti">' + ic + '</div><h3>' + t + '</h3><p>' + d + '</p></button>'; }
-};
-
-/* ---------- Photo Tutor (placeholder - phase 4) ---------- */
-RENDER.tutor = function () {
-  $('pg').innerHTML = '<div class="pt">Photo Tutor <span class="badge">coming soon</span></div>' +
-    '<div class="ps">Take a picture of a chemistry problem and Catalyst will walk you through it.</div>' +
-    '<div class="card"><div class="ch">How it will work</div><div class="cb" style="font-size:14px;line-height:1.7">' +
-    '<ol style="margin-left:20px"><li>Snap a photo of the problem with your phone or Chromebook camera.</li>' +
-    '<li>Catalyst reads the problem and figures out which topic it belongs to.</li>' +
-    '<li>You get a <b>hint</b> first. Ask for the next step only when you need it.</li>' +
-    '<li>The full worked solution comes last, with a link to the matching lesson and calculator.</li></ol>' +
-    '<p class="hint" style="margin-top:12px">This feature needs an internet connection. Everything else in Catalyst works offline.</p></div></div>';
 };
 
 /* ---------- About ---------- */
@@ -175,7 +167,7 @@ RENDER.about = function () {
     rr('Version', 'v' + VERSION) + rr('Built', BUILD_DATE) + rr('Elements', ELEMENTS.length) + rr('Calculators', NAMES.length) + rr('Works offline', 'Yes') +
     '</div></div><div class="card"><div class="ch">Data & credits</div><div class="cb" style="font-size:13px;line-height:1.6">' +
     'Element data: <b>PubChem</b> (National Library of Medicine, public domain), via the MIT-licensed <i>periodic-table-data</i> package. ' +
-    'Ionization energies converted from eV to kJ/mol. Constants and formulas follow the 2025 Reference Tables for Physical Science: Chemistry.' +
+    'Photo Tutor text reading: <b>Tesseract.js</b> (Apache-2.0), runs on your device. Ionization energies converted from eV to kJ/mol. Constants and formulas follow the 2025 Reference Tables for Physical Science: Chemistry.' +
     '<p class="hint">Always use your class Reference Tables on tests. If a value here ever differs from your Reference Tables, go with the Reference Tables.</p>' +
     '</div></div></div>' +
     '<div class="card"><div class="ch">Version history</div><div class="cb">' + log + '</div></div>' +
