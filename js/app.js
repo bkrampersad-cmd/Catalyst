@@ -1,11 +1,21 @@
 /* Catalyst - core: version, navigation/router, Home, About, Photo Tutor placeholder, storage. */
 'use strict';
-const VERSION = '0.4.0';
-const BUILD_DATE = 'October 15, 2026';
+const VERSION = '0.5.1';
+const BUILD_DATE = 'October 20, 2026';
 const COPYRIGHT = '© 2026 Beeran Rampersad';
 
 /* Version history - newest first. Keep in sync with HANDOFF.md. */
 const CHANGELOG = [
+  { v: '0.5.1', d: 'October 20, 2026', notes: [
+    'The About page now opens with a note on who inspired Catalyst.'
+  ] },
+  { v: '0.5.0', d: 'October 20, 2026', notes: [
+    'The Study Guide now follows the class lesson by lesson, using the teacher\'s terms (valence shell, Coulombic attraction, mobile ions, SNAP, the fold test). Three new units cover September 2 to October 19: Atoms & Water, Ions & Salts, and Bonding & Shapes. Each has illustrated lessons and a practice quiz. The remaining syllabus units are listed under Coming up.',
+    'New Test Prep page for the unit test: a checklist of every test topic (rate yourself Got it or Shaky, with a link to each lesson), 20-question practice tests freshly shuffled every time, drills on one topic or on the topics you marked Shaky, and a Review my misses set built from the questions you got wrong.',
+    'Five Regents-style clusters, including the class sample "Recycling Every Drop". Multiple choice and "which row" questions check themselves. For claim–evidence–explanation, support/refute and drawing questions, you compare your answer with a model answer and a checklist.',
+    'New calculators: Bond Polarity (ΔEN with the class ranges and a dipole arrow) and Atom & Ion Counter (protons, neutrons and electrons, with Bohr and Lewis dot diagrams).',
+    'Every element card on the periodic table now shows a Lewis dot diagram and a button to count its particles.'
+  ] },
   { v: '0.4.0', d: 'October 15, 2026', notes: [
     'New Search: ask a question in plain words (for example "why is argon heavier than potassium?") and Catalyst lists the lessons, calculators, practice questions and elements that answer it. Opening a result jumps straight to the right part of the lesson. If a topic isn\u2019t covered yet, Search points to the textbook chapter to read. Search is in the menu and on the Home page; press / on a keyboard to open it.',
     'Unit 4 has a new lesson, "Atomic mass across the table": why atomic mass usually increases, the three exceptions (Ar/K, Co/Ni, Te/I), and why the table is ordered by atomic number. It comes with a diagram and a new practice question.'
@@ -65,7 +75,7 @@ const RENDER = {}; // page key -> function(arg)
 
 function buildNav() {
   let h = '';
-  ['home', 'search', 'table', 'calc', 'study', 'tutor'].forEach(k => {
+  ['home', 'search', 'table', 'calc', 'study', 'prep', 'tutor'].forEach(k => {
     const p = PAGES[k];
     h += '<button class="nb' + (p.soon ? ' soon' : '') + '" data-p="' + k + '" onclick="goPage(\'' + k + '\')"><span class="ic">' + p.ic + '</span>' + p.t + (p.soon ? '<span class="badge">soon</span>' : '') + '</button>';
     if (k === 'calc') {
@@ -126,12 +136,13 @@ RENDER.home = function () {
   const last = Store.get('lastLesson', null);
   $('pg').innerHTML =
     '<div class="hero"><img src="icon.svg" alt=""><div><h1>Catalyst</h1>' +
-    '<p>Your chemistry study companion: look up any element, check your math step by step, and review each unit in the same order as class.</p></div></div>' +
+    '<p>Your chemistry study companion: look up any element, check your math step by step, and review each unit in the same order as your class.</p></div></div>' +
     '<form class="sbar" style="margin-bottom:16px" onsubmit="event.preventDefault();doSearch(this.q.value)"><input name="q" type="search" placeholder="Ask a question, e.g. why is argon heavier than potassium?" autocomplete="off" enterkeyhint="search"><button class="btn bc" type="submit">Search</button></form>' +
     '<div class="grid">' +
     tile('table', '🧪', 'Periodic Table', 'Tap any element to see its electron configuration, Bohr diagram, and properties. Switch to trend views for electronegativity and ionization energy.') +
     tile('calc', '🧮', 'Calculators', 'Molar mass, balancing equations, gas laws, molarity, pH, and sig figs. Every answer shows the steps.') +
-    tile('study', '📘', 'Study Guide', last ? 'Pick up where you left off: ' + esc(last.title) + '.' : 'Lessons and practice quizzes for each unit, in syllabus order.') +
+    tile('study', '📘', 'Study Guide', last ? 'Pick up where you left off: ' + esc(last.title) + '.' : 'Lessons and practice quizzes for each unit, following your class.') +
+    tile('prep', '🎯', 'Test Prep', 'Your test topic checklist, shuffled practice tests, topic drills, Regents-style clusters, and a review of the questions you missed.') +
     tile('tutor', '📷', 'Photo Tutor <span class="badge">soon</span>', 'Snap a homework problem and get hints and steps (not just the answer). Coming in a later version.') +
     '</div><footer class="cp">v' + VERSION + ' · ' + COPYRIGHT + '</footer>';
   function tile(p, ic, t, d) { return '<button class="tile" onclick="goPage(\'' + p + '\')"><div class="ti">' + ic + '</div><h3>' + t + '</h3><p>' + d + '</p></button>'; }
@@ -157,6 +168,9 @@ RENDER.about = function () {
       c.notes.map(n => '<li>' + esc(n) + '</li>').join('') + '</ul></div>';
   });
   $('pg').innerHTML = '<div class="pt">About Catalyst</div><div class="ps">Chemistry, accelerated. Built for the NYS Regents course Physical Science: Chemistry (2025 standards and Reference Tables).</div>' +
+    '<div class="card insp"><div class="ch">Inspired by Rianna</div><div class="cb">' +
+    '<p>I created Catalyst for my daughter, Rianna. Her ambition and her drive to succeed inspire me to support her journey into the world in every way I can.</p>' +
+    '<p class="sig">— Dad</p></div></div>' +
     '<div class="t2"><div class="card"><div class="ch">App</div><div class="cb">' +
     rr('Version', 'v' + VERSION) + rr('Built', BUILD_DATE) + rr('Elements', ELEMENTS.length) + rr('Calculators', NAMES.length) + rr('Works offline', 'Yes') +
     '</div></div><div class="card"><div class="ch">Data & credits</div><div class="cb" style="font-size:13px;line-height:1.6">' +

@@ -181,6 +181,25 @@ footer.cp{font-size:11px;color:var(--mu);margin-top:24px}
   .swipe{display:block!important}
 }
 @media print{#sb,#hm{display:none}}
+.qsrc{font-size:11px;color:var(--mu);margin-top:8px}
+.clhead{font-style:italic;font-size:13.5px;color:var(--mu);margin:0 0 8px}
+.rowpick tr[data-j]{cursor:pointer}.rowpick tr[data-j]:hover td{background:var(--ib)}
+.rowpick tr.right td{background:#DDF5E8}.rowpick tr.wrong td{background:#FDE4E1}
+.srb{display:flex;gap:8px}.srb .opt{width:auto;flex:1;text-align:center}.srb .opt.on{border-color:var(--ac);font-weight:700}
+.cta{width:100%;border:1px solid var(--bd);border-radius:8px;padding:10px;font:inherit;font-size:14px;margin:4px 0 8px;resize:vertical;background:#fff;color:var(--tx)}
+.model{background:#F6F3FF;border:1px solid #DCD3FA;border-radius:10px;padding:12px 14px;margin-top:10px;font-size:14px;line-height:1.6}
+.model .mh{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:var(--na);margin-bottom:4px}
+.model svg{max-width:100%;height:auto}
+.rub{display:block;font-size:13.5px;margin:4px 0;cursor:pointer}.rub input{margin-right:6px}
+.earn{margin-top:10px;font-size:13.5px}.earn .btn{padding:6px 14px;margin-left:4px}
+.tptbl td{vertical-align:top}.tptbl td.rate{white-space:nowrap;text-align:right}
+.tpbtns{margin-top:6px}.tpbtns .chip{padding:4px 10px;font-size:12px;margin-bottom:2px}
+.rt{white-space:nowrap;border:1px solid var(--bd);background:#fff;border-radius:20px;padding:5px 10px;font-size:12px;cursor:pointer;margin:2px 0 2px 4px;color:var(--nb)}
+.rt.on.got{background:#DDF5E8;border-color:var(--ok);font-weight:700}.rt.on.shaky{background:#FFF1C9;border-color:#F2B200;font-weight:700}
+.tw{overflow-x:auto}
+.lewis-el{text-align:center}.lewis-el svg{width:110px;height:auto}
+@media(max-width:600px){.tptbl tr{display:block;border-bottom:1px solid #EEEAF8;padding:6px 0}.tptbl td{display:block;border:0;padding:3px 6px}.tptbl td.rate{text-align:left}.tptbl td.rate .rt{margin:2px 6px 2px 0}}
+.insp .cb{font-size:15px;line-height:1.7;color:var(--nb)}.insp .cb p{margin:0}.insp .sig{text-align:right;font-style:italic;margin-top:6px;color:var(--na)}
 </style>
 </head>
 <body>
@@ -211,6 +230,8 @@ footer.cp{font-size:11px;color:var(--mu);margin-top:24px}
 <script src="js/study.js"></script>
 <script src="js/regents.js"></script>
 <script src="js/search.js"></script>
+<script src="js/prep.js"></script>
+<script src="js/calcs3.js"></script>
 <script src="js/lessons/u1.js"></script>
 <script src="js/lessons/u2.js"></script>
 <script src="js/lessons/u3.js"></script>
@@ -219,6 +240,15 @@ footer.cp{font-size:11px;color:var(--mu);margin-top:24px}
 <script src="js/lessons/u6.js"></script>
 <script src="js/lessons/u7.js"></script>
 <script src="js/lessons/mid.js"></script>
+<script src="js/lessons/c1.js"></script>
+<script src="js/lessons/c2.js"></script>
+<script src="js/lessons/c3.js"></script>
+<script src="js/bank.js"></script>
+<script src="js/clusters/water.js"></script>
+<script src="js/clusters/europa.js"></script>
+<script src="js/clusters/titan.js"></script>
+<script src="js/clusters/probe.js"></script>
+<script src="js/clusters/sweat.js"></script>
 <script>
   boot();
   /* Service worker + auto-refresh: when a new version is published, the new worker

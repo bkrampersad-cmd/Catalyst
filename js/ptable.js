@@ -139,9 +139,10 @@ function openEl(z, noHash) {
     '<div class="mbody"><div>' + rows.map(r => '<div class="rr"><span class="rl">' + r[0] + '</span><span class="rv">' + r[1] + '</span></div>').join('') + '</div>' +
     '<div class="bohr">' + bohrSVG(e, shells) +
     '<div class="hint" style="text-align:center">Bohr model: ' + e.z + ' protons and about ' + neutrons + ' neutrons in the nucleus, electrons arranged ' + e.sh + '.</div>' +
+    (valence !== null ? '<div class="lewis-el">' + SV.lewisDot(e.s, valence, 0) + '<div class="hint" style="text-align:center;margin-top:0">Lewis dot diagram: ' + valence + ' valence electron' + (valence > 1 ? 's' : '') + ', one dot per side before pairing.</div></div>' : '') +
     '<div class="fact"><b>' + cat.t + ':</b> ' + cat.d + '</div>' +
     (valence !== null ? '<div class="fact"><b>Why it matters:</b> ' + valenceNote(e, valence) + '</div>' : '') +
-    '<div class="br"><button class="btn bc" onclick="closeEl(true);goPage(\'calc\',\'0:' + e.s + '\')">Molar mass of ' + e.s + '</button></div>' +
+    '<div class="br"><button class="btn bc" onclick="closeEl(true);goPage(\'calc\',\'0:' + e.s + '\')">Molar mass of ' + e.s + '</button><button class="btn bs" onclick="closeEl(true);goPage(\'calc\',\'11:' + e.s + '\')">Count p, n, e</button></div>' +
     '</div></div>';
   $('md').classList.add('open');
   if (!noHash && location.hash.indexOf('#table') === 0) history.replaceState(null, '', '#table/' + e.s);
